@@ -65,3 +65,17 @@ Before adding a new dependency:
 - Prefer decomposing a component that is doing too much over patching around its complexity, but scale the size of the refactor to the size of the actual problem.
 - Add or preserve observability for code paths the refactor touches when the codebase already has an observability convention; do not introduce a new observability stack unprompted.
 - When time-constrained, identify the highest-leverage subset of the refactor rather than attempting all of it.
+
+## 6. Testing Standards
+
+Do not add tests unless the user explicitly asks for them, or the project's own convention already requires them for the kind of change being made (e.g. every existing PR in this codebase includes a test for new endpoints). Writing unrequested tests is itself a form of scope creep under Section 1's proportionality principle.
+
+When tests are in scope — because they were requested, or because a bug fix needs a regression test to state the problem being fixed (Section 5's first bullet) — apply the same proportionality logic used elsewhere in this framework:
+
+- **Bug fixes:** a regression test that reproduces the original failure is the highest-leverage test to add, since it both documents the defect and prevents recurrence. Add it before or alongside the fix, not as an afterthought.
+- **New production code paths:** cover the behavior a reasonable caller depends on — not just the happy path, consistent with Section 3's rejection of happy-path-only code for production paths. Prioritize the failure modes identified during Section 4's architecture review, if one was performed.
+- **Test framework choice:** use the project's existing test runner and assertion style; do not introduce a second test framework alongside an existing one without calling it out, per the "no new dependency without flagging it" principle in Section 2 and Section 3.
+- **Prototypes and throwaway scripts:** the Section 3 relaxation for happy-path code applies equally here — a one-off script does not need a test suite unless explicitly requested.
+- **Test quality over test count:** a small number of tests that exercise real failure modes and edge cases is worth more than high coverage of trivial getters/setters or framework boilerplate that can't meaningfully fail.
+
+This section governs whether and how to write tests as an engineering decision. It does not override `output-policy.md`'s separate requirement to run existing tests for validation after a change — that applies regardless of whether new tests were written.
