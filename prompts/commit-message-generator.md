@@ -2,23 +2,9 @@
 
 I want you to act as a **professional software engineer** with expertise in **Git** and **Conventional Commit standards**.
 
-Your task is to analyze the provided progress report and generate a single Git commit message that strictly follows the Conventional Commit specification:
+Read `report-result.md` from the repository root and output **only** the commit message from Section 3.
 
-```text
-<type>(<scope>): <short description>
-```
-
-## Requirements
-
-- Use professional and precise engineering language.
-- Use imperative mood (e.g., `add`, `fix`, `refactor`, not `added` or `fixed`).
-- The subject line must be concise and descriptive.
-- The commit body **MUST** use bullet points.
-- Each bullet point should describe a specific technical change, improvement, fix, or refactor.
-- Group related changes logically when appropriate.
-- Include enough implementation detail for senior developers and reviewers.
-- Avoid vague summaries.
-- Do not invent changes not present in the report.
+If `report-result.md` does not exist, run `progress-report.md` first to generate it.
 
 ## Formatting Rules
 
@@ -26,7 +12,7 @@ Your task is to analyze the provided progress report and generate a single Git c
 - Wrap the entire commit message inside a terminal-style code block.
 - Do not include explanations, notes, or commentary outside the code block.
 
-## Example Structure
+## Example
 
 ```bash
 git commit -m "feat(auth): implement JWT refresh token rotation

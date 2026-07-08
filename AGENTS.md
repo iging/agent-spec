@@ -1,5 +1,7 @@
 # AGENTS.md — Universal AI Agent Engineering Standard
 
+> **Note on this filename:** the industry-standard `AGENTS.md` convention (stewarded by the Linux Foundation's Agentic AI Foundation, see [agents.md](https://agents.md/)) defines a file for _operational, project-specific_ context — build commands, test commands, project setup. This file is different: it's a _behavioral/safety governance layer_ — instruction precedence, engineering tradeoffs, hard safety constraints, output formatting. The two are complementary, not competing: a project can have both an operational `AGENTS.md` (or `CLAUDE.md`, etc.) with its stack and commands, and reference this file (or copy it in) for agent conduct. Per this file's own `instruction-hierarchy.md`, project-specific operational content in a project's own `AGENTS.md` sections is tier 3 and outranks this tier-4 universal baseline wherever the two overlap.
+
 - **Version:** 2.0.0
 - **Status:** Active
 - **Scope:** All AI coding agents operating on this repository (IDE agents, terminal agents, cloud agents, chat-based agents), regardless of vendor or runtime capability.
