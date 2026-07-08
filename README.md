@@ -15,7 +15,7 @@ The repository has no source code, no build system, and no dependencies. It is c
 - **Six tool-specific runtime adapters** (Claude Code, Cursor, GitHub Copilot, Cline, Windsurf, Kiro) that translate the same core rules into each tool's actual file format and mechanical constraints, without redefining any rule.
 - **Eight worked examples** demonstrating `core/` rules applied to concrete scenarios, each citing the specific `core/` file and section it demonstrates.
 - **A portable single-file synthesis** (`AGENTS.md`) of the four `core/` modules, meant to be copied unmodified into any project without depending on the rest of this repository.
-- **Standalone task prompts** (`prompts/`) for code documentation, git progress reporting, commit message generation, and README generation — usable independently of the core/runtime/examples chain.
+- **Standalone task prompts** (`prompts/`) for code documentation, git progress reporting, commit message generation, PR description generation, and README generation — usable independently of the core/runtime/examples chain.
 
 ## Tech Stack
 
@@ -38,15 +38,19 @@ prompts/    → standalone, unrelated to this chain entirely
 
 ```
 agent-spec/
-├── AGENTS.md                     Portable single-file synthesis of core/
+├── AGENTS.md                     Portable single-file synthesis of core/ (see note on filename collision below)
 ├── CONTRIBUTING.md               How to propose changes to this spec
 ├── LICENSE                       MIT License
-├── commit-message-generator.md   Root-level duplicate of prompts/commit-message-generator.md
 ├── core/                         Normative rules — the actual standard
 ├── runtime/                      Per-tool adapters translating core/ into tool-specific file formats
 ├── examples/                     Worked scenarios demonstrating core/ rules applied correctly
-└── prompts/                      Standalone, task-specific prompt templates
+├── prompts/                      Standalone, task-specific prompt templates
+└── history/                      Deprecated, non-normative snapshots of earlier spec versions
 ```
+
+### A note on the `AGENTS.md` filename
+
+The industry has since converged on `AGENTS.md` as an open, Linux Foundation-governed standard (via the [Agentic AI Foundation](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation)) for _operational, project-specific_ agent context — build commands, test commands, project setup ([agents.md](https://agents.md/)). This repository's root `AGENTS.md` predates widespread awareness of that convention and serves a different purpose: it's a portable _behavioral/safety governance layer_ (instruction precedence, engineering tradeoffs, safety constraints, output formatting), not operational project context. The two are complementary — a project can keep an operational `AGENTS.md` with its own stack/commands and separately adopt this repository's rules (via `core/` or the root `AGENTS.md` synthesis) for agent conduct. See the note at the top of the root `AGENTS.md` for the precedence relationship.
 
 ### `core/` — normative rules
 
@@ -59,7 +63,7 @@ agent-spec/
 
 `core/decision-framework.md` Section 6 (Testing Standards) states that tests are not added unless requested or already conventional in a project — the spec does not default to generating tests uninvited.
 
-`core/AGENTS-V1.md` and `core/AGENTS-V2.md` are retained as historical snapshots of earlier, monolithic versions of this standard. They are not live modules and nothing else in this spec references them.
+`history/AGENTS-V1.md` and `history/AGENTS-V2.md` are retained as historical snapshots of earlier, monolithic versions of this standard, kept outside `core/` since they are not live modules, are not kept in sync with the current standard, and (in V1's case) contradict current rules (e.g. `safety.md`'s tone constraints). Nothing else in this spec references them.
 
 ### `runtime/` — tool adapters
 
@@ -90,12 +94,13 @@ agent-spec/
 
 Independent, self-contained prompt templates unrelated to the `core`/`runtime`/`examples` chain. Each would still be useful even if the rest of `agent-spec` didn't exist.
 
-| File                          | Purpose                                                                                                                                                                                  |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `code-documentation.md`       | Senior-engineer-style code commenting guidance.                                                                                                                                          |
-| `progress-report.md`          | Git workspace diff analysis and reporting.                                                                                                                                               |
-| `commit-message-generator.md` | Conventional Commit message generation from a progress report. Intentionally duplicated at the repository-root `commit-message-generator.md`; both copies are kept in sync deliberately. |
-| `readme-generator.md`         | Architecture audit and evidence-based README generation prompt.                                                                                                                          |
+| File                          | Purpose                                                                                                                                            |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `code-documentation.md`       | Senior-engineer-style code commenting guidance.                                                                                                    |
+| `progress-report.md`          | Git workspace analysis — generates `report-result.md` containing the progress report, branch name, commit message, and PR description in one pass. |
+| `commit-message-generator.md` | Extracts just the commit message from `report-result.md`.                                                                                          |
+| `pr-description-generator.md` | Extracts just the PR description from `report-result.md`.                                                                                          |
+| `readme-generator.md`         | Architecture audit and evidence-based README generation prompt.                                                                                    |
 
 ## Installation
 

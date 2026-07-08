@@ -4,7 +4,7 @@ Thanks for considering a contribution. This repo is a specification, not applica
 
 ## Before you start
 
-Read `README.md`'s Architecture section. It's short and explains the four-folder layering model (`core/` → `runtime/` → `examples/`, plus standalone `prompts/`). Every contribution should fit cleanly into one of these categories:
+Read `README.md`'s Architecture section. It's short and explains the four-folder layering model (`core/` → `runtime/` → `examples/`, plus standalone `prompts/`, and a non-normative `history/` for deprecated spec snapshots). Every contribution should fit cleanly into one of these categories:
 
 | If you want to...                              | Edit...                        |
 | ---------------------------------------------- | ------------------------------ |
@@ -13,6 +13,7 @@ Read `README.md`'s Architecture section. It's short and explains the four-folder
 | Demonstrate a rule with a concrete scenario    | a new `examples/*.md` file     |
 | Add a standalone, spec-independent prompt      | `prompts/*.md`                 |
 | Fix a mismatch between `AGENTS.md` and `core/` | both, kept in sync (see below) |
+| Deprecate an old spec version                  | move it to `history/*.md`      |
 
 ## Rules for each folder
 
@@ -45,7 +46,12 @@ A runtime adapter documents a tool's actual file mechanics — nothing else. Bef
 ### `prompts/`
 
 - Keep these self-contained. A prompt here should be useful on its own, with no dependency on `core/` unless the prompt states that dependency explicitly.
-- `commit-message-generator.md` is intentionally duplicated at the repo root and in `prompts/`. If you edit one, edit both, or note in your PR that they've intentionally diverged and why.
+- Keep prompts scoped to AI coding agent tasks (documentation, git workflow, README generation, and similar). This repository's mission is a coding-agent specification — a prompt unrelated to software engineering work, however well-written, doesn't belong here even if it's technically "standalone."
+
+### `history/`
+
+- This folder holds deprecated, non-normative snapshots of earlier versions of the standard (e.g. `AGENTS-V1.md`, `AGENTS-V2.md`). Nothing in `history/` is live — no other file should reference or depend on it.
+- Do not add new rules here. If a `core/` file is being deprecated, move the old version here and update `README.md`'s note explaining why it's retained (or delete it outright if it has no historical/contrast value).
 
 ## Style
 
