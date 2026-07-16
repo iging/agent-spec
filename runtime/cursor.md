@@ -1,40 +1,23 @@
-# cursor.md — Runtime Adapter for Cursor
+# runtime/cursor.md — Cursor adapter
 
-- **Role:** Translates `core/` rules into Cursor's file mechanics. Defines no engineering rule of its own.
-- **Authority:** None. Must remain consistent with `core/` at all times; see `shared.md` for the full contract this file operates under.
+## Role / Authority
 
-This file only covers Cursor-specific mechanics.
+- **Role:** Maps this standard onto Cursor's rules mechanics.
+- **Authority:** Non-authoritative (see `runtime/shared.md`). File mechanics only; rules live in `core/`.
 
-## File(s) this tool reads
+> Facts below are **best-known at time of writing** and should be checked against Cursor's current documentation.
 
-- `.cursor/rules/*.mdc` — the current format. Multiple files allowed, each independently scoped.
-- `.cursorrules` (single file, repo root) — legacy format, still honored for backward compatibility but superseded by `.cursor/rules/`. Prefer `.mdc` files for new setups.
+## File mechanics
 
-## Format specifics
+- **Primary location:** `.cursor/rules/` — one or more `.mdc` rule files. A repo may also have nested `.cursor/rules/` folders in subdirectories that scope to that subtree (maps to `instruction-hierarchy.md` §3, tier 2).
+- **Frontmatter scoping:** each `.mdc` file uses YAML frontmatter to control when it applies — e.g. always-applied, attached by file-glob match, or manual-only inclusion. Glob patterns scope a rule to matching files.
+- **Legacy:** a single root `.cursorrules` file is the older, still-recognized format; prefer `.cursor/rules/` for new setups.
+- **Format:** Markdown body with a YAML frontmatter block.
 
-`.mdc` files are Markdown with YAML frontmatter controlling activation:
+## Applying this standard
 
-```yaml
----
-description: When this rule applies (used by the agent to self-select relevance)
-globs: "src/payments/**"
-alwaysApply: false
----
-```
+- Add a rule file under `.cursor/rules/` that references `AGENTS.md`/`core/` for behavior, and separate file-glob-scoped rules for project specifics that belong in `context/`. Keep the generic standard free of project facts.
 
-Activation modes, from Cursor's own model:
+## Skills mapping
 
-- **Always** — `alwaysApply: true`. Injected into every conversation unconditionally.
-- **Auto Attached** — triggered when a file matching `globs` is open/edited.
-- **Agent-Requested** — the agent reads `description` and decides for itself whether the rule is relevant (no `globs` needed).
-- **Manual** — only included when explicitly invoked by the user.
-
-## Practical implications for this spec
-
-- A rule mapped from `core/safety.md` should generally use `alwaysApply: true` — safety constraints should not depend on the agent guessing relevance.
-- A rule mapped from `core/decision-framework.md`'s domain-specific sections (e.g. refactoring standards) can reasonably use `globs` scoping if it only matters for certain paths.
-- Keep individual `.mdc` files short and focused — Cursor's own guidance recommends keeping rule files maintainable and performant (commonly cited around 500 lines as a soft ceiling); split a long rule into multiple scoped files rather than one large one.
-
-## Precedence within this tool
-
-If both `.cursorrules` and `.cursor/rules/*.mdc` exist in the same repo, treat `.cursor/rules/*.mdc` as authoritative per Cursor's own migration path, and treat `.cursorrules` as a legacy fallback only when no `.mdc` rules exist. This is a tool-native detail, distinct from and layered on top of the general hierarchy in `core/instruction-hierarchy.md`.
+- Cursor's manual-inclusion (`agent-requested`/manual) rules act as on-demand specialists. Keep always-applied standing rules minimal and **map** manual rules as skills from `AGENTS.md` (`runtime/shared.md` §4).

@@ -85,13 +85,15 @@ Rules:
 
 ### Section 3: Commit Message
 
-Generate a single Git commit message following the Conventional Commit specification:
+Generate a single Git commit message following the Conventional Commit specification.
 
-```text
-<type>(<scope>): <short description>
+The output **MUST** be formatted as a complete, copy-paste-ready `git commit -m` command:
+
+```bash
+git commit -m "<type>(<scope>): <short description>
 
 - <bullet 1>
-- <bullet 2>
+- <bullet 2>"
 ```
 
 Rules:
@@ -100,8 +102,22 @@ Rules:
 - The subject line must be concise and descriptive.
 - The body **MUST** use bullet points, one per logical change.
 - Group related changes logically.
-- Include enough implementation detail for senior developers and reviewers.
+- **Bullet points must be generalized and human-readable** — describe the purpose and impact, not internal implementation details.
+- **Do NOT** reference specific file names, class names, variable names, function names, or internal identifiers in bullets.
+- Write each bullet the way you'd explain the change to a teammate — focus on _what_ was done and _why_ it matters, not _where_ in the code it happened.
 - Do not invent changes not present in the analysis above.
+
+Good example bullets:
+
+- "add refresh token rotation for improved session security"
+- "implement dark mode toggle for better accessibility"
+- "fix navigation links not highlighting on active page"
+
+Bad example bullets (do NOT write like this):
+
+- "update `AuthService.ts` to add `rotateToken()` method"
+- "modify `ThemeContext.tsx` to include `isDark` state"
+- "fix `NavLink` component `isActive` prop in `nav-links.ts`"
 
 ---
 
