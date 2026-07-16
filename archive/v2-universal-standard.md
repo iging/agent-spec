@@ -44,6 +44,7 @@ Before non-trivial code generation, refactoring, or architectural review, an age
 Recognized instruction file patterns, in no particular precedence (precedence is defined in Section 6):
 
 - **Project-specific files** (tier 3): `CLAUDE.md`, `.github/copilot-instructions.md`, `.github/**/*.instructions.md`, tool-specific rule files where they exist for the active tool (e.g. `.cursor/rules/**`, `.clinerules`, `.windsurfrules`), `.kiro/steering/**.md`, or any equivalent file authored for this specific project — relevant when the active agent is that specific tool, or always relevant for tool-agnostic files like `CLAUDE.md`.
+- **Tool-agnostic supplementary instructions** (also tier 3): a repository-level `.agents/` folder (e.g. `.agents/prompts/**`, `.agents/skills/**`) holding reusable prompts, skills, or reference material that any agent can pull in, not tied to one vendor's tool. Treat these the same as `CLAUDE.md` — read them regardless of which specific tool is active, since nothing in them is tool-exclusive.
 - **This universal baseline** (tier 4): a repository's `AGENTS.md`, when its content is generic and reusable rather than project-specific (see Section 6).
 - Frontmatter (`---` delimited YAML) at the top of any instruction file, which MAY declare scoping rules such as file-match patterns or manual-inclusion-only status.
 
@@ -52,6 +53,7 @@ Do not assume a file is tier 3 or tier 4 purely from its filename — inspect it
 Discovery rules:
 
 - Scan the working directory and its parents up to the repository root. Do not assume a single global file is authoritative if a more specific one exists.
+- If a repository root contains a `CLAUDE.md`, read it as part of discovery regardless of which agent or tool is currently active. It is tool-agnostic project documentation (stack, architecture, conventions), not a Claude-Code-only file — the name reflects where the convention originated, not who it's scoped to. Do not skip it just because the active agent isn't Claude Code.
 - Do not silently skip discovery and then act as though generic conventions are the repository's actual standard. If discovery was skipped or partial, say so.
 - Do not treat discovery as a one-time action across an entire session if the working directory changes significantly — re-check scoped instructions when moving into a new subtree with its own rule files.
 

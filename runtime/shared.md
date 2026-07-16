@@ -1,27 +1,35 @@
-# shared.md — Common Runtime Contract
+# runtime/shared.md
 
-- **Role:** Translation layer. Adapts `core/` rules to one specific tool's file formats and mechanical constraints. Answers "how do I encode this existing rule inside Claude/Cursor/Copilot/etc.," never "what is the rule."
-- **Authority:** None of its own. `runtime/` is not a peer of `core/` and cannot define, override, or redefine an engineering rule, a safety constraint, or a decision-framework priority. Every runtime file MUST remain fully consistent with `core/`; if a tool's native behavior appears to conflict with a `core/` rule, the runtime file documents the constraint and defers to `core/` — it does not resolve the conflict itself. Conflict resolution is `core/instruction-hierarchy.md`'s job.
-- **Downstream consumer:** `examples/` may reference a runtime file to show how a scenario looks inside a specific tool's constraints, but `examples/` validates `core/` behavior, not `runtime/` behavior — a runtime file being followed correctly is necessary but not sufficient for an example to be "correct."
+## Role / Authority
 
-Every file in this `runtime/` folder adapts the `core/` spec to one specific tool. To avoid duplicating the same disclaimers six times, each runtime file assumes the following baseline and only documents what's different about its tool.
+- **Role:** Defines the common contract every tool adapter in `runtime/` follows — what belongs in an adapter versus what must never appear.
+- **Authority:** Non-authoritative. Adapters **translate** `core/` into each tool's file mechanics; they hold no rule of their own and can never override `core/` or `AGENTS.md`.
+- **Must not define:** any engineering, safety, precedence, or output rule. Those live in `core/`. An adapter that needs a rule references the owning `core/` file.
 
-## What belongs in a runtime file
+---
 
-- The exact filename(s)/path(s) the tool actually reads (e.g. `CLAUDE.md`, `.cursor/rules/*.mdc`, `.clinerules`).
-- The tool's own file format quirks (frontmatter fields, activation modes, size limits).
-- How the tool merges multiple rule files, if it has tool-specific merge behavior beyond the generic hierarchy in `core/instruction-hierarchy.md`.
-- Known constraints specific to that tool (character limits, which surfaces of the tool actually honor the file, etc.).
+## 1. What an adapter documents
 
-## What does NOT belong in a runtime file
+Only the mechanical facts of one tool's instruction system:
 
-- Engineering decisions, safety rules, or output formatting — those live once in `core/` and apply to every tool identically. A runtime file should never redefine what `safety.md` or `decision-framework.md` already say.
-- Project-specific content (this project's stack, architecture). That belongs in the actual `CLAUDE.md` / `.cursorrules` / etc. that this spec informs, not in the spec itself.
+- **Exact filenames and locations** the tool reads (e.g. root file, a rules directory, a settings path).
+- **Format quirks** — Markdown vs. YAML frontmatter, required headers, glob/scoping syntax.
+- **Size or count limits**, truncation behavior, and load order the tool applies.
+- **Merge behavior** — how the tool combines multiple instruction files, and how that maps onto the precedence in `instruction-hierarchy.md` §3.
+- **How to point the tool at this standard** — e.g. copy `AGENTS.md` to the tool's expected path, or reference `core/` from the tool's rule file.
 
-## Common capability baseline
+## 2. What an adapter must never contain
 
-Regardless of tool, apply `core/safety.md` Section 2 (Capability Boundaries): before assuming a tool can read files recursively, execute shell commands, or persist memory across sessions, confirm against that tool's actual documented behavior rather than assuming parity with another tool. Tool capabilities and file formats change between vendor releases — treat the specifics below as best-known-at-time-of-writing, not permanent guarantees, and re-verify against the vendor's current docs when behavior seems off.
+- Engineering rules, clean-code standards, safety constraints, or output policy — reference the owning `core/` file instead.
+- Project-specific content — that lives only in `context/`.
+- A re-ranking of instruction sources — precedence is owned solely by `instruction-hierarchy.md`.
 
-## File precedence note
+## 3. Verification & staleness
 
-All tool-specific rule files described in this folder are **tier 3** ("project-specific instruction files") in `core/instruction-hierarchy.md`'s Source of Truth Hierarchy — they describe this specific project and this specific tool's behavior, and they outrank the tier-4 universal baseline (`AGENTS.md` / this `agent-spec/core/` set) wherever the two conflict.
+Tool file conventions change. Verify current behavior against the tool's own documentation rather than restating this standard. When a fact can't be verified, mark it **best-known at time of writing** and date it. An adapter is a convenience mapping, not a source of truth.
+
+## 4. Skills mapping (applies to every adapter)
+
+`AGENTS.md` is the agent's **permanent memory** — read on every task, holding only what applies to everything (setup, build/test commands, coding style, structure, PR format). A **skill** is an on-demand specialist the agent loads only when a task calls for it (deployment, data migration, incident investigation).
+
+Each adapter states how its tool exposes on-demand skills or specialist prompts (a skills folder, a manual-inclusion rule file, a slash command, etc.), and reinforces that `AGENTS.md` should **map** those skills — naming each and when to invoke it — rather than inlining their contents. Standing rules and specialist workflows stay in separate files.

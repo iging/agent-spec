@@ -1,29 +1,23 @@
-# windsurf.md — Runtime Adapter for Windsurf
+# runtime/windsurf.md — Windsurf adapter
 
-- **Role:** Translates `core/` rules into Windsurf's file mechanics. Defines no engineering rule of its own.
-- **Authority:** None. Must remain consistent with `core/` at all times; see `shared.md` for the full contract this file operates under. This file discloses Windsurf's constraints — it does not decide whether those constraints make Windsurf the right tool for a given project. That decision belongs to whoever is applying `core/decision-framework.md` to the actual project, not to this adapter.
+## Role / Authority
 
-This file only covers Windsurf-specific mechanics.
+- **Role:** Maps this standard onto Windsurf's rules mechanics.
+- **Authority:** Non-authoritative (see `runtime/shared.md`). File mechanics only; rules live in `core/`.
 
-## File(s) this tool reads
+> Facts below are **best-known at time of writing** and should be checked against Windsurf's current documentation.
 
-- `.windsurfrules` — project-level rules file at the repository root. Takes highest precedence over global rules when both exist.
-- **Global Rules** — configured once in Windsurf's settings, apply across all projects for that user, conceptually parallel to Cline's global rules.
+## File mechanics
 
-## Known constraint — character limit
+- **Primary location:** `.windsurf/rules/` holding one or more Markdown rule files. A single root `.windsurfrules` file is the older, still-recognized format.
+- **Activation modes:** rules can be set to always-on, manual, model-decided (glob/description-triggered), or file-glob-scoped — controlling when each rule loads (maps to `instruction-hierarchy.md` §3, tiers 2–4).
+- **Size limits:** individual rule files and the combined rule set have character limits; keep files focused and within them.
+- **Format:** Markdown, optionally with activation metadata.
 
-Windsurf rule files (both `.windsurfrules` and Global Rules) are subject to a character limit; content beyond the limit is truncated and silently has no effect. This is the single most important thing to know about this tool's rules system, and it's easy to violate by accident if a rules file grows organically over time.
+## Applying this standard
 
-Practical implications:
+- Add an always-on rule that references `AGENTS.md`/`core/`, and glob- or manually-scoped rules for project specifics drawn from `context/`. Keep the generic standard free of project facts and within Windsurf's size limits.
 
-- Do not attempt to inline the full `core/` spec into `.windsurfrules` — it will very likely exceed the limit and get silently truncated, with no error to signal that the tail end of the file is being ignored.
-- Prioritize ruthlessly: put `core/safety.md`'s hard constraints and the most load-bearing project-specific facts first in the file, since truncation cuts from the end.
-- Periodically verify the file's actual character count against Windsurf's current documented limit — this has changed between Windsurf releases and should be re-checked rather than assumed, per `shared.md`'s guidance on tool specifics changing over time.
+## Skills mapping
 
-## Precedence within this tool
-
-`.windsurfrules` (project-level) takes precedence over Global Rules. This matches the general specificity ordering in `core/instruction-hierarchy.md`.
-
-## Practical implication for encoding this spec in Windsurf
-
-Given the character limit and the absence of an `@path`-style import mechanism (unlike Claude Code), `.windsurfrules` cannot faithfully carry the full `core/` spec as a direct copy. Treat it as a condensed pointer/summary instead. This is a disclosed constraint, not a verdict on whether Windsurf is suitable for a given project — that tradeoff (spec fidelity vs. tool choice) is a project-level decision made via `core/decision-framework.md`, not something this adapter resolves on its own.
+- Windsurf's manual and model-decided activation modes serve as on-demand specialists. Keep always-on rules minimal and **map** the conditional ones as skills from `AGENTS.md` (`runtime/shared.md` §4).
