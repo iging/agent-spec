@@ -155,17 +155,33 @@ Generate a complete `README.md` using the following structure.
 
 ### Writing Style
 
+The rules below apply to prose only. They do not change markdown structure, headings, tables, code blocks, or command syntax.
+
 - Write like an experienced open-source maintainer.
-- Use clear, concise, professional technical writing.
-- Be factual, implementation-focused, and objective.
-- Prefer active voice.
+- Use clear, simple language.
+- Be spartan and informative.
+- Use short, impactful sentences.
+- Use active voice. Avoid passive voice.
+- Focus on practical, actionable guidance.
 - Use precise technical terminology.
 - Keep explanations brief without sacrificing clarity.
-- Address the reader directly where appropriate for installation and usage instructions.
+- Address the reader directly with "you" and "your" for installation and usage instructions.
+- Support claims with evidence from the codebase.
 - Avoid repetition.
 - Avoid marketing language.
 - Avoid AI-style filler.
 - Avoid generic statements and unsupported claims.
+- Avoid em dashes in prose. Use commas or periods. To connect ideas, use a period.
+- Avoid constructions like "not just this, but also this".
+- Avoid metaphors and cliches.
+- Avoid setup phrases such as "in conclusion" or "in closing".
+- Avoid unnecessary adjectives and adverbs.
+
+### Banned Words In Prose
+
+Do not use these words in prose. This list does not apply to code, commands, dependency names, or technical identifiers.
+
+- really, literally, actually, basically, delve, embark, esteemed, shed light, craft, crafting, imagine, remarkable, glimpse, unlock, discover, skyrocket, innovative, revolutionary, disruptive, utilize, utilizing, illuminate, unveil, pivotal, intricate, elucidate, paradigm, harness, exciting, groundbreaking, powerful, exploration, testament, in summary, in conclusion, most importantly.
 
 ### Formatting
 
@@ -209,3 +225,4 @@ Before returning the README, verify that:
 - All Markdown renders correctly on GitHub.
 - Every section is relevant to the detected project.
 - The writing is concise, natural, factual, and free of AI-style filler.
+- The prose follows the Writing Style rules and contains no em dashes or banned words. Code blocks, commands, and identifiers are exempt.
