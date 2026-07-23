@@ -1,8 +1,9 @@
 # DESIGN — Design & Output Conventions (Web)
 
 > **Purpose:** Define visual/brand identity, design tokens, Component & Semantic HTML5 structure, layout primitives, and accessibility conventions for `apps/web/`. Grounded in `context/DESIGN.md`.
+> **Note:** If this file contains placeholder token values, the agent MUST ask the user for the actual values before generating CSS or styled components.
 
-_Last updated: 2026-07-22_
+_Last updated: 2026-07-23_
 
 ---
 
@@ -16,26 +17,51 @@ _Last updated: 2026-07-22_
 
 ## 2. Color Palette & Semantic Tokens
 
-- **Design Tokens:** CSS custom properties (`var(--bg-primary)`, `var(--text-main)`).
-- **Primary Accent:** `var(--color-primary)` — [fill hex/HSL when project starts].
-- **Secondary Accent:** `var(--color-secondary)` — [fill hex/HSL when project starts].
-- **Backgrounds & Surfaces:**
-  - Background Base: `var(--bg-base)`
-  - Surface Elevation 1 (Cards, Modals): `var(--bg-surface-1)`
-  - Surface Elevation 2 (Dropdowns, Tooltips): `var(--bg-surface-2)`
-- **Semantic State Tokens:**
-  - Success: `var(--color-success)`
-  - Warning: `var(--color-warning)`
-  - Danger / Error: `var(--color-error)`
-  - Info: `var(--color-info)`
+- **Design Tokens:** Always use CSS custom properties for styling rather than hardcoded colors.
+- **Implementation Example (`src/styles/theme.css`):**
+  ```css
+  :root {
+    /* Base Surfaces */
+    --bg-base: #ffffff;
+    --bg-surface-1: #f3f4f6;
+    --bg-surface-2: #e5e7eb;
+    
+    /* Text */
+    --text-main: #111827;
+    --text-muted: #6b7280;
+
+    /* Brand Accents - [fill hex/HSL when project starts] */
+    --color-primary: #0f172a;
+    --color-primary-hover: #1e293b;
+    --color-secondary: #3b82f6;
+
+    /* Semantic States */
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    --color-info: #3b82f6;
+    
+    /* Borders */
+    --border-color: #e5e7eb;
+  }
+  ```
 
 ---
 
 ## 3. Theme Variants (Light / Dark / Custom)
 
-- **Theme Switching:** Dark mode support via CSS `prefers-color-scheme` or `data-theme` attribute on `<html>`. Maintain WCAG AA contrast targets.
-- **Light Theme Tokens:** Overrides for background, text, and border tokens for light mode.
-- **Dark Theme Tokens:** Default/custom dark palette tokens with adjusted surface elevations and text contrast.
+- **Theme Switching:** Dark mode support via CSS `prefers-color-scheme` or `data-theme="dark"` attribute on `<html>`. Maintain WCAG AA contrast targets.
+- **Dark Theme Implementation Example:**
+  ```css
+  [data-theme="dark"] {
+    --bg-base: #0f172a;
+    --bg-surface-1: #1e293b;
+    --bg-surface-2: #334155;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+  }
+  ```
 
 ---
 
@@ -117,9 +143,3 @@ _Last updated: 2026-07-22_
 - **Toast Notifications:** Fixed position top-right or bottom-center with auto-dismiss (3–5s). Include close button for manual dismissal.
 - **Modal Focus Trapping:** Standardized modal focus trapping so keyboard Tab stays within the modal while open.
 - **Onboarding / Product Tour:** Step-by-step modal tooltips highlighting key features.
-
----
-
-## 11. Output Conventions (Non-UI Projects)
-
-- N/A for Web UI App.

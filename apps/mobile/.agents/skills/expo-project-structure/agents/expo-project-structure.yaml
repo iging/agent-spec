@@ -1,0 +1,4 @@
+interface:
+  display_name: "expo-project-structure"
+  short_description: "Folder structure for a new Expo app using Expo Router with a feature-based architecture."
+  default_prompt: "Use when scaffolding a new Expo project or deciding where a file should live. For new projects only — never restructure an existing app to match."

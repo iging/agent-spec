@@ -77,7 +77,8 @@ _Last updated: 2026-07-22_
   - **Reference Guideline Viewport:** Based on standard 375x812pt reference viewport (iPhone 12 / standard logical mobile width).
   - **Orientation-Stable Scaling:** Sort dimensions into `shortDimension` (width in portrait) and `longDimension` (height in portrait) so scaling stays stable during device rotation instead of jumping.
   - **Sub-Pixel Protection:** Use `PixelRatio.roundToNearestPixel` and `Math.round()` to prevent fractional sub-pixel rendering bugs and fuzzy borders on Android devices.
-  - **Tablet & Foldable Capping (Moderate Scale):** Cap the scaling factor at `1.5x` on large tablets/foldables to prevent UI elements from becoming unnaturally oversized. Use extra screen space for layout density (multi-column grids) rather than enlarged elements.
+  - **Tablet & Foldable Capping (Moderate Scale):** Cap the scaling factor at `1.5x` on large tablets/foldables to prevent UI elements from becoming unnaturally oversized. 
+  - **Large Screen Edge Case:** On wide foldables or landscape tablets (when `shortDimension > 600`), capping scale is not enough. The UI will look awkwardly stretched. In these cases, switch structural primitives: instead of a single full-width `<View>`, use a multi-column CSS grid (via NativeWind `grid-cols-2`) or enforce a `maxWidth: 600, alignSelf: 'center'` on the primary content container.
 - **Horizontal Spacing (`horizontalSpacing`):** Scaled on X-axis (`none`: 0, `extraSmall`: 4, `small`: 8, `medium`: 12, `large`: 16 [standard page edge padding], `extraLarge`: 20, `extraExtraLarge`: 24, `huge`: 32, `extraHuge`: 40, `massive`: 48, `extraMassive`: 64, `hero`: 80, `extraHero`: 96).
 - **Vertical Spacing (`verticalSpacing`):** Scaled on Y-axis to match vertical screen rhythm independently of width.
 - **Structural Primitives & Containers:**
