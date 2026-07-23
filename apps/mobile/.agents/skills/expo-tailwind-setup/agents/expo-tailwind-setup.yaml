@@ -1,0 +1,4 @@
+interface:
+  display_name: "expo-tailwind-setup"
+  short_description: "Set up Tailwind CSS v4 in Expo with react-native-css and NativeWind v5 for universal styling."
+  default_prompt: "Use ONLY when the user explicitly mentions Tailwind, web styling, or cross-platform CSS."

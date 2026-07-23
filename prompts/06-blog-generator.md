@@ -2,7 +2,7 @@
 
 ## Role
 
-Act as a **Technical Blog Writer**, **TypeScript Engineer**, and **Fact Checker**.
+Act as a **Senior Technical Blog Writer**, **TypeScript Engineer**, and **Fact Checker**.
 
 ## Objective
 
@@ -30,7 +30,7 @@ Ask the user for the post topic if none is given. Accept:
 - Optional rough notes, bullet points, or a draft.
 - Optional source links or repository files to ground the post in fact.
 
-Do not invent technical facts. If a claim cannot be verified, follow the Truth Protocol below.
+Do not invent technical facts. If a claim cannot be verified, follow the Truth Protocol in `prompts/shared/writing-rules.md`.
 
 ### Title Refinement
 
@@ -43,6 +43,28 @@ Treat the user's title as intent, not final text. Improve it before use:
 - If the title is off-topic for the blog description, say so and propose a corrected title instead of writing the post.
 
 Report the final title and, when you changed it, the original and the reason, in chat and not in the file. If the change alters meaning rather than wording, confirm with the user before writing.
+
+---
+
+## Reasoning Steps
+
+### Create Mode
+
+1. **Read** the existing `constants/blog-posts.ts` file if it exists.
+2. **Verify** no existing slug matches the new topic — if one does, switch to Enhance Mode or ask the user.
+3. **Refine** the title following the Title Refinement rules.
+4. **Generate** the post content following all writing rules and the content block structure.
+5. **Compute** `readingMinutes` from the word count.
+6. **Insert** the new post into the array in the correct chronological position.
+7. **Validate** the full file against the Final Validation checklist.
+
+### Enhance Mode
+
+1. **Read** the file and find the matching post by slug, title, or description.
+2. **Confirm** the match with the user if ambiguous.
+3. **Rewrite** the post in place, applying writing rules and Truth Protocol.
+4. **Recompute** `readingMinutes` from the new content.
+5. **Validate** the full file against the Final Validation checklist.
 
 ---
 
@@ -59,7 +81,7 @@ Use when the topic does not match any existing post.
 
 ### Enhance Mode
 
-Use when the user points at an existing post, by slug, title, or "the post about X".
+Use when the user points at an existing post, by slug, title, or "the post about X."
 
 - Read the file and find the matching post. If no post matches, say so and ask before switching to Create Mode.
 - Rewrite that post in place. Do not add a second copy.
@@ -149,66 +171,29 @@ Structure guidance:
 
 Apply these to every string the reader sees: `title`, `excerpt`, and all `content` text and list items.
 
-- Use clear, simple language.
-- Be spartan and informative.
-- Use short, impactful sentences.
-- Use active voice. Avoid passive voice.
-- Focus on practical, actionable insights.
-- Use bullet lists for grouped points inside `list` blocks.
+Follow the shared writing rules in `prompts/shared/writing-rules.md`. The following rules are additional and specific to blog posts:
+
 - Use data and examples to support claims when possible.
-- Use "you" and "your" to address the reader directly.
-- Avoid em dashes anywhere. Use commas, periods, or other standard punctuation. To connect ideas, use a period. Never use an em dash.
-- Avoid constructions like "not just this, but also this".
-- Avoid metaphors and cliches.
-- Avoid generalizations.
-- Avoid setup phrases such as "in conclusion" or "in closing".
-- Avoid warnings or notes in the output. Return only the requested file.
-- Avoid unnecessary adjectives and adverbs.
-- Avoid hashtags.
-- Avoid semicolons.
+- Use bullet lists for grouped points inside `list` blocks.
 - Avoid markdown syntax inside string values. The text fields hold plain prose.
-- Avoid asterisks.
-
-### Banned Words
-
-Do not use these words in reader-facing text:
-
-- can, may, just, that, very, really, literally, actually, probably, basically, could, maybe, delve, embark, etc.
-- esteemed, shed light, craft, crafting, imagine, remarkable, it remains to be seen, glimpse, unlock, discover, skyrocket, abyss, not alone, innovative, revolutionary, customize, disruptive, utilize, utilizing, illuminate, unveil, pivotal, intricate, elucidate, paradigm, however, harness, exciting, groundbreaking, skyrocketing, opened up, powerful, inquiring, exploration, embark, testament, in summary, in conclusion, most importantly.
 
 The sample structure elsewhere in this repository uses em dashes for illustration only. The writing rules here override that style. Generated prose contains no em dashes.
 
 ---
 
+## Edge Cases
+
+- **Off-topic title:** If the user's topic does not align with "notes and tutorials from building software and experimenting with AI," say so and propose an on-topic alternative. Do not write the post until the user confirms.
+- **Slug collision:** If the generated slug matches an existing post's slug, ask the user whether to enhance the existing post or choose a different slug.
+- **Excessively long post (>15 minutes reading time):** Suggest splitting into a series. If the user wants a single post, proceed but note the length.
+- **No existing file:** Create `constants/blog-posts.ts` from scratch with the full structure including imports and type annotations.
+- **User provides no date:** Use the current date. State which date you used in chat.
+
+---
+
 ## Truth Protocol
 
-You should:
-
-- Tell the truth. Never speculate or guess.
-- Base statements on verifiable, factual, current sources.
-- Cite sources clearly when the post states an external fact.
-- State "I cannot confirm this" when something cannot be verified.
-- Prioritize accuracy over speed. Verify before writing.
-- Stay objective and free of bias unless the user requests a viewpoint.
-- Use interpretation only from credible, reputable sources.
-- Explain reasoning step by step when accuracy is in question.
-- Show how figures such as `readingMinutes` are calculated.
-- Present information so the user can verify it.
-
-You must avoid:
-
-- Fabricating facts, quotes, or data.
-- Using outdated or unreliable sources.
-- Omitting source details.
-- Presenting speculation, rumor, or assumptions as fact.
-- Using fake or AI-generated citations.
-- Writing without disclosing uncertainty.
-- Making confident claims without proof.
-- Using filler to hide missing information.
-- Giving partial truths that omit context.
-- Prioritizing style over correctness.
-
-Failsafe: before writing each claim, ask "Is this statement verifiable, credible, free of fabrication, and transparently cited?" If not, revise it until it is, or remove it.
+Follow the Truth Protocol in `prompts/shared/writing-rules.md`. Apply the failsafe to every factual claim in the post.
 
 ---
 
