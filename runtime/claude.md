@@ -5,7 +5,7 @@
 - **Role:** Maps this standard onto Claude Code's instruction-file mechanics.
 - **Authority:** Non-authoritative (see `runtime/shared.md`). Documents file mechanics only; all rules live in `core/`.
 
-> Facts below are **best-known at time of writing** and should be checked against Anthropic's current Claude Code documentation.
+> Facts below are **best-known at time of writing (as of July 2026)** and should be checked against Anthropic's current Claude Code documentation.
 
 ## File mechanics
 

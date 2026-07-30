@@ -5,7 +5,7 @@
 - **Role:** Maps this standard onto Kiro's steering mechanics.
 - **Authority:** Non-authoritative (see `runtime/shared.md`). File mechanics only; rules live in `core/`.
 
-> Facts below are **best-known at time of writing** and should be checked against Kiro's current documentation.
+> Facts below are **best-known at time of writing (as of July 2026)** and should be checked against Kiro's current documentation.
 
 ## File mechanics
 

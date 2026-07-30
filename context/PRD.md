@@ -54,19 +54,19 @@ _Last updated: [DATE]_
 
 ### Must-Have (P0 — Launch Blockers)
 
-- Feature description and acceptance criteria.
+- [ ] **[Feature Name]:** [Feature description and acceptance criteria]
 
 ### Should-Have (P1 — High Priority Post-MVP)
 
-- Feature description and business value.
+- [ ] **[Feature Name]:** [Feature description and business value]
 
 ### Could-Have (P2 — Nice to Have)
 
-- Feature description and enhancement potential.
+- [ ] **[Feature Name]:** [Feature description and enhancement potential]
 
 ### Won't-Have (Out of Scope for Current Milestone)
 
-- Features explicitly deferred to prevent scope creep.
+- [ ] **[Feature Name]:** [Features explicitly deferred to prevent scope creep]
 
 ---
 

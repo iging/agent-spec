@@ -1,45 +1,266 @@
-# Contributing
+# Contributing to agent-spec
 
-This repository is Markdown only — no code, no build step. Contributions are edits to specification files. The value of the system depends on one discipline: **every rule lives in exactly one place.** Read this before changing anything.
+Thank you for considering contributing to the agent-spec standard! This document provides guidelines for making contributions that maintain the quality and consistency of the specification.
 
-## The layer model
+---
+
+## Table of Contents
+
+1. [Quick Start](#quick-start)
+2. [Types of Contributions](#types-of-contributions)
+3. [Before You Start](#before-you-start)
+4. [Contribution Workflow](#contribution-workflow)
+5. [Writing Guidelines](#writing-guidelines)
+6. [Core File Guidelines](#core-file-guidelines)
+7. [Review Process](#review-process)
+8. [Questions?](#questions)
+
+---
+
+## Quick Start
+
+1. **Fork** the repository
+2. **Clone** your fork: `git clone https://github.com/iging/agent-spec.git`
+3. **Create a branch**: `git checkout -b feature/your-description`
+4. **Make your changes** following the guidelines below
+5. **Commit**: `git commit -m "feat: your description"` (use [Conventional Commits](#commit-message-format))
+6. **Push**: `git push origin feature/your-description`
+7. **Open a Pull Request** targeting the `main` branch
+
+---
+
+## Types of Contributions
+
+### Encouraged Contributions
+
+- **New Skills**: Add reusable skill modules to `skills/` (business, content-creation, learning, etc.)
+- **New Prompts**: Add specialized prompt templates to `prompts/` organized by category
+- **Examples**: Add workflow examples to `examples/` demonstrating agent decision patterns
+- **Runtime Adapters**: Update `runtime/` adapters for IDE-specific behavior changes
+- **Documentation Improvements**: Fix typos, clarify instructions, improve guides in `docs/`
+- **Anti-Pattern Additions**: Document new credit-killing patterns in `docs/anti-patterns.md`
+
+### Requires Extra Review
+
+- **Core Changes**: Modifications to `core/` files (instruction-hierarchy, decision-framework, output-policy, safety)
+- **Template Changes**: Structural changes to `context/` templates
+- **Breaking Changes**: Any change that affects existing adopters
+
+### Not Accepted
+
+- IDE-specific workspace settings (`.vscode/`, `.cursor/`, `.windsurf/`)
+- Filled-in `context/` templates with project-specific details (these ship empty)
+- References to deprecated files in `legacy/`
+- Contributions that violate patterns in `docs/anti-patterns.md`
+
+---
+
+## Before You Start
+
+### 1. Check Existing Issues
+
+Browse [existing issues](../../issues) to see if your contribution is already planned or being worked on.
+
+### 2. Read the Documentation
+
+Familiarize yourself with:
+
+- `AGENTS.md` — Repository structure and boundaries
+- `docs/getting-started.md` — How the standard works
+- `docs/anti-patterns.md` — 53 patterns to avoid
+- `core/instruction-hierarchy.md` — How instruction sources are ranked
+
+### 3. Understand the Architecture
 
 ```
-core/       → defines the rules (highest authority, generic)
-runtime/    → translates rules per tool (no authority of its own)
-examples/   → demonstrates rules applied (no authority of its own)
-context/    → project-adaptation templates the consumer fills in (tier 3)
-AGENTS.md   → portable single-file synthesis of core/, read first every task
+core/           ← Normative tier-4 (portable, project-agnostic)
+context/        ← Templates (shipped empty with [PLACEHOLDER] markers)
+docs/           ← User-facing guides
+examples/       ← Annotated workflow demonstrations
+prompts/        ← Reusable prompt templates
+runtime/        ← IDE-specific adapters
+skills/         ← Independent skill modules
 ```
 
-## Where each kind of change goes
+---
 
-| You want to…                            | Edit…                                         |
-| --------------------------------------- | --------------------------------------------- |
-| Add, change, or remove a **rule**       | the one owning file in `core/` — nowhere else |
-| Change how a **tool's files** work      | that tool's adapter in `runtime/`             |
-| Add or fix a **worked example**         | `examples/`                                   |
-| Change **project-fill-in** templates    | `context/`                                    |
-| Reflect a `core/` change in the summary | `AGENTS.md` (keep it reconciled — see below)  |
+## Contribution Workflow
 
-## The core rules of contributing
+### Branch Naming
 
-1. **`core/` is the only place rules are defined.** `runtime/`, `examples/`, and `context/` translate, demonstrate, or fill in `core/` rules — they never introduce, override, or contradict one. If you need a rule that doesn't exist, add it to the owning `core/` file first.
-2. **No rule is defined twice.** If two files would state the same rule, one of them is wrong — cross-reference the owning `core/` file instead of copying its text.
-3. **Keep `AGENTS.md` reconciled with `core/`.** `AGENTS.md` is a manually-maintained synthesis. When you change a rule in `core/`, update `AGENTS.md` to match. If they ever diverge, `core/` is authoritative.
-4. **Keep the generic standard generic.** No project-specific facts, stack names, personas, or adversarial tone in `core/`, `runtime/`, `examples/`, or `AGENTS.md`. Project facts belong only in `context/` (or a consumer's own files).
-5. **Preserve the Role/Authority header.** Every file in `core/`, `runtime/`, and `examples/` opens with one, stating what it may define and whether it holds authority. Keep it accurate when you edit.
+Use descriptive branch names following these patterns:
 
-## Out of the rule chain — do not edit as part of the system
+- `feature/short-description` — New functionality or content
+- `fix/issue-description` — Bug fixes or corrections
+- `docs/topic` — Documentation improvements
+- `refactor/component` — Code or structure improvements
 
-- **`archive/`** — the author's historical snapshots. Left exactly as-is.
-- **`prompts/`** — standalone prompts, including the generator that produces this system. Left exactly as-is.
+**Examples:**
 
-The generator (`prompts/agent-spec-generator.md`) does not touch `archive/` or `prompts/`, and does not create or overwrite `README.md` (that is produced separately by `prompts/readme-generator.md`).
+- `feature/add-python-skill`
+- `fix/typo-in-safety-doc`
+- `docs/improve-getting-started`
 
-## Before you open a PR
+### Commit Message Format
 
-- Confirm the rule you changed still lives in exactly one `core/` file.
-- Confirm `AGENTS.md` still matches `core/`.
-- Confirm no project-specific content leaked into a generic file.
-- Confirm all files render as valid Markdown.
+Follow [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+<type>: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+**Types:**
+
+- `feat:` — New feature, skill, prompt, or example
+- `fix:` — Bug fix, typo correction, broken link
+- `docs:` — Documentation-only changes
+- `refactor:` — Restructuring without changing behavior
+- `chore:` — Maintenance tasks (dependencies, CI, etc.)
+
+**Examples:**
+
+```
+feat: add SQL optimization skill to skills/database/
+fix: correct instruction hierarchy precedence in core/
+docs: clarify contribution workflow in CONTRIBUTING.md
+refactor: reorganize prompts by workflow category
+```
+
+---
+
+## Writing Guidelines
+
+### General Style
+
+- **Clarity over cleverness**: Write to be understood, not to impress
+- **Specificity over generality**: Avoid vague advice like "write clean code"
+- **Show, don't tell**: Use concrete examples instead of abstract principles
+- **Dense prose**: No fluff, filler, or redundant phrasing
+
+### Documentation Pattern (for `core/` and formal files)
+
+All normative files follow the Role/Authority structure:
+
+```markdown
+# [file-path]
+
+## Role / Authority
+
+- **Role:** [Defines the file's responsibility and scope]
+- **Authority:** [Normative tier level and ownership boundaries]
+- **Must not define:** [Clear boundaries of what this file doesn't own]
+
+---
+
+## 1. [First Section]
+
+[Dense prose with clear ownership boundaries]
+
+## 2. [Second Section]
+
+[Continue...]
+```
+
+### Template Guidelines (for `context/` files)
+
+Templates use `[PLACEHOLDER: ...]` markers:
+
+```markdown
+## Section Title
+
+[PLACEHOLDER: Explain what should be filled in here, with 1-2 examples]
+
+- **Field 1:** [PLACEHOLDER: Description]
+- **Field 2:** [PLACEHOLDER: Description]
+```
+
+### Anti-Pattern Checking
+
+Before submitting prompts or skills, verify they don't encode any of the 53 patterns in `docs/anti-patterns.md`. Common issues:
+
+- ❌ Vague task verbs ("help me with...")
+- ❌ No success criteria ("make it better")
+- ❌ No scope boundary ("fix my app")
+- ❌ Adding CoT to reasoning models
+- ❌ Unlocked filesystem with no restrictions
+
+---
+
+## Core File Guidelines
+
+Changes to `core/` files require special attention because they affect all adopters of the standard.
+
+### Ownership Boundaries
+
+Each `core/` file owns its domain exclusively:
+
+- `instruction-hierarchy.md` — Discovery, precedence, conflict resolution
+- `decision-framework.md` — Engineering evaluation, clean-code standards
+- `output-policy.md` — Presentation, confidence reporting, validation
+- `safety.md` — Non-negotiable constraints, capability boundaries
+
+**Rule**: A concept should be defined in exactly one file. Other files may reference it but must not redefine it.
+
+### Making Core Changes
+
+1. **Identify the file** that owns the concept you want to change
+2. **Check cross-references** — search for mentions of the concept in other files
+3. **Outline blast radius** — which adopters and use cases are affected
+4. **Preserve structure** — maintain the Role/Authority pattern
+5. **Update cross-references** — ensure other files still reference correctly
+
+### Example: Adding a New Constraint
+
+If adding a new security constraint:
+
+1. Add it to `safety.md` §3 (owns security constraints)
+2. Reference it from `decision-framework.md` §3.4 (implements it in code generation)
+3. Do NOT duplicate the constraint text in both files
+
+---
+
+## Review Process
+
+### What Reviewers Check
+
+- **Correctness**: Does it accurately represent best practices?
+- **Consistency**: Does it match existing style and structure?
+- **Completeness**: Are examples concrete and sufficient?
+- **Boundaries**: Does it respect file ownership (for `core/` changes)?
+- **Anti-patterns**: Does it avoid the 53 documented credit-killers?
+
+### Timeline
+
+- **Simple changes** (typos, small docs): 1-3 days
+- **New content** (skills, prompts, examples): 3-7 days
+- **Core changes**: 7-14 days (requires architectural review)
+
+### Feedback
+
+Expect iterative feedback. Common requests:
+
+- "Make this example more specific"
+- "Add a code snippet showing the pattern"
+- "This overlaps with [file] — coordinate the change"
+- "Check this against anti-pattern #26"
+
+---
+
+## Questions?
+
+- **General questions**: Open a [Discussion](../../discussions)
+- **Bug reports**: Open an [Issue](../../issues)
+- **Feature proposals**: Open an [Issue](../../issues) with the `enhancement` label
+- **Clarification on guidelines**: Comment on a relevant existing issue or discussion
+
+---
+
+## Recognition
+
+All contributors are valued! Your contributions help thousands of developers work more effectively with AI agents.
+
+Thank you for helping improve the agent-spec standard!
