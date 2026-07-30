@@ -73,12 +73,12 @@ erDiagram
 
 [PLACEHOLDER: Document security boundaries and database access rules.]
 
-- **Table `users`:**
-  - `SELECT`: Public profile fields readable by authenticated users.
-  - `UPDATE`: Allowed only if `auth.uid() == users.id`.
-- **Table `posts`:**
-  - `SELECT`: Publicly readable if `status == 'published'`. Authors can read all their own posts.
-  - `INSERT / UPDATE / DELETE`: Allowed only if `auth.uid() == posts.author_id`.
+- **Table `[table_name, e.g. users]`:**
+  - `[ACTION, e.g. SELECT]`: [e.g. Public profile fields readable by authenticated users.]
+  - `[ACTION, e.g. UPDATE]`: [e.g. Allowed only if `auth.uid() == users.id`.]
+- **Table `[table_name, e.g. posts]`:**
+  - `[ACTION, e.g. SELECT]`: [e.g. Publicly readable if `status == 'published'`. Authors can read all their own posts.]
+  - `[ACTION, e.g. INSERT / UPDATE / DELETE]`: [e.g. Allowed only if `auth.uid() == posts.author_id`.]
 
 ---
 
