@@ -51,6 +51,7 @@ agent-spec/
 │   └── anti-patterns.md          # 53 credit-killing patterns
 ├── examples/               # Annotated workflow examples
 ├── prompts/                # Reusable prompt templates
+│   ├── career/                   # Cover letter generation, career planning
 │   ├── content-creation/         # Blog, image generation
 │   ├── dev-workflow/             # Code docs, PR descriptions, README generation
 │   └── learning/                 # Prompt engineering mentorship
@@ -263,4 +264,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## License
 
-This project does not currently include a LICENSE file. Please contact the repository owner for licensing information.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

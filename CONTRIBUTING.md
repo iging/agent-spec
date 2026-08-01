@@ -264,3 +264,9 @@ Expect iterative feedback. Common requests:
 All contributors are valued! Your contributions help thousands of developers work more effectively with AI agents.
 
 Thank you for helping improve the agent-spec standard!
+
+---
+
+## License
+
+By contributing to agent-spec, you agree that your contributions will be licensed under its MIT License. See [LICENSE](LICENSE) for details.
