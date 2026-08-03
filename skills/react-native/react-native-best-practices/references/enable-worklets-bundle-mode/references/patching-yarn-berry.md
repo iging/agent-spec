@@ -11,7 +11,7 @@ Place the yarn-format patch files in `.yarn/patches/` and reference them via
 `resolutions` with the `patch:` protocol, then install. (`.yarn/patches/` is
 convention, not a requirement — if writing to `.yarn/` is blocked, a
 project-root `patches/` directory with `#~/patches/...` locators works
-identically; just make sure it isn't gitignored.) Example for metro 0.84.4:
+identically; make sure it isn't gitignored.) Example for metro 0.84.4:
 
 ```bash
 mkdir -p .yarn/patches

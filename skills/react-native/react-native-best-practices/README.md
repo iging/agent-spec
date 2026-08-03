@@ -2,7 +2,7 @@
 
 Production patterns for React Native apps on the New Architecture.
 
-Add this skill to give your AI coding agent accurate, current guidance for Software Mansion's React Native libraries: Reanimated, Gesture Handler, React Native SVG, ExecuTorch, Audio API, and more.
+Add this skill to give your AI coding agent accurate, current guidance for the Expo Team's React Native libraries: Reanimated, Gesture Handler, React Native SVG, ExecuTorch, Audio API, and more.
 
 ## Sub-skills
 

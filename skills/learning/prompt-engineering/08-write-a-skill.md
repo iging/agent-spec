@@ -34,7 +34,7 @@ said "turn THIS into a skill" (mine the thread for the workflow, the
 corrections they made, the output format they accepted), establish:
 
 1. What behavior should the skill produce?
-2. When should it fire: what would the user actually type?
+2. When should it fire: what would the user type?
 3. When must it NOT fire: the near-miss cases?
 4. What does a good output look like: is there a fixed format?
 5. Does anything need to be deterministic (a script) rather than

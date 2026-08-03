@@ -7,7 +7,7 @@
 
 > [!WARNING]  
 > **Never use `expo-linear-gradient`.** 
-> It requires adding heavy native dependencies and React components just to draw a background. The New Architecture supports this natively at the C++ level via the `experimental_backgroundImage` style prop, which is drastically more performant.
+> It requires adding heavy native dependencies and React components to draw a background. The New Architecture supports this natively at the C++ level via the `experimental_backgroundImage` style prop, which is drastically more performant.
 > 
 > ❌ `import { LinearGradient } from 'expo-linear-gradient';` (BANNED)
 > ✅ `style={{ experimental_backgroundImage: 'linear-gradient(...)' }}` (REQUIRED)

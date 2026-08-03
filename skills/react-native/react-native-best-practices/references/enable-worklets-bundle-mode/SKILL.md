@@ -75,7 +75,7 @@ Environment facts you need:
 In `babel.config.js`, add the worklets plugin with `bundleMode: true`. `strictGlobal: true` is optional but recommended by the
 docs.
 
-If the worklets plugin is already present, just add the options to it — do not add a second copy. The plugin should stay last in
+If the worklets plugin is already present, add the options to it — do not add a second copy. The plugin should stay last in
 the `plugins` array, and the options go on the plugin entry, never on a preset.
 
 Always use the typed-const form shown below, including when merging into an existing config: declare `workletsPluginOptions`

@@ -32,4 +32,4 @@ graph TD
 8. **[08. Write a Skill](08-write-a-skill.md):** Bottles it as a reusable skill.
 9. **[09. Handoff](09-handoff.md):** Creates a handoff doc to start your next chat.
 
-The real advantage is not just writing one better prompt. It is building a repeatable system that turns ideas into consistent results.
+The real advantage is not writing one better prompt. It is building a repeatable system that turns ideas into consistent results.

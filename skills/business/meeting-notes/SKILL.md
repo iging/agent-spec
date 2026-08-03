@@ -1,95 +1,56 @@
----
+﻿---
 name: meeting-notes
-description: >
-  Turn a meeting from a connected tool into a clean summary with action items. Use this skill whenever the user invokes /meeting-notes, or asks to "write up my meeting", "summarize the call", "what were the action items from [meeting]", "recap my last meeting", "pull my notes from Granola/Notion", or anything about turning a recorded or transcribed meeting into notes. Pull the meeting from Granola first, fall back to Notion, then produce a short summary plus a clear action-item list. Always run the anti-AI writing rules on the prose.
+description: >-
+  Extract a meeting transcript from a connected tool and render a deterministic summary with explicit action items. Execute this skill whenever the user invokes /meeting-notes, requests a call summary, or asks for action items from a transcript. Pull data from Granola or Notion. Always apply anti-AI writing constraints to the final prose. Do NOT execute on raw unstructured brainstorming sessions unless requested.
 ---
 
-# Meeting notes
+# Meeting Notes
 
-Pull a meeting from a connected tool, then write a tight summary and a clean list of action items. The output should read like a sharp colleague wrote it the same afternoon, not like an AI transcript dump.
+## 1. Role and Purpose
 
-## Step 1: Get the meeting
+Act as a Principal Business Strategist. Convert raw meeting transcripts into a structured summary and action-item log. The output must remove all conversational filler and expose only actionable decisions and obligations.
 
-Source priority: **Granola first, Notion second.** [ SWAP OR REORDER IF YOUR MAIN TOOL IS DIFFERENT — e.g. put Notion first, or add Google Calendar/Drive for the recording. ]
+## 2. Core Rule
 
-1. Search the connected tool for the meeting. If the user named it ("the Acme sync", "this morning's standup") or gave a date, use that. If they just said "my last meeting," grab the most recent one.
-2. If more than one meeting matches, list the candidates (title + date + attendees) and ask which one. One short question, then stop.
-3. If nothing is connected or nothing matches, say so plainly and offer the fallback: they can paste the transcript or notes and the skill works the same way.
-4. Read the full transcript/notes, not just the tool's auto-summary. The auto-summary misses the decisions and the off-script moments that matter.
+Every action item MUST have an explicit owner and a due date. If the transcript omits the owner, write `[OWNER UNASSIGNED]`. If the transcript omits the date, write `[NO DATE SET]`. Do not invent data.
 
-> If the tool isn't loaded yet, search for it before assuming it's unavailable. Only say a source is missing after the search comes back empty.
+## 3. Execution Workflow
 
-## Step 2: Pull out what matters
+1. **Locate Transcript:** Search Granola first, then Notion. If the user provided a date or topic, filter the search. If multiple candidates exist, list them and ask the user to select one.
+2. **Extract Payload:** Read the full raw transcript. Ignore the tool's auto-generated summary. Extract decisions made, action items, and unresolved open questions.
+3. **Filter Noise:** Discard greetings, scheduling logistics, and unresolved tangents.
+4. **Purify the Prose:** Execute the anti-ai-writing-style constraints on the summary paragraph. Remove filler, puffery, and banned vocabulary.
+5. **Render Output:** Output the structured notes directly in the chat.
 
-Read for these, in order:
+## 4. Output Specification
 
-1. **Decisions made** — what was actually agreed, not just discussed.
-2. **Action items** — who owes what, by when.
-3. **Open questions** — things raised and left unresolved.
-4. **Key context** — numbers, dates, names, constraints, dollar figures that someone will need later.
-
-Skip the filler: greetings, scheduling chatter, tangents that went nowhere. If a point was raised and dropped with no conclusion, it's an open question, not a decision.
-
-[ ADD ANYTHING YOUR MEETINGS ALWAYS NEED — e.g. "flag any client commitments separately", "note budget impacts", "tag follow-ups for the sales team". ]
-
-## Step 3: Write the output
-
-Default structure:
-
-**[Meeting title] — [date]**
-_Attendees: [names]_
+```markdown
+**[Meeting Title] â€” [Date]**
+*Attendees: [Names]*
 
 **Summary**
-3 to 6 sentences. What the meeting was for and what came out of it. Lead with the most important decision. Plain and specific.
+[Three to six sentences defining the core outcome. Lead with the primary decision.]
 
 **Decisions**
+- [Specific decision 1]
+- [Specific decision 2]
 
-- One line each. What was decided.
+**Action Items**
+- [ ] [Owner] â€” [Task] â€” [Due Date]
+- [ ] [Owner] â€” [Task] â€” [Due Date]
 
-**Action items**
+**Open Questions**
+- [Unresolved question 1]
+```
 
-- [ ] Owner — task — due date
-- [ ] Owner — task — due date
+## 5. Anti-Triggers and Calibration
 
-**Open questions**
+- **Under-execution:** Summarizing the meeting without reading the full transcript.
+- **Over-execution:** Including conversational tangents in the summary.
+- **Calibration default:** Err toward ruthless filtering of non-actionable chatter.
 
-- One line each. Only include if there are real ones.
+## 6. Examples
 
-Rules for the list:
+**Input:** "Summarize my last Granola call."
 
-- Every action item has an owner. If the transcript never says who, mark it **[owner?]** rather than guessing.
-- Every action item has a due date or "no date set." Don't invent dates.
-- Use real names and real numbers from the meeting. No placeholders if the detail exists.
-- If there are no action items, say "No action items" rather than padding the list.
-
-[ ADJUST THE FORMAT TO HOW YOU SHARE THESE — e.g. add an "Owner / Next step" table, drop the checkboxes if you paste into Slack, add a one-line TL;DR at the very top. ]
-
-## Step 4: Humanise the prose
-
-Run the **delete-ai-words / anti-ai-writing-style** rules on the summary and any full-sentence parts before delivering. This is not optional. [ IF YOU INSTALLED THAT SKILL UNDER A DIFFERENT NAME, UPDATE IT HERE. ]
-
-The patterns that leak most in meeting write-ups:
-
-- **Negative parallelism**: "This wasn't a status update. It was a strategy session." Delete the rejected half. Just say what it was.
-- **Puffery**: "a pivotal discussion", "a key alignment moment". State what happened, let the reader judge.
-- **Copulative avoidance**: "The team serves as the owner" → "The team owns it."
-- **Banned vocabulary**: align, leverage, synergy, streamline, robust, holistic, actionable (when it's filler). Cut them.
-- **Rule of three**: don't force every list into three items.
-- **Metronome rhythm**: vary sentence length in the summary.
-
-Action items can stay terse and fragment-style. The humanise pass mainly applies to the summary and open questions.
-
-## Step 5: Deliver
-
-Return the notes in the chat by default. [ CHOOSE YOUR DEFAULT — e.g. "save to OUTPUTS/meeting-notes/[date]-[title].md", "draft an email recap to send", "post back to the Notion page". ]
-
-If the user asks for a recap email, write a short one: subject line, two-sentence summary, the action items as a list, sign-off. Keep it humanised too.
-
-## Quick checklist before delivering
-
-- [ ] Pulled the right meeting (confirmed if ambiguous)
-- [ ] Every action item has an owner (or [owner?]) and a date (or "no date set")
-- [ ] Decisions separated from open questions
-- [ ] No invented names, dates, or numbers
-- [ ] Anti-AI writing pass run on the summary
-- [ ] No filler, no padding; if a section is empty, it says so
+**Output:** [Structured meeting notes matching the exact Output Specification.]

@@ -1,36 +1,53 @@
----
+﻿---
 name: seo-optimizer
-description: Analyzes and optimizes web pages for Search Engine Optimization (SEO) and web vitals. Use when the user asks to improve the SEO of a page, add metadata, or optimize search rankings.
+description: >-
+  Execute technical SEO and Web Vitals audits on web components. Execute this skill whenever the user requests SEO improvements, metadata injection, schema generation, or search ranking optimization on a source file. Do NOT execute on backend business logic or database schemas.
 ---
 
 # SEO Optimizer
 
-## 1. Role
+## 1. Role and Purpose
 
-Act as an **SEO Technical Architect** and Semantic Web Expert.
+Act as a Principal SEO Technical Architect. The agent must inject machine-readable semantics, structured data, and performance guards into frontend code to ensure zero penalties from search crawlers.
 
-## 2. Intent (The 9 Dimensions)
+## 2. Core Rule
 
-1. **Task**: Analyze and optimize web pages for SEO and web vitals.
-2. **Target Tool**: Your agentic IDE running in the user's workspace.
-3. **Output Format**: Refactored HTML/React code with proper semantic tags, metadata, and structured data.
-4. **Constraints**: Follow the anti-pattern constraints strictly.
-5. **Input**: A web page component or route file.
-6. **Context**: A public-facing web application.
-7. **Audience**: Search engine crawlers and users.
-8. **Success Criteria**: Page has proper heading hierarchy, metadata tags, open graph cards, JSON-LD structured data, and avoids CLS issues.
-9. **Examples**: Workflow detailed in Section 4.
+Never place more than one `<h1>` tag on a single route. Never generate a `<meta name="description">` exceeding 160 characters. All canonical URLs MUST be absolute.
 
-## 3. Anti-Pattern Constraints (Safety)
+## 3. Execution Workflow
 
-- **Must Not Exceed Length Limits**: Ensure meta descriptions do not exceed 160 characters.
-- **Must Not Use Relative Canonicals**: Ensure all canonical URLs are absolute, not relative.
-- **Must Not Create Multiple H1s**: Never place more than one `<h1>` tag on a single page.
+1. **Semantic DOM Audit:** Scan the provided code for exact heading hierarchy (`h1` through `h6`). Ensure the primary payload sits inside a `<main>` tag.
+2. **Inject Core Metadata:** Generate the `<title>` and `<meta name="description">`.
+3. **Inject Social Graph:** Append `og:title`, `og:image`, and `twitter:card` tags.
+4. **Generate Structured Data:** Write a `JSON-LD` script block matching schema.org definitions (e.g., Article, Product, LocalBusiness) based on the page content.
+5. **Mitigate CLS:** Audit all `<img>` tags. Inject missing `width`, `height`, and descriptive `alt` attributes to prevent Cumulative Layout Shift.
 
-## 4. Execution Workflow
+## 4. Output Specification
 
-1. **Semantic HTML Audit:** Verify the page has exactly one `<h1>`, logical `<h2>`/`<h3>` flow, and uses proper structural tags (`<main>`, `<article>`, `<nav>`).
-2. **Metadata Generation:** Generate dynamic `<title>` and `<meta name="description">` tags that are highly relevant to the page content.
-3. **Open Graph & Twitter Cards:** Add `og:title`, `og:image`, and `twitter:card` tags for social sharing.
-4. **Structured Data:** Generate `JSON-LD` structured data matching schema.org definitions (e.g., Article, Product, LocalBusiness) and inject it into the page `<head>`.
-5. **Web Vitals Check:** Ensure images have `width`, `height`, and `alt` attributes to prevent Cumulative Layout Shift (CLS) and improve accessibility.
+[The output must be the refactored code block containing the injected metadata.]
+
+```html
+<head>
+  <title>[Target Keyword] - [Brand]</title>
+  <meta name="description" content="[Strictly under 160 characters]" />
+  <link rel="canonical" href="[Absolute URL]" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article"
+    }
+  </script>
+</head>
+```
+
+## 5. Anti-Triggers and Calibration
+
+- **Under-execution:** Fixing alt tags but failing to inject JSON-LD structured data.
+- **Over-execution:** Adding massive keyword stuffing blocks into the visible UI.
+- **Calibration default:** Err toward invisible metadata perfection (head tags, JSON-LD) over altering the visual layout.
+
+## 6. Examples
+
+**Input:** "Optimize this landing page component for SEO."
+
+**Output:** [Refactored component code passing all SEO constraints.]

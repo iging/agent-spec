@@ -115,7 +115,7 @@ who asked to rename a variable destroys trust in the skill.
 
 **Round 1 (foundations):**
 
-1. Is this for just you, or will others use it?
+1. Is this for you, or will others use it?
 2. Web app, mobile-feel web app, or a script/spreadsheet?
 3. What habits are you tracking, roughly how many?
 4. What made you want this now — what's failing about your current method?

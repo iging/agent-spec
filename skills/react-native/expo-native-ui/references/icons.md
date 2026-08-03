@@ -1,6 +1,6 @@
 # Icons (Lucide React Native)
 
-React Native components for Lucide icons that work seamlessly across iOS and Android platforms. Built on top of `react-native-svg`, each icon renders as a native SVG component, providing consistent visual appearance and performance across mobile devices.
+React Native components for Lucide icons that work smoothly across iOS and Android platforms. Built on top of `react-native-svg`, each icon renders as a native SVG component, providing consistent visual appearance and performance across mobile devices.
 
 ## What you can accomplish:
 
@@ -12,7 +12,7 @@ React Native components for Lucide icons that work seamlessly across iOS and And
 
 ## Installation
 
-First, ensure that you have `react-native-svg` installed. Then, install the package:
+First, ensure you have `react-native-svg` installed. Then, install the package:
 
 ```bash
 npx expo install react-native-svg

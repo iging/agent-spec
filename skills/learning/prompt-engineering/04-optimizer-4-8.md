@@ -14,10 +14,10 @@ This is for the **chat app** (claude.ai, Mac, iOS), not the API. The user is goi
 Opus 4.8 behaves differently in ways that directly affect how you write prompts for the chat app. You don't need to recite these to the user, but every rule below is shaped by them:
 
 1. **It calibrates length to perceived complexity.** Simple asks get short answers; open-ended ones get long ones. If the user wants a specific length or density, the prompt must say so explicitly — the model won't default to a fixed verbosity.
-2. **It is even more literal than 4.7.** It does not silently generalize an instruction from one item to all items, and it does not infer requests you didn't make. State scope explicitly every time ("every section, not just the first").
+2. **It is even more literal than 4.7.** It does not silently generalize an instruction from one item to all items, and it does not infer requests you didn't make. State scope explicitly every time ("every section, not the first").
 3. **Thinking is off unless triggered, and triggering is promptable.** In the chat app you can't set a `thinking` parameter, so the closing line is what nudges adaptive thinking on. With a big or busy prompt the model may not reason unless you tell it to — so the closing line matters more than it did on 4.7.
-4. **It favors reasoning over tool calls.** When you want it to actually search the web, open a file, or use a connector, say so plainly and say why — it leans toward answering from its own reasoning otherwise.
-5. **The design house style is stickier.** The warm cream / serif / terracotta default is persistent, and vague nudges ("make it clean") just swap it for a different fixed look. Only a concrete spec or a "propose options first" instruction breaks it.
+4. **It favors reasoning over tool calls.** When you want it to search the web, open a file, or use a connector, say so plainly and say why — it leans toward answering from its own reasoning otherwise.
+5. **The design house style is stickier.** The warm cream / serif / terracotta default is persistent, and vague nudges ("make it clean") swap it for a different fixed look. Only a concrete spec or a "propose options first" instruction breaks it.
 6. **Prose voice is more direct and less validating by default.** If the user wants warmth or a specific voice, the prompt has to ask for it.
 
 ## Two hard rules
@@ -63,9 +63,9 @@ Opus 4.8 reads prompts more literally than any prior model, calibrates its own t
 
 Work through these in your head before writing the prompt. You don't need to surface them.
 
-1. **Identify the goal.** What does the user actually want produced? A document? A decision? A list? An analysis? Name it concretely.
+1. **Identify the goal.** What does the user want produced? A document? A decision? A list? An analysis? Name it concretely.
 2. **Identify the audience and use.** Who reads the output, and what will they do with it? This drives tone and format.
-3. **Decide: Case A or Case B.** Did the user provided the actual content, or just describe a class of task? This decides whether you bake content in or write a self-contained instruction (see Rule 2).
+3. **Decide: Case A or Case B.** Did the user provided the actual content, or describe a class of task? This decides whether you bake content in or write a self-contained instruction (see Rule 2).
 4. **Spot the gaps.** Audience, format, length, constraints, examples, edge cases — note which are missing.
 5. **Fill the gaps with reasonable assumptions.** The user told you not to ask questions. Make the most useful, most defensible assumption and move on. Keep it grounded in what they wrote.
 6. **Decide on length explicitly.** Because 4.8 calibrates length to perceived complexity, pick a target (word count, number of items, "one tight paragraph", "as long as it needs to be") and write it into the prompt. Don't leave length to chance.
@@ -95,7 +95,7 @@ Positive framing outperforms negative framing. "Write in flowing prose paragraph
 
 ### Be literal about scope — this matters more now
 
-Opus 4.8 does not silently generalize an instruction from one item to the next, and it won't infer a request you didn't make. If you want an instruction applied broadly, say it: "Apply this formatting to every section, not just the first one." If you want every item handled, say "for each one, without skipping any." If you want Claude to take action rather than suggest, use imperative verbs ("Rewrite the paragraph to..." not "Could you suggest improvements to..."). Suggestion-flavored phrasing produces suggestions. The upside of this literalism is precision — lean into it by being precise.
+Opus 4.8 does not silently generalize an instruction from one item to the next, and it won't infer a request you didn't make. If you want an instruction applied broadly, say it: "Apply this formatting to every section, not the first one." If you want every item handled, say "for each one, without skipping any." If you want Claude to take action rather than suggest, use imperative verbs ("Rewrite the paragraph to..." not "Could you suggest improvements to..."). Suggestion-flavored phrasing produces suggestions. The upside of this literalism is precision — lean into it by being precise.
 
 ### Match prompt style to desired output style
 
@@ -103,7 +103,7 @@ If you want prose, write the prompt in prose. If you want minimal markdown in th
 
 ### Use XML tags when sections multiply
 
-When the prompt mixes instructions, context, examples, and input, wrap each in its own descriptive tag — `<instructions>`, `<context>`, `<examples>`, `<input>`. Nest naturally where there's hierarchy. This is the single highest-leverage structuring move for complex prompts. For simple one-shot prompts, skip it; XML on a haiku request is overkill.
+When the prompt mixes instructions, context, examples, and input, wrap each in its own descriptive tag — `<instructions>`, `<context>`, `<examples>`, `<input>`. Nest naturally where there's hierarchy. This is the single highest-use structuring move for complex prompts. For simple one-shot prompts, skip it; XML on a haiku request is overkill.
 
 ### Give Claude a role when it sharpens behavior
 
@@ -141,7 +141,7 @@ For numbers, claims, contracts, or anything where errors matter, append a verifi
 
 These are sharp tools for specific task types. Apply only when relevant.
 
-**Frontend / design / slides.** Opus 4.8 has a strong, _sticky_ default house style — warm cream backgrounds (~#F4F1EA), serif display type, italic word-accents, terracotta/amber accents. It reads well for editorial, hospitality, and portfolio work but wrong for dashboards, dev tools, fintech, healthcare, or enterprise looks, and it shows up in slide decks too. Vague nudges ("make it clean", "don't use cream") just swap one fixed palette for another. Two things actually work: (a) specify a concrete alternative — exact palette hexes, type system, corner radius, spacing, section structure — and the model follows it precisely; or (b) instruct the model to **propose 3–4 distinct visual directions first** (each as bg hex / accent hex / typeface + one-line rationale), ask the user to pick one, then build only that. Use (b) when the user hasn't given you a concrete look to aim for.
+**Frontend / design / slides.** Opus 4.8 has a strong, _sticky_ default house style — warm cream backgrounds (~#F4F1EA), serif display type, italic word-accents, terracotta/amber accents. It reads well for editorial, hospitality, and portfolio work but wrong for dashboards, dev tools, fintech, healthcare, or enterprise looks, and it shows up in slide decks too. Vague nudges ("make it clean", "don't use cream") swap one fixed palette for another. Two things work: (a) specify a concrete alternative — exact palette hexes, type system, corner radius, spacing, section structure — and the model follows it precisely; or (b) instruct the model to **propose 3–4 distinct visual directions first** (each as bg hex / accent hex / typeface + one-line rationale), ask the user to pick one, then build only that. Use (b) when the user hasn't given you a concrete look to aim for.
 
 **Reviewing documents, contracts, or content for issues.** Tell the model its job at the finding stage is coverage, not filtering: "Report every issue you find, including ones you're uncertain about or consider minor. Include confidence and severity for each so I can rank them myself." Avoid soft language like "only flag the important things" — Opus 4.8 takes that literally and under-reports.
 
@@ -164,7 +164,7 @@ Think carefully before answering, using deep multi-step reasoning.
 ```
 ````
 
-No text before the code block. No text after. No "here you go." No "I added X and Y." Just the prompt.
+No text before the code block. No text after. No "here you go." No "I added X and Y." the prompt.
 
 If the user explicitly asks "what did you change?" _after_ they have the prompt, then explain in a follow-up turn. Until they ask, stay silent.
 
@@ -256,7 +256,7 @@ When I paste the contract, report every clause that could create risk or cost fo
 - Severity — high / medium / low
 - Suggested redline — the specific change or addition I should request
 
-Cover at minimum: payment and late-fee terms, termination and notice periods, auto-renewal, liability caps and indemnification, IP ownership, confidentiality scope, non-compete or exclusivity, and anything that shifts risk onto me. Review the entire contract, not just the first few sections.
+Cover at minimum: payment and late-fee terms, termination and notice periods, auto-renewal, liability caps and indemnification, IP ownership, confidentiality scope, non-compete or exclusivity, and anything that shifts risk onto me. Review the entire contract, not the first few sections.
 
 Do not filter for importance at this stage — it's better to surface a finding I dismiss than to silently drop a real risk.
 
@@ -268,7 +268,7 @@ Think carefully before answering, using deep multi-step reasoning.
 ```
 ````
 
-"Review the entire contract, not just the first few sections" is the literalism guard. The coverage-not-filtering framing keeps 4.8 from under-reporting.
+"Review the entire contract, not the first few sections" is the literalism guard. The coverage-not-filtering framing keeps 4.8 from under-reporting.
 
 ### Example 4 — Case A (real content provided, no follow-up needed)
 
@@ -323,7 +323,7 @@ The numbers are baked in (Case A). "Addressing all three" and "in this order" ha
 
 ````
 ```
-Write a haiku about coffee. Follow the traditional 5-7-5 syllable structure. Aim for a single concrete image rather than a general statement about coffee — something a reader could picture. Avoid clichés like "morning steam" and "liquid gold". Give me just the haiku, no title or commentary.
+Write a haiku about coffee. Follow the traditional 5-7-5 syllable structure. Aim for a single concrete image rather than a general statement about coffee — something a reader could picture. Avoid clichés like "morning steam" and "liquid gold". Give me the haiku, no title or commentary.
 
 Think carefully before answering, using deep multi-step reasoning.
 ```
@@ -337,7 +337,7 @@ The simple task gets no XML tags or role — but it does get a length/scope guar
 
 **The user gives you a Claude system prompt or API-style prompt with parameters.** Strip out API-only mechanics (`effort` levels, `thinking` config, tool definitions, `max_tokens`), translate the intent into a single user-message prompt for the chat app, and end with the closing line. In particular, if the original relied on an `effort` setting for depth, replace that with explicit "think carefully / give this real depth" wording plus the closing line — the chat app has no `effort` knob.
 
-**The user wants the prompt to ask Claude to do many small things.** Combine into a single coherent prompt with clear sections rather than a numbered list of micro-tasks. Opus 4.8 handles long, well-structured asks well — just make scope explicit so it doesn't apply an instruction to only the first item.
+**The user wants the prompt to ask Claude to do many small things.** Combine into a single coherent prompt with clear sections rather than a numbered list of micro-tasks. Opus 4.8 handles long, well-structured asks well — make scope explicit so it doesn't apply an instruction to only the first item.
 
 **The task needs current information.** Add an explicit instruction to search the web (and say why), because 4.8 leans toward answering from its own knowledge. Don't leave the tool call to chance.
 

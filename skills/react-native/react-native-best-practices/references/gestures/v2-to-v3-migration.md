@@ -175,7 +175,7 @@ If the migration is possible, use the ask questions tool to clarify the user int
 
 Don't suggest replacing buttons from Gesture Handler with components from React Native and vice versa.
 
-The implementation of buttons has been updated, resolving most button-related issues. They have also been internally rewritten to utilize the new hook API. The legacy JS implementations of button components are still accessible but have been renamed with the prefix `Legacy`, e.g., `RectButton` is now available as `LegacyRectButton`. Those still use the new native component under the hood.
+The implementation of buttons has been updated, resolving most button-related issues. They have also been internally rewritten to use the new hook API. The legacy JS implementations of button components are still accessible but have been renamed with the prefix `Legacy`, e.g., `RectButton` is now available as `LegacyRectButton`. Those still use the new native component under the hood.
 
 `PureNativeButton` has been removed. If encountered, inform the user that it has been removed and let them decide how to handle that case. They can achieve similar functionality with other buttons.
 
@@ -239,7 +239,7 @@ import { Platform } from 'react-native';
 
 For `TouchableNativeFeedback`, `androidRipple` must be set explicitly — without it no ripple is rendered. The legacy component defaults to `useForeground: true`, so `{ foreground: true }` is the closest default replacement; omit `foreground` only when the original code set `useForeground={false}`. Add `color`, `radius`, or `borderless` if the original code customized the `background` prop.
 
-For `TouchableHighlight`, a perfect 1:1 replacement is **not possible** — in the legacy component the container's own background becomes the underlay (solid `underlayColor`) and `activeOpacity` dims just the children on top, so the underlay shows *through* the dimmed children. `Touchable` instead has a separate underlay layer between the background and children, and its `activeOpacity` dims the whole component (background + underlay + children together). The closest approximation: carry `underlayColor` and `activeOpacity` over unchanged, and add `activeUnderlayOpacity={1}` so the underlay layer is rendered solid. Inform the user that the visual feedback may differ from the legacy component because of the different layering.
+For `TouchableHighlight`, a perfect 1:1 replacement is **not possible** — in the legacy component the container's own background becomes the underlay (solid `underlayColor`) and `activeOpacity` dims the children on top, so the underlay shows *through* the dimmed children. `Touchable` instead has a separate underlay layer between the background and children, and its `activeOpacity` dims the whole component (background + underlay + children together). The closest approximation: carry `underlayColor` and `activeOpacity` over unchanged, and add `activeUnderlayOpacity={1}` so the underlay layer is rendered solid. Inform the user that the visual feedback may differ from the legacy component because of the different layering.
 
 Do not swap Gesture Handler buttons/touchables for React Native core components or vice versa during migration — keep them within `react-native-gesture-handler`.
 

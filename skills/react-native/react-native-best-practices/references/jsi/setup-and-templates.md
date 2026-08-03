@@ -50,7 +50,7 @@ FBJNI handles JNI reference management, exception translation, and type-safe met
 
 ### iOS — ObjC++ (`.mm`)
 
-`.mm` is the Objective-C++ file extension. Rename any `.m` file to `.mm` and the compiler enables full C++ support in that translation unit — no imports, no flags, just the extension. This is necessary because React Native's iOS layer is Objective-C, your JSI code is C++, and you need a single file that speaks both. Pure `.m` files cannot include C++ headers like `<jsi/jsi.h>`.
+`.mm` is the Objective-C++ file extension. Rename any `.m` file to `.mm` and the compiler enables full C++ support in that translation unit — no imports, no flags, the extension. This is necessary because React Native's iOS layer is Objective-C, your JSI code is C++, and you need a single file that speaks both. Pure `.m` files cannot include C++ headers like `<jsi/jsi.h>`.
 
 Install from your native module's `setBridge:` lifecycle hook — React Native calls this on every registered module during initialization, before the JavaScript bundle is evaluated:
 

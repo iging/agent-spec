@@ -1,11 +1,11 @@
 ---
 name: rich-text
-description: "Software Mansion's best practices for rich text in React Native using react-native-enriched and react-native-enriched-markdown. Use when building rich text editors, formatted text inputs, Markdown renderers, or any feature requiring inline styling, mentions, links, structured text editing, or Markdown display. Trigger on: 'rich text editor', 'rich text input', 'text editor', 'react-native-enriched', 'react-native-enriched-markdown', 'EnrichedTextInput', 'EnrichedMarkdownText', 'formatted text input', 'WYSIWYG', 'mentions input', 'text formatting toolbar', 'markdown renderer', 'markdown display', 'render markdown', 'display markdown natively', 'LaTeX math', 'GFM tables', or any request to build rich text editing or Markdown rendering in React Native."
+description: "the Expo Team's best practices for rich text in React Native using react-native-enriched and react-native-enriched-markdown. Use when building rich text editors, formatted text inputs, Markdown renderers, or any feature requiring inline styling, mentions, links, structured text editing, or Markdown display. Trigger on: 'rich text editor', 'rich text input', 'text editor', 'react-native-enriched', 'react-native-enriched-markdown', 'EnrichedTextInput', 'EnrichedMarkdownText', 'formatted text input', 'WYSIWYG', 'mentions input', 'text formatting toolbar', 'markdown renderer', 'markdown display', 'render markdown', 'display markdown natively', 'LaTeX math', 'GFM tables', or any request to build rich text editing or Markdown rendering in React Native."
 ---
 
 # Rich Text in React Native
 
-Software Mansion's production patterns for rich text editing and Markdown rendering in React Native.
+the Expo Team's production patterns for rich text editing and Markdown rendering in React Native.
 
 There are two libraries that cover rich text use cases:
 

@@ -1,104 +1,49 @@
----
+﻿---
 name: handoff
-description: >-
-  Compress the entire current conversation into a clean, structured handoff
-  document that lets a new chat session, a colleague, or future-you resume
-  the work without losing decisions, constraints, or progress. Use this
-  skill whenever the user says "handoff", asks to summarize the thread to
-  continue elsewhere, mentions hitting context limits or the chat getting
-  too long, wants to brief a teammate on this conversation, or asks to
-  export or save where things stand. ALSO offer it proactively when a long
-  working thread is clearly winding down or the user says they'll "pick
-  this up later". Do NOT use for summarizing external documents or
-  meetings; this skill summarizes the conversation itself.
+description: Compress the entire current conversation into a clean, structured handoff document enabling a new chat session, a colleague, or future-you resume the work without losing decisions, constraints, or progress. Use this skill whenever the user says "handoff", asks to summarize the thread to continue elsewhere, mentions hitting context limits, wants to brief a teammate, or asks to export where things stand.
 ---
 
 # Handoff
 
-Long threads die two deaths: the context window fills up, or the human
-walks away for a week. Either way, restarting from nothing costs hours of
-re-explaining, and worse, silently loses decisions, so the next session
-relitigates settled questions and repeats rejected approaches. A good
-handoff document is the difference between "continue" and "start over".
+## 1. Role and Purpose
 
-The core insight: a handoff is a **state snapshot, not a story**. The
-next reader does not need to know what happened in what order; they need
-to know where things stand, what's been ruled out, and what's next. The
-number one failure mode of conversation summaries is chronological
-narration ("First we discussed X, then we explored Y..."), which buries
-the actionable state under a play-by-play nobody needs.
+Operate as a Principal Technical Project Manager. Compress long, chaotic working threads into a structured, actionable state snapshot so the next session or developer can pick up immediately without relitigating settled questions.
 
-## Step 1: Identify the recipient
+## 2. Core Rule
 
-The document differs by who receives it. Infer from context or ask one
-question:
+A handoff is a state snapshot, not a chronological story. Never use chronological narration ("First we discussed X, then Y"). Everything in the handoff must trace to something present in the thread. Do not fill gaps with plausible inference. Verbatim essentials (names, constraints, IDs, key snippets) must survive exactly as written.
 
-- **New AI session** (most common): optimized for pasting into a fresh
-  chat. Includes working preferences, exact constraints, and ends with a
-  paste-ready opening prompt.
-- **Human colleague**: more background on why the work exists, less
-  instruction-style framing, no opening prompt.
-- **Future self**: leans on reminders of intent ("you chose X because
-  the client hated Y") since they'll half-remember everything.
+## 3. Execution Workflow
 
-## Step 2: Mine the conversation for what actually transfers
+1. **Identify Recipient:** Infer if this is for a new AI session (needs exact constraints and opening prompt), a human colleague (needs background, no prompt), or future self.
+2. **Extract Decisions:** Mine the thread for decisions and their *reasons*. (e.g., "Chose PostgreSQL over SQLite because of concurrent writes").
+3. **Extract Dead Ends:** List approaches tried and rejected, and why. This prevents the next session from repeating failures.
+4. **Extract Constraints & Corrections:** Sweep for user corrections ("shorter", "wrong tone") and constraints stated only once.
+5. **Map Artifacts:** Document every file/deliverable produced, its location, and its status (final/draft/superseded).
+6. **Verify:** Scan the thread again to ensure no user correction was missed, no single-mention constraint was dropped, and artifact states are current.
 
-Re-read the whole thread and extract, in priority order:
+## 4. Output Specification
 
-1. **Decisions and their reasons.** Not just "we chose PostgreSQL" but
-   "chose PostgreSQL over SQLite because of concurrent writes". Without
-   the reason, the next session reopens the decision.
-2. **Dead ends.** Approaches tried and rejected, and why. This is the
-   most valuable and most-omitted section of any handoff: it is the
-   only thing standing between the next session and re-exploring every
-   failed path. If something was rejected for a fixable reason, say so.
-3. **Corrections the user made.** Every time the user pushed back
-   ("shorter", "not that tone", "the deadline is Friday not Monday"),
-   that correction is a preference paid for once and must never be paid
-   for again. Sweep the thread specifically for these; they hide in
-   throwaway lines.
-4. **Constraints stated once.** A requirement mentioned in message 3
-   and never repeated still governs everything. Recency is not
-   importance. This is exactly what naive summaries lose.
-5. **Artifact state.** Every file, draft, or deliverable produced:
-   its name, where it lives, and its status (final / draft / superseded).
-   When there were multiple versions, only the current one and what
-   distinguishes it. Never make the reader guess which version is live.
-6. **Open items.** What is in progress, what is blocked and on what,
-   and the single concrete next step.
-
-**Verbatim essentials.** Some things must survive exactly, not
-paraphrased: names and spellings, numbers, dates, URLs, IDs, error
-messages, key code snippets, exact phrasings the user approved.
-Paraphrasing these is corruption, not compression.
-
-**Leave behind:** pleasantries, the back-and-forth of drafting (keep
-final state + rationale only), abandoned tangents that produced no
-decision, and anything the next reader could not act on.
-
-## Step 3: Write the document
-
-Use this structure, cutting sections that would be empty rather than
-padding them:
+Deliver as a downloadable markdown file (or fenced block if files are unavailable).
 
 ```markdown
 # Handoff: [topic]
-[Date] · [one line: what this thread was for]
+[Date] Â· [one line: what this thread was for]
 
 ## Objective
-[The goal in 1-2 sentences, including success criteria if established]
+[The goal in 1-2 sentences]
 
 ## Current state
-[Where things stand right now; the "you are here" marker]
+[Where things stand right now]
 
 ## Decisions (and why)
 - [decision]: [reason]
 
-## Dead ends — do not retry
+## Dead ends â€” do not retry
 - [approach]: [why it failed / was rejected]
 
 ## Artifacts
-- [name/location]: [status: final | draft | superseded by X]
+- [name/location]: [status]
 
 ## Verbatim essentials
 [exact values, requirements, approved phrasings]
@@ -108,42 +53,21 @@ padding them:
 
 ## Open items
 - Next step: [the one concrete action]
-- Then: [remaining items]
 - Blocked: [item + what unblocks it]
 
-## Suggested opening prompt        <- new-AI-session handoffs only
-[A paste-ready first message for the new chat that references this
-document and starts the next step directly]
+## Suggested opening prompt
+[A paste-ready first message for the new AI chat]
 ```
 
-Length: proportional to the thread but capped by absorbability. Target a
-document the recipient reads in 2-3 minutes; even a very long thread
-should compress to one or two pages. If it's running longer, you are
-narrating instead of snapshotting.
+## 5. Anti-Triggers and Calibration
 
-Deliver as a downloadable markdown file when file creation is available,
-since the whole point is portability; otherwise as a clearly fenced
-block that's easy to copy.
+- **Over-execution:** Generating a 5-page transcript of the chat instead of a snapshot.
+- **Under-execution:** Omitting the *reasons* for decisions or the list of dead ends.
+- **Calibration:** Target a document the recipient can read in 2-3 minutes.
 
-## Step 4: Verify against the thread
+## 6. Examples
 
-Before delivering, re-scan the conversation one more time with three
-specific questions, because these are the known leak points:
+**Input:** "Let's do a handoff, this chat is getting too long."
 
-1. Is there any user correction not reflected in Working preferences?
-2. Is there any constraint stated exactly once that didn't make it in?
-3. For each artifact, is the version referenced actually the latest?
-
-If the thread contains contradictions the conversation never resolved,
-do not silently pick a winner in the handoff; list it under Open items
-as an unresolved question.
-
-## Fidelity rules
-
-Everything in the handoff must trace to something actually in the
-thread. Do not fill gaps with plausible inference; a handoff reader
-trusts the document completely, so an invented detail becomes an
-invisible landmine. Where something is genuinely uncertain, mark it:
-"(unconfirmed: user implied but never stated)". And keep who-said-what
-straight: a suggestion you made that the user never accepted is not a
-decision, and must not be recorded as one.
+**Output:**
+Produces a clean markdown summary capturing the state, dead ends, artifacts, and a ready-to-paste prompt for the new session.

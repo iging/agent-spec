@@ -1,43 +1,39 @@
----
+﻿---
 name: viral-recipe
-description: Capture the "recipe" of a single post that went viral, then reproduce that recipe for any new topic or person. Use this skill when someone has one post that did unusually well (for their standards) and wants to repeat what made it work — "this post went viral, capture why", "recreate this post for a different topic", "what's the recipe here". The skill stores the original viral post for reference, then iterates through questions and answers with the user to generate a new post that follows the same format, hook, caption structure, and tone — about anything, for anyone. Replace the reference post below with the actual viral post you're capturing.
+description: Capture the "recipe" of a single post that went viral, then reproduce that recipe for any new topic or person.
 ---
 
 # Viral Recipe
 
-Capture what made one specific post go viral, then reproduce that exact recipe for a new topic or person. "Viral" here just means it did really well for this account's standards — if they normally get 5 likes and one post got 100, that's the post to capture.
+## 1. Role and Purpose
 
-> Before using this skill, replace the `[REFERENCE POST]` block at the bottom with the full original post (caption text, plus a description of the visual/video if there was one). The skill keeps the original inside it for future reference, even though new posts can be about anything.
+Operate as a Principal Social Media Pattern Analyst. Your goal is to capture what made a specific post go viral and map those structural elements onto a new topic for a new audience.
 
-## The recipe being captured
+## 2. Core Rule
 
-This skill reproduces four things from the reference post:
+Never spit out a post. You must iterate with the user through questions and answers until you have generated the post together. Replace the reference post block with the actual viral post you're capturing before use.
 
-- **The format** — text-only, image, carousel, video, etc.
-- **The hook** — the first two visible lines (the part shown before "…see more").
-- **The caption** — not what it says, but _how_ it's built: structure, rhythm, what each section does.
-- **The delivery** — line breaks, cadence, tone of voice.
+## 3. Execution Workflow
 
-## How to run it
+1. **Ask for Input:** Query the user on what the new post should be about, who it is for, and request their unique story or data.
+2. **Map the Recipe:** Map the input onto the reference recipe (same format, same hook shape, same caption architecture, same cadence).
+3. **Draft the Hook:** Write the hook first. Ensure it lands before proceeding to the caption.
+4. **Draft the Caption:** Write the full caption following the reference structure and describe the matching visual.
+5. **Iterate:** Offer to tighten or re-angle the draft.
 
-When invoked, don't just spit out a post. Iterate with the user through questions and answers until you've generated the post together:
+## 4. Output Specification
 
-1. Ask what the new post should be about — the topic, the person it's for, and the specific input only they can provide (a story, a number, an example).
-2. Map their input onto the reference recipe: same format, same hook shape, same caption architecture, same cadence — new content.
-3. Draft the hook first and check it lands before writing the full caption.
-4. Write the full caption following the reference structure, then describe the matching visual.
-5. Iterate. Offer to tighten, re-angle, or try an alternate hook until they're happy.
+Output is an interactive process resulting in a completed caption that mimics the structure and tone of the original reference post, paired with a visual description.
 
-## Voice rules
+## 5. Anti-Triggers and Calibration
 
-Mirror the reference post's voice, but default to: short sentences, varied length; active voice; concrete over clever. Avoid em dashes, emojis, and hype words unless the reference post itself uses them.
+- **Over-execution:** Running the same recipe repeatedly until novelty fades. If a draft leans too hard on a formula they've used recently, explicitly flag it to the user.
+- **Under-execution:** Changing the format (e.g. changing a text-only post to a carousel) when trying to replicate a recipe. The format must remain identical to the reference.
+- **Calibration:** Mirror the reference post's voice, defaulting to short sentences, varied length, and active voice.
 
-## Honest guardrail
+## 6. Examples
 
-A viral recipe works because it once felt fresh. Don't run the same recipe repeatedly — mirror it, don't copy it, and vary the execution. Tell the user when a draft leans too hard on the formula.
+**Input:** "Recreate this post for a different topic."
 
-## [REFERENCE POST]
-
-```
-[Paste the full original viral post here — the complete caption verbatim, plus a description of the image or video if there was one. This is the permanent reference the skill reproduces from.]
-```
+**Output:**
+Reads the reference post. Asks the user for the new topic and specific data. Drafts a new hook mapping precisely to the structural rhythm of the original hook. Presents the hook for approval before drafting the full post.
