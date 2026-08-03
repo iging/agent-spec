@@ -40,7 +40,7 @@ Read the entire message before deciding what the task is. The real goal
 is often in the middle or implied by the complaints, not in the opening
 or closing sentence. Extract into these buckets:
 
-- **Goal**: what outcome the user actually wants (not the first verb
+- **Goal**: what outcome the user wants (not the first verb
   they used)
 - **Deliverable**: the concrete artifact or answer that satisfies the
   goal, including format if stated or clearly implied
@@ -134,7 +134,7 @@ Rough threshold: restructure when the message has 2+ of: over ~150
 words with no formatting, multiple distinct asks, a contradiction, the
 ask buried away from the start/end, apologetic framing ("this is a
 mess"), or dictation artifacts. One clear ask with lots of clean context
-is NOT a brain dump; that's just a well-fed prompt.
+is NOT a brain dump; that's a well-fed prompt.
 
 ## Example
 

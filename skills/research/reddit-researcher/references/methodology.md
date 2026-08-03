@@ -373,7 +373,7 @@ Score every item 0–100 using these formulas:
 
 ## Step 5 — Synthesize Into Report
 
-**CRITICAL: Ground your synthesis in what the agents ACTUALLY returned. Do not fill gaps with your own pre-existing knowledge.**
+**CRITICAL: Ground your synthesis in what the agents returned. Do not fill gaps with your own pre-existing knowledge.**
 
 Structure based on QUERY_TYPE:
 
@@ -515,7 +515,7 @@ For the Web line — strip protocol/path, use readable publication name only (e.
 
 ## Step 7 — Follow-Up Invitation
 
-End with an invitation referencing **specific things you actually found** — not generic suggestions:
+End with an invitation referencing **specific things you found** — not generic suggestions:
 
 I'm now up to date on {TOPIC} from the last 30 days.
 
@@ -531,11 +531,11 @@ Want me to go deeper on anything? For example:
 
 ## Rules
 
-- Never fabricate findings — only synthesize what the agents actually returned
+- Never fabricate findings — only synthesize what the agents returned
 - Cross-source signals are the strongest evidence — always lead with them
 - If all sources return no results, say so clearly and suggest the user refine the topic
 - Keep the report focused — prioritize signal over volume
-- Self-check before publishing: does your synthesis match what the research ACTUALLY says? Rewrite if you catch yourself using prior knowledge instead of the research output.
+- Self-check before publishing: does your synthesis match what the research says? Rewrite if you catch yourself using prior knowledge instead of the research output.
 
 ---
 
@@ -547,11 +547,11 @@ Read the research output carefully. Pay attention to:
 
 - **Exact product/tool names** mentioned — if research mentions "ToolX", that is a DIFFERENT product than something similar you already know. Don't conflate them.
 - **Specific quotes and insights** from the sources — use THESE, not generic knowledge
-- **What the sources actually say**, not what you assume the topic is about
+- **What the sources say**, not what you assume the topic is about
 
-**ANTI-PATTERN TO AVOID**: If user asks about "topic A" and research returns content about "topic A variant", do NOT synthesize as a different but related topic just because they sound similar. Read what the research actually says.
+**ANTI-PATTERN TO AVOID**: If user asks about "topic A" and research returns content about "topic A variant", do NOT synthesize as a different but related topic because they sound similar. Read what the research says.
 
-**SELF-CHECK before displaying**: Re-read your "What I learned" section. Does it match what the research ACTUALLY says? If you catch yourself projecting your own knowledge instead of the research, rewrite it.
+**SELF-CHECK before displaying**: Re-read your "What I learned" section. Does it match what the research says? If you catch yourself projecting your own knowledge instead of the research, rewrite it.
 
 ---
 
@@ -569,7 +569,7 @@ After research is complete, store these for the rest of the conversation:
 
 - **TOPIC**: {topic}
 - **QUERY_TYPE**: {type}
-- **KEY PATTERNS**: {top 3-5 patterns you actually found}
+- **KEY PATTERNS**: {top 3-5 patterns you found}
 - **TOP SOURCES**: {highest-engagement @handles, subreddits, channels}
 - **RESEARCH FINDINGS**: {key facts and insights from the research}
 
@@ -604,7 +604,7 @@ When the user wants a prompt, write a **single, highly-tailored prompt** using y
 
 **Quality checklist before delivering:**
 
-- [ ] Format matches what the research actually recommended
+- [ ] Format matches what the research recommended
 - [ ] Directly addresses what the user said they want to create
 - [ ] Uses specific patterns/keywords discovered in research
 - [ ] Ready to paste with zero edits (or minimal \[PLACEHOLDERS\] clearly marked)
@@ -633,7 +633,7 @@ End with a footer showing what the research was based on, then offer more:
 
 📊 Based on: {N} Reddit posts ({N} upvotes) \+ {N} X posts ({N} likes) \+ {N} YouTube videos ({N} views) \+ {N} LinkedIn posts \+ {N} HN stories \+ {N} web pages \+ {N} TechCrunch articles
 
-Want another prompt? Just tell me what you're creating next.
+Want another prompt? tell me what you're creating next.
 
 Omit any source line that returned 0 results.
 

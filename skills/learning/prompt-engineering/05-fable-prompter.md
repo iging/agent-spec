@@ -48,7 +48,7 @@ No mandatory closing line. The prompt simply ends when the instruction ends.
 
 Work through these in your head before writing. Don't surface them.
 
-1. **Identify the goal.** What does the user actually want produced? Name it concretely.
+1. **Identify the goal.** What does the user want produced? Name it concretely.
 2. **Identify the audience and the why.** Who is the output for, and what will they do with it? Fable 5 performs measurably better when it knows the intent behind a request — so put the reason into the prompt: "I'm working on [larger task] for [who]. They need [what the output enables]."
 3. **Decide Case A or Case B** (see Rule 2).
 4. **Decide the ambition level.** If the user's ask is a small slice of an obvious larger job ("outline a blog post" when they clearly want the post), consider promoting the prompt to the end-to-end version — Fable 5 can run the whole workflow in one turn. Stay anchored to what they asked for; promote only when the larger goal is unmistakable.

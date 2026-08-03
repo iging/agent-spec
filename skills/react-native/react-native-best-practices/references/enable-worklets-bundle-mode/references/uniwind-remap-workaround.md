@@ -60,7 +60,7 @@ cannot form.
 
 ## Caveats
 
-- Non-standard setups (monorepos): verify `uniwindDir` and `realReactNativePath` point at the copies the app actually uses —
+- Non-standard setups (monorepos): verify `uniwindDir` and `realReactNativePath` point at the copies the app uses —
   e.g. `require.resolve('react-native', { paths: [__dirname] })` from the app package.
 - Other remapping libraries (e.g. NativeWind): same guard pattern, but scope the origin check to that library's package dir
   instead of uniwind's. This variant is untested — the issue thread only validates the uniwind one.

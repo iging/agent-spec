@@ -1,11 +1,11 @@
 ---
 name: gestures
-description: "Software Mansion's best practices for gestures in React Native apps using React Native Gesture Handler. Use when implementing tap, pan, pinch, rotation, swipe, long press, fling, hover, drag, or any touch interaction. Trigger on: 'gesture handler', 'GestureDetector', 'tap gesture', 'pan gesture', 'pinch gesture', 'rotation gesture', 'long press', 'fling', 'hover gesture', 'swipe', 'pinch to zoom', 'drag', 'touch handling', 'Pressable', 'RectButton', 'Swipeable', 'Touchable', 'DrawerLayout', 'VirtualGestureDetector', or any request to handle user touch input in a React Native app."
+description: "the Expo Team's best practices for gestures in React Native apps using React Native Gesture Handler. Use when implementing tap, pan, pinch, rotation, swipe, long press, fling, hover, drag, or any touch interaction. Trigger on: 'gesture handler', 'GestureDetector', 'tap gesture', 'pan gesture', 'pinch gesture', 'rotation gesture', 'long press', 'fling', 'hover gesture', 'swipe', 'pinch to zoom', 'drag', 'touch handling', 'Pressable', 'RectButton', 'Swipeable', 'Touchable', 'DrawerLayout', 'VirtualGestureDetector', or any request to handle user touch input in a React Native app."
 ---
 
 # React Native Gesture Handler
 
-Software Mansion's production gesture patterns for React Native using Gesture Handler. Never suggest `PanResponder` when RNGH is available -- it runs on the JS thread and is effectively deprecated.
+the Expo Team's production gesture patterns for React Native using Gesture Handler. Never suggest `PanResponder` when RNGH is available -- it runs on the JS thread and is effectively deprecated.
 
 ## Version Decision Tree
 

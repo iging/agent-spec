@@ -178,7 +178,7 @@ function Player() {
 
 ## Saving Media to Device Gallery
 
-Use `expo-media-library`. **Do not ask for this permission on app startup.** Wait until the user actually taps a "Save to Gallery" button.
+Use `expo-media-library`. **Do not ask for this permission on app startup.** Wait until the user taps a "Save to Gallery" button.
 
 ```tsx
 import * as MediaLibrary from "expo-media-library";

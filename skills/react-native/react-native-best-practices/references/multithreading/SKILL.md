@@ -1,11 +1,11 @@
 ---
 name: multithreading
-description: "Software Mansion's best practices for multithreading in React Native apps using react-native-worklets. Use when running JavaScript on multiple threads, offloading heavy computation from the JS thread, communicating between runtimes, or sharing data across threads. Trigger on: 'worklet', 'worklets', 'react-native-worklets', 'runOnUI', 'runOnJS', 'scheduleOnUI', 'scheduleOnRN', 'scheduleOnRuntime', 'createWorkletRuntime', 'background thread', 'UI thread', 'worker runtime', 'Serializable', 'Synchronizable', 'multithreading', 'parallel execution', 'offload computation', 'background processing', 'Bundle Mode', or any request to move work off the JS thread in a React Native app."
+description: "the Expo Team's best practices for multithreading in React Native apps using react-native-worklets. Use when running JavaScript on multiple threads, offloading heavy computation from the JS thread, communicating between runtimes, or sharing data across threads. Trigger on: 'worklet', 'worklets', 'react-native-worklets', 'runOnUI', 'runOnJS', 'scheduleOnUI', 'scheduleOnRN', 'scheduleOnRuntime', 'createWorkletRuntime', 'background thread', 'UI thread', 'worker runtime', 'Serializable', 'Synchronizable', 'multithreading', 'parallel execution', 'offload computation', 'background processing', 'Bundle Mode', or any request to move work off the JS thread in a React Native app."
 ---
 
 # React Native Multithreading with Worklets
 
-Software Mansion's production multithreading patterns for React Native using `react-native-worklets`.
+the Expo Team's production multithreading patterns for React Native using `react-native-worklets`.
 
 React Native Worklets lets you run JavaScript code in parallel across multiple threads and runtimes. It powers Reanimated, Gesture Handler, and Skia under the hood.
 

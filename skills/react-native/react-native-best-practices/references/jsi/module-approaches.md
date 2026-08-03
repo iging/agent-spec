@@ -310,7 +310,7 @@ Nitrogen generates a Swift protocol and Kotlin interface. You implement in Swift
 
 ### When Nitro wins over TurboModules
 
-- Your API returns native objects (not just scalars) that JS holds and calls methods on.
+- Your API returns native objects (not scalars) that JS holds and calls methods on.
 - You want codegen type safety but also Swift/Kotlin implementations without Obj-C++/JNI glue.
 - You're building a high-throughput library where the TurboModule overhead is measurable (frequent small calls: audio sample callbacks, sensor readings, rendering hooks).
 - You want `HybridObject` instances to be first-class — passable, storable, garbage-collected on JS side with `NativeState` cleanup.

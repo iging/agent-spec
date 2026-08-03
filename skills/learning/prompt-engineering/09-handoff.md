@@ -41,11 +41,11 @@ question:
 - **Future self**: leans on reminders of intent ("you chose X because
   the client hated Y") since they'll half-remember everything.
 
-## Step 2: Mine the conversation for what actually transfers
+## Step 2: Mine the conversation for what transfers
 
 Re-read the whole thread and extract, in priority order:
 
-1. **Decisions and their reasons.** Not just "we chose PostgreSQL" but
+1. **Decisions and their reasons.** Not "we chose PostgreSQL" but
    "chose PostgreSQL over SQLite because of concurrent writes". Without
    the reason, the next session reopens the decision.
 2. **Dead ends.** Approaches tried and rejected, and why. This is the
@@ -132,7 +132,7 @@ specific questions, because these are the known leak points:
 
 1. Is there any user correction not reflected in Working preferences?
 2. Is there any constraint stated exactly once that didn't make it in?
-3. For each artifact, is the version referenced actually the latest?
+3. For each artifact, is the version referenced the latest?
 
 If the thread contains contradictions the conversation never resolved,
 do not silently pick a winner in the handoff; list it under Open items
@@ -140,7 +140,7 @@ as an unresolved question.
 
 ## Fidelity rules
 
-Everything in the handoff must trace to something actually in the
+Everything in the handoff must trace to something in the
 thread. Do not fill gaps with plausible inference; a handoff reader
 trusts the document completely, so an invented detail becomes an
 invisible landmine. Where something is genuinely uncertain, mark it:

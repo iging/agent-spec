@@ -161,7 +161,7 @@ const workletsPluginOptions = {
 };
 ```
 
-`importForwarding.relativePaths` does the same for relative imports from your own code. The docs describe the `importForwarding` API as temporary, to be replaced with a more robust solution. Docs: https://docs.swmansion.com/react-native-worklets/docs/bundleMode/importForwarding
+`importForwarding.relativePaths` does the same for relative imports from your own code. The docs describe the `importForwarding` API as temporary, to be replaced with a more resilient solution. Docs: https://docs.swmansion.com/react-native-worklets/docs/bundleMode/importForwarding
 
 ### Using third-party libraries in worklets
 

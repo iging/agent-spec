@@ -87,7 +87,7 @@ If you're navigating away programmatically, await until `isGenerating` becomes `
 
 ## Tool / function calling
 
-Define tools with a name, description, and JSON-schema-like parameter spec. Implement `executeToolCallback` to actually run the tool. Models with strong tool-calling support: `models.llm.hammer2_1_*`, `models.llm.qwen3_*`.
+Define tools with a name, description, and JSON-schema-like parameter spec. Implement `executeToolCallback` to run the tool. Models with strong tool-calling support: `models.llm.hammer2_1_*`, `models.llm.qwen3_*`.
 
 ```tsx
 import { useEffect } from 'react';
@@ -222,7 +222,7 @@ models.llm.llama3_2_3b();
 // Non-quantized variant.
 models.llm.llama3_2_3b({ quant: false });
 
-// Explicit backend — only the backends the model actually ships are accepted.
+// Explicit backend — only the backends the model ships are accepted.
 models.llm.qwen3_4b({ backend: 'xnnpack' });
 ```
 

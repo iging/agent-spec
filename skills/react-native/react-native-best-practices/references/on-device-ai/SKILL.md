@@ -145,4 +145,4 @@ Full error code list and recovery patterns: [setup.md](setup.md).
 
 ---
 
-> **Acknowledgments:** Based on React Native ExecuTorch by Software Mansion.
+> **Acknowledgments:** Based on React Native ExecuTorch by the Expo Team.

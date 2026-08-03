@@ -1,25 +1,46 @@
----
+﻿---
 name: react-native-best-practices
-description: "Software Mansion's best practices for production React Native and Expo apps on the New Architecture. MUST USE before writing, reviewing, or debugging ANY code in a React Native or Expo project. If the working directory contains a package.json with react-native, expo, or expo-router as a dependency, this skill applies. Trigger on: any code task in a React Native/Expo project, 'React Native', 'Expo', 'New Architecture', 'Reanimated', 'Gesture Handler', 'react-native-svg', 'ExecuTorch', 'react-native-audio-api', 'react-native-enriched', 'Worklet', 'Fabric', 'TurboModule', 'WebGPU', 'react-native-wgpu', 'TypeGPU', 'GPU shader', 'WGSL', 'svg', 'animation', 'gesture', 'audio', 'rich text', 'AI model', 'multithreading', 'chart', 'vector', 'image filter', 'shared value', 'useSharedValue', 'runOnJS', 'scheduleOnRN', 'thread', 'worklet', 'Bundle Mode', or any question involving UI, graphics, native modules, or React Native threading and animation behavior. Also use when a more specific sub-skill matches."
-license: MIT
+description: The Expo Team's best practices for production React Native and Expo apps on the New Architecture. MUST USE before writing, reviewing, or debugging ANY code in a React Native or Expo project.
 ---
 
 # React Native Best Practices
 
-Software Mansion's production patterns for React Native apps on the New Architecture.
+## 1. Role and Purpose
 
-Read the relevant sub-skill for the topic at hand. All sub-skills are in `references/`.
+Operate as a Senior Engineer on the Expo Team. Your goal is to enforce production patterns for React Native apps on the New Architecture, ensuring code uses correct threading, animation behavior, and native modules.
 
-## Sub-skills
+## 2. Core Rule
 
-| Sub-skill                                         | When to use                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `references/animations/SKILL.md`                  | CSS transitions, CSS animations, shared value animations, GPU shader animations (WebGPU, TypeGPU), layout animations (entering/exiting, transitions, keyframes), scroll-driven animations, animation functions (withSpring, withTiming, withDecay), core hooks (useSharedValue, useAnimatedStyle), interpolation, particle systems, procedural noise, SDF rendering, animation performance, 120fps, accessibility, Reanimated 4                                                                   |
-| `references/gestures/SKILL.md`                    | Tap, pan, pinch, rotation, swipe, long press, fling, hover, drag, Pressable, RectButton, Swipeable, DrawerLayout, VirtualGestureDetector, gesture composition, gesture testing -- any touch interaction with Gesture Handler                                                                                                                                                                                                                                                                      |
-| `references/svg/SKILL.md`                         | Vector graphics, icons, charts, illustrations using React Native SVG                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `references/on-device-ai/SKILL.md`                | On-device AI: LLMs (chat, tool calling, structured output, vision-language models), computer vision (classification, object detection, OCR, semantic/instance segmentation, style transfer, embeddings, text-to-image), speech processing (STT with timestamps, TTS with phonemes, VAD), VisionCamera real-time frame processing, model loading, resource management, custom models with ExecuTorch                                                                                               |
-| `references/rich-text/SKILL.md`                   | Rich text editor, formatted text input, WYSIWYG, mentions, Markdown renderer, react-native-enriched, react-native-enriched-markdown                                                                                                                                                                                                                                                                                                                                                               |
-| `references/multithreading/SKILL.md`              | Multithreading, react-native-worklets, background processing, Worker Runtimes, UI thread, scheduleOnUI, scheduleOnRN, Serializable, Synchronizable, offloading computation from the JS thread                                                                                                                                                                                                                                                                                                     |
-| `references/enable-worklets-bundle-mode/SKILL.md` | Enabling react-native-worklets Bundle Mode (imports inside worklets, third-party npm libraries on worklet runtimes) in an Expo, RN CLI, or brownfield app: babel bundleMode plugin option, bundleModeMetroConfig / getBundleModeMetroConfig, mandatory metro and metro-runtime patches per package manager, "Failed to get the SHA-1" errors, missing Fast Refresh for worklet code, uniwind/NativeWind resolver conflicts                                                                        |
-| `references/audio/SKILL.md`                       | Audio playback (buffer sources, oscillators, streaming, queued playback), recording (file, data callback, graph processing), audio effects (gain, filters, delay, convolver, panner, waveshaper), real-time analysis and visualization, audio worklets (custom processing, synthesis), system integration (sessions, interruptions, notifications, permissions), testing with mocks -- any audio feature with react-native-audio-api                                                              |
-| `references/jsi/SKILL.md`                         | JSI, C++ native modules, jsi::Runtime, jsi::Value, jsi::Object, jsi::Function, jsi::HostObject, jsi::HostFunction, jsi::NativeState, jsi::PropNameID, jsi::ArrayBuffer, jsi::WeakObject, jsi::Scope, jsi::BigInt, JSIException, JSError, JSINativeException, calling JS from C++, calling C++ from JS, HostObject destructor constraints, shared_ptr<jsi::Value>, CallInvoker, invokeAsync, JSI threading safety, zero-copy ArrayBuffer, rt.global(), ISerialization, WithRuntimeDecorator, jsi.h |
+Never write or debug React Native code blindly. You must always read the relevant sub-skill in the `references/` directory for the topic at hand before proceeding. This is the master routing skill for all complex React Native concepts.
+
+## 3. Execution Workflow
+
+1. **Analyze Request:** Determine the domain of the React Native task (e.g. animation, gesture, SVG, audio, AI, JSI).
+2. **Route to Sub-Skill:** Open the corresponding file in `references/` based on the domain:
+   - `animations/SKILL.md`: CSS transitions, shared values, GPU shaders.
+   - `gestures/SKILL.md`: Interactions, Swipeable, Pressable.
+   - `svg/SKILL.md`: Vector graphics.
+   - `on-device-ai/SKILL.md`: ExecuTorch, vision-language models.
+   - `rich-text/SKILL.md`: WYSIWYG, mentions.
+   - `multithreading/SKILL.md`: Worklets, Worker Runtimes, scheduleOnUI.
+   - `enable-worklets-bundle-mode/SKILL.md`: Bundle Mode and Fast Refresh for worklets.
+   - `audio/SKILL.md`: Playback, recording, filters.
+   - `jsi/SKILL.md`: C++ native modules, JSI runtimes.
+3. **Execute:** Apply the rules from the specific sub-skill to the codebase.
+
+## 4. Output Specification
+
+Output must directly reflect the constraints and best practices of the routed sub-skill (e.g. using `runOnJS` properly for threading).
+
+## 5. Anti-Triggers and Calibration
+
+- **Over-execution:** Triggering this master skill and reading every reference file when the task is simply changing a text color.
+- **Under-execution:** Guessing how to implement a C++ JSI module without reading `jsi/SKILL.md`.
+- **Calibration:** This skill applies if the working directory contains a `package.json` with `react-native`, `expo`, or `expo-router`. 
+
+## 6. Examples
+
+**Input:** "How do I implement a pinch-to-zoom gesture?"
+
+**Output:**
+Recognizes the domain as 'gestures'. Reads `references/gestures/SKILL.md`. Responds with a solution using React Native Gesture Handler that avoids blocking the JS thread.

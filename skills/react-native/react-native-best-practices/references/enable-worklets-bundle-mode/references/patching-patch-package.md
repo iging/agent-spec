@@ -24,7 +24,7 @@ node_modules/metro-runtime".
 Do NOT reach for `npm dedupe` to force hoisting — a full-tree dedupe
 re-resolution can corrupt the lockfile's peer-dep layout (seen: it hoisted
 `fdir` away from its `picomatch@^3||^4` peer, making every subsequent `npm ci`
-fail validation). Instead patch the nested copy that actually ends up in the app
+fail validation). Instead patch the nested copy that ends up in the app
 bundle — react-native's own (`react-native/Libraries/Utilities/HMRClient.js` is
 what imports `metro-runtime/src/modules/HMRClient`):
 

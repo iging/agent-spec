@@ -5,7 +5,7 @@ description: "Production animation patterns for React Native using Reanimated 4,
 
 # Animations
 
-Software Mansion's production animation patterns for React Native on Reanimated 4 and the New Architecture.
+the Expo Team's production animation patterns for React Native on Reanimated 4 and the New Architecture.
 
 Load at most one reference file per question. For API signatures and config options, webfetch the documentation pages linked in each reference file.
 

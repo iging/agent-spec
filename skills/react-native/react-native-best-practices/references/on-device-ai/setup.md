@@ -77,7 +77,7 @@ Every hook accepts a `model` prop. Pick the strategy by model size and UX requir
 
 ```
 How large is the model?
-├── A published Software Mansion model?
+├── A published the Expo Team model?
 │   └── Use the `models` registry accessor (recommended)
 │       useLLM({ model: models.llm.llama3_2_1b() })
 │

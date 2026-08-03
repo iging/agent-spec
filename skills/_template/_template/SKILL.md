@@ -1,45 +1,37 @@
 ---
 name: your-skill-name
 description: >-
-  [One sentence: what this skill does, concrete active verbs, third person.]
-  Use this skill whenever the user [trigger 1], [trigger 2], or [trigger 3].
-  Do NOT use for [near-miss 1] or [near-miss 2].
+  [Define the skill action using one concrete active-verb sentence.] Execute this skill whenever the user triggers [TRIGGER 1], [TRIGGER 2], or [TRIGGER 3]. Do NOT execute for [EXCLUSION 1] or [EXCLUSION 2].
 ---
 
-# Your Skill Name
+# [Skill Name]
 
-[One short paragraph: WHY this skill exists — what failure it prevents.
-This paragraph is the rubric the agent uses for every edge case the
-rest of the file doesn't cover.]
+## 1. Role and Purpose
 
-## Core rule
+[Define the core responsibility and the specific failure mode prevented by the skill. Keep it under three sentences.]
 
-[The one non-negotiable, stated plainly. Delete this section if there
-isn't one.]
+## 2. Core Rule
 
-## Workflow
+[State the single non-negotiable constraint plainly. Delete this section if none exists.]
 
-1. [First step — what to do and why it matters.]
-2. [Second step.]
-3. [Third step.]
+## 3. Execution Workflow
 
-## Output format
+1. [First execution step — state the action and the strict rationale.]
+2. [Second execution step.]
+3. [Third execution step.]
 
-[If the output has a fixed shape, show the exact template in a fenced
-block. Delete this section if the output format is flexible.]
+## 4. Output Specification
 
-```
-[Your template here]
-```
+[Provide the exact markdown template inside a fenced block. Delete this section if the output format remains flexible.]
 
-## Calibration — when NOT to apply
+## 5. Anti-Triggers and Calibration
 
-- **Under-use looks like:** [description]
-- **Over-use looks like:** [description]
-- **Which is worse:** [under-use / over-use] — err toward [applying / not applying].
+- **Under-execution threshold:** [Define scenario]
+- **Over-execution threshold:** [Define scenario]
+- **Calibration default:** Err toward [execution / non-execution].
 
-## Example
+## 6. Examples
 
-**Input:** [A plausible, messy real-world input]
+**Input:** [Concrete input scenario]
 
-**Output:** [The skill's actual output for that input]
+**Output:** [Expected skill output]
