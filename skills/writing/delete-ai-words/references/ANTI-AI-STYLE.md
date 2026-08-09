@@ -9,7 +9,7 @@ description: >
 <!--
 INSTALL (works on all surfaces):
 - Claude Code / Claude apps: drop the `delete-ai-words/` folder into your skills directory. Fire with /delete-ai-words.
-- Cowork folder: keep this SKILL.md (or a copy named anti-ai-writing-style.md) in your folder and say "delete the AI words" or "audit your text against it."
+- Local notes folder / personal assistant folder: keep this SKILL.md (or a copy named anti-ai-writing-style.md) in your folder and say "delete the AI words" or "audit your text against it."
 - Project / Custom instructions: paste the body of this file into the project's instructions box.
 See README.md for details.
 -->

@@ -2,7 +2,7 @@
 
 _Last updated: 2026-07-30 · v2.0.0_
 
-50 patterns that waste tokens, trigger re-prompts, and burn API credits. Organized by failure category, from simple prompt mistakes to complex agentic runtime failures.
+50+ patterns that waste tokens, trigger re-prompts, and burn API credits. Organized by failure category, from simple prompt mistakes to complex agentic runtime failures.
 
 **When to use this file:**
 

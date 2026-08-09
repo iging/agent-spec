@@ -5,7 +5,7 @@ description: [ YOUR NAME ]'s personal spreadsheet style for Excel trackers and d
 
 # [ YOUR NAME ]'s Excel Style
 
-Defines HOW spreadsheets for [ YOUR NAME ] must look and behave. Layers on top of the public `xlsx` skill (`/mnt/skills/public/xlsx/SKILL.md`) — read that too for the openpyxl/recalc workflow. Where they conflict on style, THIS skill wins. Aim for **[ YOUR DESIRED FEEL — e.g. refined and substantial: classy, not corporate-bland, never sparse ]**.
+Defines HOW spreadsheets for [ YOUR NAME ] must look and behave. Layers on top of the `xlsx` skill (`skills/productivity/xlsx/SKILL.md`) — read that too for the openpyxl/recalc workflow. Where they conflict on style, THIS skill wins. Aim for **[ YOUR DESIRED FEEL — e.g. refined and substantial: classy, not corporate-bland, never sparse ]**.
 
 ## Priorities (in order)
 

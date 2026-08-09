@@ -22,6 +22,7 @@ Apply these rules strictly to all component generation to enforce performance an
 - **Feature-First Architecture:** Place all code inside a `src/` directory. Group code by feature or domain (e.g., `src/features/auth`) rather than scattering files globally. The `app/` directory should strictly contain routing logic (`page.tsx`, `layout.tsx`).
 - **Component Size:** Components must be small and modular. Never combine complex business logic, data fetching, and large UI trees into a single file. Break them into smaller reusable functions.
 - **Serialization Boundary:** Data passed from a Server Component to a Client Component MUST be strictly serializable (JSON). Passing functions, Dates, or class instances as props is BANNED.
+- **Async Request APIs (Next.js 16):** Page and layout props (`params`, `searchParams`) are asynchronous Promises. You MUST explicitly `await params` and `await searchParams` before accessing their properties. Synchronous access is strictly BANNED.
 
 ---
 
@@ -29,8 +30,9 @@ Apply these rules strictly to all component generation to enforce performance an
 
 - **Server-Side Fetching:** Data MUST be fetched on the server using `async/await` directly within Server Components.
 - **Banned Fetching:** Do NOT use the `useEffect` hook for data fetching. It causes layout shifts and performance degradation.
-- **Next.js 15 Caching Paradigm:** In Next.js 15, `fetch` requests are NO LONGER cached by default. You MUST explicitly opt-in using the `'use cache'` directive for expensive operations.
-- **Server Actions over Route Handlers:** Use Server Actions for all form submissions and internal database mutations. Reserve Route Handlers strictly for external public REST APIs or webhooks.
+- **Next.js 16 Caching & Dynamic I/O:** Dynamic data operations and fetches are uncached by default. You MUST explicitly opt-in using the `'use cache'` directive alongside `cacheLife()` and `cacheTag()` helpers for explicit cache control.
+- **Async Request Context (Next.js 16):** Dynamic server utilities (`cookies()`, `headers()`, `draftMode()`) are asynchronous. You MUST explicitly `await cookies()` and `await headers()` in Server Components and Server Actions.
+- **Server Actions & React 19 Action Hooks:** Use Server Actions for all form submissions and internal database mutations. In Client Components, integrate Server Actions using React 19 native hooks (`useActionState`, `useFormStatus`, `useOptimistic`). Reserve Route Handlers strictly for external public REST APIs or webhooks.
 - **Suspense & Partial Prerendering (PPR):** Enforce granular `<Suspense>` boundaries around genuinely dynamic components (like a shopping cart) to maximize Partial Prerendering. Avoid wrapping entire pages in a single Suspense boundary.
 - **State Granularity:** When managing state in Client Components, use granular states (multiple `useState` declarations) instead of a single monolithic state object to prevent unnecessary re-renders.
 - **Global State:** The React Context API is permitted for lightweight global state. Third-party state management (like Redux) is BANNED unless explicitly requested by the user.
@@ -42,6 +44,7 @@ Apply these rules strictly to all component generation to enforce performance an
 - **Image Optimization:** The standard HTML `<img>` tag is strictly BANNED. You MUST import and use the `next/image` component for all images.
 - **Font Optimization:** Importing fonts from external CDNs is BANNED. You MUST use the built-in `next/font` module to self-host and optimize fonts.
 - **Lazy Loading:** For heavy Client Components (like charts or rich text editors), use `next/dynamic` to lazy-load them and reduce the initial JavaScript bundle size.
+- **Turbopack Readiness:** All custom configurations, imports, and modules MUST be fully compatible with Turbopack (the default bundler in Next.js 16 for dev and build). Webpack-only plugins or custom loaders are BANNED unless wrapped in explicit fallbacks.
 
 ---
 
