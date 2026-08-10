@@ -1,106 +1,178 @@
 ---
 name: spec-reviewer
 description: >-
-  Audit, sanitize, refactor, and elevate third-party or reverse-engineered prompts and skills into original, production-grade enterprise specifications. Execute this skill when the user requests a deep review of a skill or prompt, asks to sanitize or rename borrowed or reverse-engineered instructions, or wants to elevate raw prompts into reusable enterprise specifications. Do NOT execute for basic code linting, simple typo fixes, or non-specification tasks.
+  Audit, sanitize, refactor, and elevate third-party or reverse-engineered
+  prompts and skills into original, Tier-5 enterprise specifications per
+  docs/skill-standard.md. Execute this skill when the user requests a deep
+  review of a skill or prompt, asks to sanitize or rename borrowed or
+  reverse-engineered instructions, or wants to elevate raw prompts into
+  reusable enterprise specifications. Do NOT execute for basic code linting,
+  simple typo fixes, or authoring a brand-new skill from scratch (use
+  write-a-skill).
+version: 2.0.0
+verified-on: [cline]
 ---
 
 # Specification Reviewer and Enterprise Elevate
 
-## 1. Role and Purpose
+## 0. Identity
 
-Act as a Principal Specification Architect and Security Auditor. Your purpose is to audit reverse-engineered or third-party instruction sets, sanitize proprietary fingerprints, eliminate credit-killing anti-patterns, and reconstruct the logic into production-grade, highly reusable enterprise modules.
+- **Role:** Elevation execution engine. Audits, sanitizes, re-architects, and elevates prompts, skills, and specs to the Enterprise Skill Standard (Tier 5).
+- **Authority:** Normative for elevation execution. Owns the rewrite procedure.
+- **Must not define:** The standard itself (`docs/skill-standard.md` owns that). New-skill authoring from scratch (`write-a-skill` owns that). IDE loading behavior (`runtime/` owns that).
+- **Normative base:** `docs/skill-standard.md`; `docs/anti-patterns.md`; `skills/_template/SKILL.md`; `shared/writing-rules.md`; local `references/anti-patterns.md` + `references/writing-rules.md`.
+- **Anti-pattern gate:** This skill must never encode anti-patterns AP-1–AP-56. Any step that could trigger AP-4 (over-permissive), AP-26 (no scope), AP-28 (no stop), AP-44 (unlocked filesystem), or AP-45 (no human review) is forbidden.
 
-## 2. Core Rule
+## 1. Intent (9 Dimensions)
 
-Never preserve third-party trademarks, original file names, author idioms, or unverified prompt structures. Every refactored specification must undergo total origin sanitization, pass all fifty-six anti-pattern checks, and conform strictly to the project writing rules.
+| #   | Dimension        | Value                                                                                                                                                      |
+| --- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Task             | Audit a target prompt/skill/spec and elevate it to a Tier-5 enterprise specification per `docs/skill-standard.md`.                                         |
+| 2   | Target Tool      | Any agent runtime reading markdown skills: Claude Code, Cursor, Copilot, Windsurf, Kiro, Cline, raw API.                                                   |
+| 3   | Output Format    | A Specification Transformation Audit report + a rewritten `SKILL.md` (+ `references/` files for complex domains).                                          |
+| 4   | Constraints      | Only edit the designated target path. Never alter the technical objective. Never preserve third-party fingerprints. Bind every step to the normative base. |
+| 5   | Input            | The user's target skill/prompt/spec, the designated output path, and the authoritative gates (anti-patterns, writing rules).                               |
+| 6   | Context          | Prevents credit-killing anti-patterns and provenance/plagiarism risk from propagating into the skill pool.                                                 |
+| 7   | Audience         | The elevating agent (executing this skill) and any downstream agent that consumes the elevated skill.                                                      |
+| 8   | Success Criteria | All 10 requirements of `docs/skill-standard.md` §2 verified pass; AP compliance table complete; no third-party fingerprints remain.                        |
+| 9   | Examples         | See §10.                                                                                                                                                   |
+
+## 2. Trigger Matrix
+
+| Trigger                                                       | Fire? | Notes                         |
+| ------------------------------------------------------------- | ----- | ----------------------------- |
+| "Deep review / audit this skill or prompt"                    | YES   | Core trigger.                 |
+| "Sanitize or rename borrowed/reverse-engineered instructions" | YES   | Core trigger.                 |
+| "Make this enterprise-grade / omnipotent / Tier-5"            | YES   | Core trigger.                 |
+| Basic code linting or simple typo fixes                       | NO    | Not a specification task.     |
+| "Write a brand-new skill"                                     | NO    | Route to `write-a-skill`.     |
+| One-off task instruction (non-reusable)                       | NO    | Not reusable; do not elevate. |
 
 ## 3. Execution Workflow
 
-1. **Origin Sanitization and De-Attribution:** Scan the source text for third-party brand names, specific author phrases, hardcoded URLs, or distinct naming conventions. Rename all files, variables, and identifiers to match standardized domain terms within the workspace context.
-2. **Logic Extraction and Native Re-Implementation:** Extract the underlying functional intent from the source. Re-architect the core execution workflow from scratch using native, enterprise-grade design patterns. Ensure the new implementation improves reliability without retaining original structural signatures.
-3. **Anti-Pattern Audit:** Cross-reference the instruction payload against the local reference guide in `references/anti-patterns.md`. Audit for vague task verbs, over-permissive boundaries, implicit references, chain-of-thought interference, unchecked agent loops, and context rot. Remediate every detected anti-pattern.
-4. **Reusability and Parameterization Structuring:** Convert hardcoded inputs into parametric slots. Structure the specification with strict input requirements, clear prerequisites, explicit failure boundaries, and deterministic execution steps.
-5. **Reference Extraction and Progressive Loading:** Audit file length and context footprint. Extract heavy boilerplate templates, schemas, API listings, and lookup tables into dedicated `references/[descriptive-name].md` files. Ensure reference names are semantic, LLM-friendly, and concise. Reference these files dynamically in the primary `SKILL.md` to conserve context tokens and maintain human readability.
-6. **Prose Purification:** Enforce the writing rules defined in `references/writing-rules.md`. Remove banned words, passive voice, meta-commentary, and unnecessary adjectives. Ensure prose contains zero em dashes and zero conversational filler.
-7. **Specification Assembly:** Render the transformed, production-ready specification into the designated file path within the project directory structure.
+### Step 1: Audit Against the Standard
+
+- **Action:** Run the target through the 10-requirement checklist in `docs/skill-standard.md` §2. Output a gap report classifying each gap as structural, behavioral, or normative.
+- **Input:** Target file(s); `docs/skill-standard.md`.
+- **Stop Condition:** If the target is Tier 2 (personal calibration) or Tier 1 (single-purpose utility), stop and confirm with the user whether elevation is wanted.
+- **Validation:** Every requirement has an explicit PASS/FAIL recorded. No partial labels.
+
+### Step 2: Origin Sanitization and De-Attribution
+
+- **Action:** Scan the source for third-party brand names, author phrases, hardcoded URLs, and distinct naming conventions. Rename identifiers to standardized domain terms within the workspace context.
+- **Input:** Target file(s).
+- **Stop Condition:** If renaming would alter the core technical objective, stop and ask the user.
+- **Validation:** Grep confirms zero surviving original brand names or author fingerprints.
+
+### Step 3: Logic Extraction and Native Re-Implementation
+
+- **Action:** Extract the underlying functional intent. Re-architect the execution workflow from scratch using enterprise-grade design patterns. Improve reliability without retaining original structural signatures.
+- **Input:** Sanitized content.
+- **Stop Condition:** If the extracted intent is ambiguous, stop and ask the user before inventing behavior.
+- **Validation:** The rewritten workflow expresses the SAME objective with DIFFERENT structure.
+
+### Step 4: Anti-Pattern Audit
+
+- **Action:** Cross-reference the instruction payload against `references/anti-patterns.md`. Remediate every detected pattern. Flag by number (AP-N).
+- **Input:** Rewritten content; `references/anti-patterns.md`.
+- **Stop Condition:** If remediation requires the user's technical decision, stop and present options.
+- **Validation:** Every identified AP has a corresponding remediation note in the final report.
+
+### Step 5: Reusability and Parameterization
+
+- **Action:** Convert hardcoded inputs into parametric slots. Define input requirements, prerequisites, failure boundaries, and deterministic steps.
+- **Input:** Rewritten content.
+- **Stop Condition:** None. Parameterization never changes the objective.
+- **Validation:** No hardcoded task-specific values remain in the execution steps.
+
+### Step 6: Reference Extraction and Progressive Loading
+
+- **Action:** Audit file length and context footprint. Extract heavy boilerplate, schemas, API listings, and lookup tables into `references/[descriptive-name].md`. Keep `SKILL.md` under ~200 lines.
+- **Input:** Rewritten content.
+- **Stop Condition:** If the domain is simple (<200 lines), omit this step.
+- **Validation:** `SKILL.md` is under ~200 lines and every reference path is resolvable.
+
+### Step 7: Prose Purification
+
+- **Action:** Enforce `shared/writing-rules.md` + `references/writing-rules.md`. Remove banned words, passive voice, meta-commentary, filler, and em dashes. Preserve a Spartan, deterministic voice.
+- **Input:** All draft files.
+- **Stop Condition:** None.
+- **Validation:** No banned words or em dashes present.
+
+### Step 8: Assembly and Validation Gate
+
+- **Action:** Render the specification to the designated path. Run §5 Validation Gate. Record the result in the changelog.
+- **Input:** All draft files; designated output path.
+- **Stop Condition:** If any validation item fails, fix the file before writing.
+- **Validation:** All §5 items pass; file written; changelog updated.
 
 ## 4. Output Specification
-
-Output the review report and the refactored specification using the exact format below.
 
 ```markdown
 # Specification Transformation Audit
 
-- **Target Identifier:** [New Enterprise Skill Name]
+- **Target Identifier:** [Elevated Skill Name]
 - **Original Source Status:** Sanitized and Re-Architected
-- **Anti-Patterns Resolved:** [List specific anti-pattern numbers remediated]
-- **Reusability Rating:** [Production Grade / Modular]
+- **Anti-Patterns Resolved:** [AP numbers]
+- **Tier:** 5 (Enterprise) — all requirements verified
+- **Reusability Rating:** Production Grade / Modular
 
 ---
 
-[Transformed SKILL.md content or target spec content here]
+[Elevated SKILL.md content — conforms to skills/_template/SKILL.md]
 ```
 
-## 5. Anti-Triggers and Calibration
+## 5. Validation Gate
 
-- **Under-execution threshold:** Performing superficial copy-editing while leaving third-party names, original author fingerprints, or critical anti-patterns intact.
-- **Over-execution threshold:** Altering the core technical objective or stripping essential domain constraints during the sanitization phase.
+Run before declaring completion. All items must pass:
+
+- [ ] All 10 requirements from `docs/skill-standard.md` §2 verified PASS.
+- [ ] Anti-Pattern Compliance table (§7 of target) is complete and mechanically accurate.
+- [ ] No third-party names, URLs, or author fingerprints survive.
+- [ ] Every `references/` path resolves.
+- [ ] `SKILL.md` is under ~200 lines.
+- [ ] Changelog updated with version + date.
+
+## 6. Anti-Triggers and Calibration
+
+- **Under-execution threshold:** Superficial copy-editing that leaves third-party names, fingerprints, or anti-patterns intact.
+- **Over-execution threshold:** Altering the core technical objective or stripping essential domain constraints during sanitization.
 - **Calibration default:** Err toward complete structural re-architecting to guarantee original ownership and maximum enterprise reusability.
 
-## 6. Examples
+## 7. Anti-Pattern Compliance
 
-**Input:** "I reverse-engineered this prompt called `super-coder-v3` from another repo. Help me review it, rename the files, and turn it into a skill for our project."
+| Step             | Prevents AP                            | Mechanism                                                                            |
+| ---------------- | -------------------------------------- | ------------------------------------------------------------------------------------ |
+| 1 (Audit)        | AP-3 (no success criteria)             | Gap report defines explicit pass criteria per requirement.                           |
+| 2 (Sanitize)     | AP-11, AP-12 (forgotten/no context)    | De-attribution removes borrowed context.                                             |
+| 3 (Re-implement) | AP-6 (build-the-whole-thing)           | Extraction scopes to functional intent, not whole sources.                           |
+| 4 (AP audit)     | AP-1, AP-4, AP-26                      | Remediation step explicitly flags vague verbs, permissive scope, missing boundaries. |
+| 5 (Parameterize) | AP-29, AP-42 (no target state)         | Parametric slots + defined prerequisites.                                            |
+| 6 (References)   | AP-16, AP-31 (context dumping)         | Progressive loading caps SKILL.md size.                                              |
+| 8 (Assembly)     | AP-28, AP-52 (no stop/circuit breaker) | Validation gate halts before write on failure.                                       |
 
-**Output:**
+## 8. Versioning & Changelog
 
-```markdown
-# Specification Transformation Audit
+- **Version:** 2.0.0
+- **Changelog:**
+  - `2.0.0` (2026-08-08) — Elevated to Tier 5 per `docs/skill-standard.md`. Added Identity, 9-Dimension Intent, Trigger Matrix, per-step Action/Input/Stop/Validation, Validation Gate, AP compliance map, Versioning, Portability Matrix.
 
-- **Target Identifier:** `code-refactor-engine`
-- **Original Source Status:** Sanitized and Re-Architected
-- **Anti-Patterns Resolved:** 1 (Vague task verb), 4 (Over-permissive agent), 24 (No schema for structured output), 48 (Retry-without-correction loop)
-- **Reusability Rating:** Production Grade
+## 9. Portability Matrix
 
----
+| Runtime              | Status   | Notes                          |
+| -------------------- | -------- | ------------------------------ |
+| Claude Code          | untested |                                |
+| Cursor               | untested |                                |
+| Copilot              | untested |                                |
+| Windsurf             | untested |                                |
+| Kiro                 | untested |                                |
+| Cline                | verified | Executed in current workspace. |
+| Raw API (no tooling) | untested |                                |
 
----
+## 10. Examples
 
-name: code-refactor-engine
-description: >-
-Refactor complex source files into modular, production-ready components following strict quality boundaries. Execute this skill when requested to refactor legacy code, extract shared modules, or optimize existing software architecture. Do NOT execute for initial project scaffolding or simple bug fixes.
+**Input:** "I reverse-engineered `super-coder-v3` from another repo. Review it, rename the files, and elevate it into an enterprise skill."
 
----
+**Output:** Specification Transformation Audit (per §4) + a Tier-5 `SKILL.md` bound to the normative base, with zero surviving third-party fingerprints and all AP remediations numbered.
 
-# Code Refactor Engine
-
-## 1. Role and Purpose
-
-Act as a Principal Software Engineer. Audit and refactor legacy code components into modular, production-ready software modules while preserving public contracts.
-
-## 2. Core Rule
-
-Never alter public API signatures without explicit approval. Always verify existing test suites pass before and after refactoring.
-
-## 3. Execution Workflow
-
-1. **Analyze Contracts:** Identify entry points, state dependencies, and public interface boundaries.
-2. **Isolate Components:** Decompose monolithic methods into single-responsibility functions.
-3. **Apply Typing:** Enforce strict type definitions across all input parameters and return values.
-4. **Verify Output:** Run automated test suites to confirm functional equivalence.
-
-## 4. Output Specification
-
-Produce refactored code modules inside code blocks with detailed file paths.
-
-## 5. Anti-Triggers and Calibration
-
-- **Under-execution threshold:** Cleaning formatting without addressing architectural debt.
-- **Over-execution threshold:** Rewriting working underlying infrastructure unnecessarily.
-- **Calibration default:** Err toward localized refactoring over global rewrites.
-
-## 6. Examples
-
-**Input:** "Refactor this legacy user parser module."
-
-**Output:** Produces clean TypeScript module code with explicit error boundaries and complete test coverage.
-```
+**Failure case:** If the user wants to elevate a personal-calibration skill (Tier 2) but ALSO wants its personal voice preserved — refuse to genericize the voice and instead keep personal data as explicit configuration per `docs/skill-standard.md` §3.

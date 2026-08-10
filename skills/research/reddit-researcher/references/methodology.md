@@ -53,7 +53,7 @@ Launching all agents now...
 
 ## Step 1 — Run All 7 Source Agents in Parallel
 
-Launch all 7 agents simultaneously using the Agent tool — do NOT wait for one before starting the next. Pass TOPIC, DATE_30_DAYS_AGO, and UNIX_30_DAYS_AGO to each.
+Launch all 7 source integrations simultaneously using the configured agent-runtime parallel-execution tool — do NOT wait for one before starting the next. Pass TOPIC, DATE_30_DAYS_AGO, and UNIX_30_DAYS_AGO to each.
 
 Use the agent instructions below for each source. Each agent returns a plain text summary.
 
@@ -61,7 +61,7 @@ Use the agent instructions below for each source. Each agent returns a plain tex
 
 ### Agent A — Reddit
 
-Call the Apify actor trudax/reddit-scraper-lite via the Apify MCP tool with this input:
+Call the configured Reddit source integration (e.g., Apify actor `reddit-scraper-lite` via the Apify MCP tool) with this input:
 
 {
 
@@ -108,7 +108,7 @@ Lead with highest-upvote posts. Group by subreddit if patterns emerge. If 0 resu
 
 ### Agent B — X/Twitter
 
-Call the Apify actor apidojo/tweet-scraper via the Apify MCP tool with this input:
+Call the configured X/Twitter source integration (e.g., Apify actor `tweet-scraper` via the Apify MCP tool) with this input:
 
 {
 
@@ -138,7 +138,7 @@ Lead with highest-liked tweets. Note any viral threads. If 0 results: write "X: 
 
 ### Agent C — YouTube
 
-Call the Apify actor streamers/youtube-scraper via the Apify MCP tool with this input:
+Call the configured YouTube source integration (e.g., Apify actor `youtube-scraper` via the Apify MCP tool) with this input:
 
 {
 
@@ -173,7 +173,7 @@ Lead with most-viewed videos. **Always include transcript quotes in your output*
 
 ### Agent D — LinkedIn
 
-Call the Apify actor harvestapi/linkedin-post-search via the Apify MCP tool with this input:
+Call the configured LinkedIn source integration (e.g., Apify actor `linkedin-post-search` via the Apify MCP tool) with this input:
 
 {
 
@@ -207,7 +207,7 @@ Group by professional angle if patterns emerge. Lead with highest-engagement pos
 
 ### Agent E — Hacker News
 
-Use WebFetch to call the Algolia HN API (free, no auth required):
+Use the configured Hacker News query integration (e.g., WebFetch on the Algolia HN API, free, no auth required):
 
 https://hn.algolia.com/api/v1/search\_by\_date?query={TOPIC\_URL\_ENCODED}\&tags=story\&numericFilters=created\_at\_i\>{UNIX\_30\_DAYS\_AGO}\&hitsPerPage=30
 
@@ -225,13 +225,13 @@ Lead with highest-points stories. Note any that sparked large comment threads. I
 
 ### Agent F — Web
 
-Use WebSearch to find recent web content. Run 2–3 searches with different angle variations:
+Use the configured web search integration to find recent web content. Run 2–3 searches with different angle variations:
 
 - "{TOPIC}" after:{DATE_30_DAYS_AGO}
 - "{TOPIC}" news latest
 - "{TOPIC}" analysis 2026
 
-Then use WebFetch to read the full content of the top 5–10 most relevant URLs.
+Then use the configured fetch integration to read the full content of the top 5–10 most relevant URLs.
 
 For each page return:
 
@@ -246,11 +246,11 @@ Group by theme. Lead with most authoritative and recent sources. Only include co
 
 ### Agent G — TechCrunch
 
-Use WebSearch to find recent TechCrunch articles:
+Use the configured web search integration to find recent TechCrunch articles:
 
 site:techcrunch.com {TOPIC} after:{DATE_30_DAYS_AGO}
 
-Collect the top 5–8 TechCrunch article URLs. Then use WebFetch on each URL to read the full article content.
+Collect the top 5–8 TechCrunch article URLs. Then use the configured fetch integration on each URL to read the full article content.
 
 For each article return:
 

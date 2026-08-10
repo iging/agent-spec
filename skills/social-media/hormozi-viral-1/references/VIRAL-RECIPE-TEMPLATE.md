@@ -1,6 +1,6 @@
 ---
 name: hormozi-viral-1
-description: Generate a high-impact social post (LinkedIn-first) using the exact viral recipe behind Alex Hormozi's "I've built wealth without..." post — a contrarian anaphora list of things you did WITHOUT, a pivot to the few things that matter, a dead-simple numbered framework, and a one-line reframe closer, paired with a striking portrait image. Use this skill whenever Ruben invokes hormozi-viral-1, or asks to write a post in "the Hormozi style," a "contrarian without-list post," an "I did X without Y" post, a "myth-busting list post," or wants to recreate that viral structure for any topic, niche, or audience. Trigger even on casual asks like "make me a hormozi-1 post about cold email" or "turn this into that viral without-list format." The skill runs a short interactive Q&A to fill the template, then outputs the finished caption plus an image-direction brief.
+description: Generate a high-impact social post (LinkedIn-first) using the exact viral recipe behind Alex Hormozi's "I've built wealth without..." post — a contrarian anaphora list of things you did WITHOUT, a pivot to the few things that matter, a dead-simple numbered framework, and a one-line reframe closer, paired with a striking portrait image. Use this skill whenever the user invokes hormozi-viral-1, or asks to write a post in "the Hormozi style," a "contrarian without-list post," an "I did X without Y" post, a "myth-busting list post," or wants to recreate that viral structure for any topic, niche, or audience. Trigger even on casual asks like "make me a hormozi-1 post about cold email" or "turn this into that viral without-list format." The skill runs a short interactive Q&A to fill the template, then outputs the finished caption plus an image-direction brief.
 ---
 
 # hormozi-viral-1
@@ -17,7 +17,7 @@ Work in three beats. Don't dump every question at once, and don't write the post
 2. **Draft the whole post yourself** using the skeleton. Propose the full "without" list, the numbered steps, and the closer. Don't make the user supply every line — your value is generating strong candidates from the niche's clichés. Filling those slots well is the hard part, so do it.
 3. **Refine together.** Show the draft, then ask targeted questions: "Is this outcome punchy enough? Which of these closer lines do you like? Any 'without' item feel off?" Iterate until the user says ship it. This is the "iterate through questions and answers" loop the user asked for.
 
-When the environment supports multiple-choice prompts (the desktop/Cowork app), use them for choices like picking a closer or selecting which "without" items to keep. Otherwise ask in plain text.
+When the environment supports multiple-choice prompts (e.g., a desktop app integration), use them for choices like picking a closer or selecting which "without" items to keep. Otherwise ask in plain text.
 
 ## The reference post (the original viral artifact)
 

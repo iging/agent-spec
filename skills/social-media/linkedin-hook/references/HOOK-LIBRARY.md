@@ -48,12 +48,12 @@ The "after the fold" line is a bonus — a taste of what comes next to validate 
 
 ## The Hook Library
 
-These are the author's most viral hooks on LinkedIn. They are the ground truth for what works. Study their patterns carefully before generating anything.
+These are 13 ground-truth skeletal patterns proven to work on LinkedIn. Study their patterns carefully before generating anything. The example content below is generic — the pattern is the load-bearing part. Adapt the skeleton to the user's topic with entirely new content (see "Rules for adapting library hooks").
 
 ### Hook 1
 
 ```
-Don't copy and paste (obvious) ChatGPT answers.
+Don't copy and paste (obvious) AI answers.
 Here's a secret hack to humanize it:
 ```
 
@@ -72,7 +72,7 @@ This 29-word prompt writes better than all of them:
 
 ```
 How to make AI sound exactly like you (forever):
-1: Go to claude .ai
+1: Go to the official tool's site
 ```
 
 **Pattern:** "How to" promise with parenthetical intensifier → immediately starts delivering (step 1).
@@ -89,7 +89,7 @@ But no one does this first (and it takes 47 mins):
 ### Hook 5
 
 ```
-This is the only Claude Cowork guide you need.
+This is the only AI workspace guide you need.
 (duplicate my exact folder, files, and prompts):
 ```
 
@@ -99,7 +99,7 @@ This is the only Claude Cowork guide you need.
 
 ```
 ChatGPT looks like a toy in 2026.
-I can't stop using the new Claude 'Cowork':
+I can't stop using the new AI workspace:
 ```
 
 **Pattern:** Bold dismissal of a known tool → personal endorsement of the alternative.
@@ -107,7 +107,7 @@ I can't stop using the new Claude 'Cowork':
 ### Hook 7
 
 ```
-You're using Claude wrong.
+You're using AI wrong.
 Here's my (exact) setup before I even prompt:
 ```
 
@@ -125,7 +125,7 @@ But you're lost on how to use it. Here is how
 ### Hook 9
 
 ```
-Claude broke the internet (again) with Claude Computer.
+AI broke the internet (again) with agentic apps.
 Here's how it works on your computer, FOR you:
 ```
 
@@ -134,7 +134,7 @@ Here's how it works on your computer, FOR you:
 ### Hook 10
 
 ```
-How to start using Claude Code in 30 min:
+How to start using AI coding tools in 30 min:
 (even if you never wrote one line of code)
 ```
 
@@ -143,7 +143,7 @@ How to start using Claude Code in 30 min:
 ### Hook 11
 
 ```
-How to set up the Claude completely in 1 day:
+How to set up the AI assistant completely in 1 day:
 (Save this. Send it to your team. Thank me later.)
 ```
 
@@ -152,7 +152,7 @@ How to set up the Claude completely in 1 day:
 ### Hook 12
 
 ```
-You're using 1% of Claude.
+You're using 1% of AI.
 Here's how to master it in one week:
 ```
 
@@ -161,7 +161,7 @@ Here's how to master it in one week:
 ### Hook 13
 
 ```
-Don't copy and paste (obvious) ChatGPT answers.
+Don't copy and paste (obvious) AI answers.
 Here's a secret hack to humanize it:
 ```
 
@@ -175,11 +175,11 @@ When you adapt a hook from the library, you're transplanting its skeleton onto t
 
 **Keep the structural DNA.** If the original uses "Stop [verb]ing [specific bad habit]" on Line 1, your adaptation must also use "Stop [verb]ing [specific bad habit]." If it opens with "How to [promise] in [timeframe]:", yours must too. The structure is what made it viral — don't get creative with the skeleton.
 
-**Replace the content entirely.** The topic, the specifics, the numbers, the tool names — all of these should come from the new image and newsletter. Don't swap "ChatGPT" for another word. Deeply understand what the new content is about and find the angle that fits this skeleton naturally.
+**Replace the content entirely.** The topic, the specifics, the numbers, the tool names — all of these should come from the new image and newsletter. Don't swap one tool name for another. Deeply understand what the new content is about and find the angle that fits this skeleton naturally.
 
-**Match the emotional intensity.** If the original hook stings ("You're using Claude wrong"), your adaptation should sting equally hard on the new topic. If the original promises something specific ("This 29-word prompt"), your adaptation needs an equally specific promise from the new content.
+**Match the emotional intensity.** If the original hook stings ("You're using AI wrong"), your adaptation should sting equally hard on the new topic. If the original promises something specific ("This 29-word prompt"), your adaptation needs an equally specific promise from the new content.
 
-**Preserve parenthetical and punctuation style.** The original hooks use parentheticals like "(obvious)", "(exact)", "(even if you never wrote one line of code)". These aren't decoration — they add specificity and voice. Your adaptations should use parentheticals in the same positions with the same function.
+**Preserve parenthetical and punctuation style.** The library hooks use parentheticals like "(obvious)", "(exact)", "(even if you never wrote one line of code)". These aren't decoration — they add specificity and voice. Your adaptations should use parentheticals in the same positions with the same function.
 
 **Use real numbers from the content.** The library hooks are full of specific numbers: 500-word, 29-word, 47 mins, 30 min, 1%, one week. Find real numbers in the newsletter or image and use them. Never invent a number.
 
@@ -201,7 +201,7 @@ Find completely different structures. Some directions to explore (but don't limi
 - Start with a mini-story or scenario ("I deleted all my prompts last Tuesday.")
 - Use a direct quote or phrase from the image as the hook
 - Make a prediction or future-facing claim
-- Use contrast between two audiences ("Beginners customize prompts. Experts customize Claude.")
+- Use contrast between two audiences ("Beginners customize prompts. Experts customize their whole workflow.")
 
 Each of the 5 should feel structurally distinct from the others. Diversity is the point — give the author real choices.
 
@@ -215,9 +215,9 @@ Line 1 is the most important line in the entire post. Two things matter:
 
 LinkedIn uses a proportional font on mobile. The first line of a hook appears in the feed preview. Shorter lines have more visual impact — they read as confident and punchy.
 
-Looking at the Hook Library, proven Line 1 lengths range from about 26 characters ("You're using Claude wrong.") to about 52 characters ("Claude broke the internet (again) with Claude Computer."). The sweet spot for most hooks is 25-45 characters. Going beyond 50 should be rare and only when the extra words genuinely earn their place.
+Looking at the Hook Library, proven Line 1 lengths range from about 22 characters ("You're using AI wrong.") to about 55 characters ("AI broke the internet (again) with agentic apps."). The sweet spot for most hooks is 25-45 characters. Going beyond 50 should be rare and only when the extra words genuinely earn their place.
 
-Brevity is a weapon, not a rule. "You're using Claude wrong." hits harder than a longer version would. When you can say it shorter without losing impact, always go shorter.
+Brevity is a weapon, not a rule. "You're using AI wrong." hits harder than a longer version would. When you can say it shorter without losing impact, always go shorter.
 
 ### Emotional targeting
 
@@ -225,9 +225,9 @@ The reader must feel personally addressed. If someone reads only Line 1 and noth
 
 The Hook Library shows several proven emotional patterns:
 
-- **"You" + accusation:** "You're using Claude wrong." / "You're using 1% of Claude."
-- **Command:** "Don't copy and paste (obvious) ChatGPT answers." / "Stop writing 500-word prompts."
-- **Bold claim:** "ChatGPT looks like a toy in 2026." / "This is the only Claude Cowork guide you need."
+- **"You" + accusation:** "You're using AI wrong." / "You're using 1% of AI."
+- **Command:** "Don't copy and paste (obvious) AI answers." / "Stop writing 500-word prompts."
+- **Bold claim:** "ChatGPT looks like a toy in 2026." / "This is the only AI workspace guide you need."
 - **"How to" promise:** "How to make AI sound exactly like you (forever):"
 - **Mirror the reader's situation:** "You quit ChatGPT for Claude."
 
@@ -246,7 +246,7 @@ From the library, the proven Line 2 patterns are:
 - **Parenthetical that removes objections:** "(even if you never wrote one line of code)" / "(duplicate my exact folder, files, and prompts):"
 - **Concrete counter-promise:** "This 29-word prompt writes better than all of them:"
 - **Social proof command:** "(Save this. Send it to your team. Thank me later.)"
-- **Start delivering immediately:** "1: Go to claude .ai"
+- **Start delivering immediately:** "1: Go to the official tool's site"
 
 The colon at the end of Line 2 is a signature move — it signals "I'm about to give you the goods." Most hooks in the library end Line 2 with a colon. Use it.
 

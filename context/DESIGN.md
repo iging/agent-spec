@@ -2,6 +2,9 @@
 
 > **Purpose:** Define visual/brand identity, design tokens, component styling, layout primitives, and accessibility conventions so UI implementation is consistent and high-quality. Tier-3 template — fill it in for your project.
 
+> [!TIP]
+> **Don't want to build from scratch?** You can find 74 ready-to-use brand presets in the `examples/brand-presets/` directory. Copy one of them into your project to instantly adopt its visual language.
+
 _Last updated: [DATE]_
 
 ---

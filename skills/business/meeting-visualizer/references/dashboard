@@ -1,0 +1,33 @@
+# Dashboard Design Constraints
+
+Hard constraints for rendering the self-contained meeting dashboard in `meeting-visualizer` Step 5.
+
+## 1. Self-Containment
+
+- Single HTML5 file. All CSS in one `<style>` block. All JavaScript in one `<script>` block.
+- Zero external requests: no fonts, no CDNs, no images, no network calls.
+- All state toggles implemented inline; no framework dependencies.
+
+## 2. Visual System
+
+- Neutral background (`#f8f8f6`), high-contrast text (`#1a1a1a`), one accent color reserved for decisions.
+- System font stack only: `-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif`.
+- Max content width `960px`, centered. Minimum readable font size `14px`.
+
+## 3. Layout Rules
+
+- Layout follows the archetype table in `references/meeting-types.md`.
+- Four universal sections always present: Decisions, Action Items, Open Questions, Verbatim Quotes.
+- Action items render as checkboxes with owner and due date; never as free text lists.
+- Verbatim quotes render in quotation marks with the speaker attribution and a positional transcript marker.
+
+## 4. Content Fidelity
+
+- Quotes are unedited transcript excerpts. Never paraphrase inside quotation marks.
+- Unconfirmed facts carry the label `Unconfirmed`.
+- Decisions show rationale; a decision without rationale renders as `No rationale recorded`.
+
+## 5. Security
+
+- All transcript-derived text escapes HTML entities before injection.
+- No user-supplied HTML, JavaScript, or URLs are executed.
