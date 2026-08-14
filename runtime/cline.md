@@ -3,20 +3,58 @@
 ## Role / Authority
 
 - **Role:** Maps this standard onto Cline's rules mechanics.
-- **Authority:** Non-authoritative (see `runtime/shared.md`). File mechanics only; rules live in `core/`.
+- **Authority:** Non-authoritative (see `runtime/shared.md`). Documents file mechanics only; all rules live in `core/`.
 
-> Facts below are **best-known at time of writing (as of July 2026)** and should be checked against Cline's current documentation.
+> Facts below are **best-known at time of writing (as of August 2026)** and should be checked against Cline's current documentation.
 
-## File mechanics
+---
 
-- **Primary location:** a `.clinerules/` directory at the repository root holding one or more Markdown rule files, loaded together as project instructions. A single root `.clinerules` file is also recognized.
-- **Toggling:** rule files in `.clinerules/` can be individually enabled/disabled, letting a repo keep several rule sets and activate the relevant ones.
-- **Format:** plain Markdown.
+## 1. File Mechanics
 
-## Applying this standard
+- **Primary location:** A `.clinerules/` directory at the repository root containing one or more Markdown rule files, loaded together as project instructions. A single root `.clinerules` file is also recognized.
+- **Toggling:** Rule files inside `.clinerules/` can be individually enabled or disabled, allowing repositories to maintain several specialized rule sets and activate them as needed.
+- **Format:** Plain Markdown.
 
-- Place the `AGENTS.md` synthesis (or a reference to it) as a rule file in `.clinerules/`; keep project specifics in separate rule files that mirror `context/`. Do not put project facts in the generic standard.
+---
 
-## Skills mapping
+## 2. Setup Guide
 
-- Use individually-toggleable `.clinerules/` files as on-demand specialists — enable a workflow rule only when its task is active — and **map** them from `AGENTS.md` (`runtime/shared.md` §4).
+### Step 1: Root Rule Configuration
+
+Create `.clinerules/00-agent-spec.md` at your repository root to enforce standard behavior:
+
+```markdown
+# Agent Behavioral Standard (Cline Adapter)
+
+This repository enforces the agent-spec behavioral standard.
+
+- **Normative Base:** Follow `AGENTS.md` and `core/`.
+- **Precedence & Discovery:** Follow `core/instruction-hierarchy.md`.
+- **Decision Framework:** Follow `core/decision-framework.md`.
+- **Output Policy:** Follow `core/output-policy.md`.
+- **Safety Boundary:** Follow `core/safety.md`.
+```
+
+### Step 2: Project Rules File (Optional)
+
+Create `.clinerules/50-project-facts.md` for project specifics:
+
+```markdown
+# Project Facts & Coding Standards
+
+- Architecture: See `context/ARCHITECTURE.md`.
+- Coding Rules: See `context/RULES.md`.
+- Data Specs: See `context/SCHEMA.md`.
+```
+
+---
+
+## 3. Skills Mapping
+
+Cline uses individually-toggleable `.clinerules/` files as on-demand specialist rules.
+
+- Keep core standing rules minimal in `.clinerules/00-agent-spec.md`.
+- Store specialist workflows under `.agents/skills/<skill-name>/SKILL.md` or as dedicated `.clinerules/workflow-<name>.md` files.
+- Activate workflow rules only when their specific task is active.
+- Map installed skills in `AGENTS.md` (`runtime/shared.md` §4).
+

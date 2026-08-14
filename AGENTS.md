@@ -34,9 +34,8 @@ All files follow the structured Role/Authority pattern with strict separation of
 - `context/` → Project-specific templates (PRD, ARCHITECTURE, SCHEMA, DESIGN, RULES). Shipped with `[PLACEHOLDER]` markers to be filled in by adopters.
 - `docs/` → User-facing guides (getting-started, FAQ, anti-patterns).
 - `examples/` → Annotated workflow examples demonstrating proper agent behavior.
-- `prompts/` → Reusable prompt templates organized by category (dev-workflow, content-creation, learning).
 - `runtime/` → IDE-specific adapter instructions (Claude, Cursor, Copilot, Cline, Windsurf, Kiro).
-- `skills/` → Reusable skill modules agents can load for specialized capabilities (business, content-creation, learning, react-native, terminal).
+- `modules/` → Self-contained feature-based capability suites (autonomous-dev, design-engineering, mobile-react-native, enterprise-business, dev-workflow, prompt-engineering, content-and-growth, research-and-productivity).
 - `legacy/` → Previous specification versions (v1, v2). Do not reference in new work.
 - `meta/` → Tooling for generating or validating agent-spec implementations.
 - `shared/` → Cross-cutting conventions (writing-rules).

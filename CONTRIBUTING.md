@@ -33,8 +33,7 @@ Thank you for considering contributing to the agent-spec standard! This document
 
 ### Encouraged Contributions
 
-- **New Skills**: Add reusable skill modules to `skills/` (business, content-creation, learning, etc.)
-- **New Prompts**: Add specialized prompt templates to `prompts/` organized by category
+- **New Feature Modules**: Add reusable feature packages and skills to `modules/` (autonomous-dev, design-engineering, prompt-engineering, content-and-growth, etc.)
 - **Examples**: Add workflow examples to `examples/` demonstrating agent decision patterns
 - **Runtime Adapters**: Update `runtime/` adapters for IDE-specific behavior changes
 - **Documentation Improvements**: Fix typos, clarify instructions, improve guides in `docs/`
@@ -77,9 +76,8 @@ core/           ← Normative tier-4 (portable, project-agnostic)
 context/        ← Templates (shipped empty with [PLACEHOLDER] markers)
 docs/           ← User-facing guides
 examples/       ← Annotated workflow demonstrations
-prompts/        ← Reusable prompt templates
+modules/        ← Feature-based capability suites (self-contained feature packages)
 runtime/        ← IDE-specific adapters
-skills/         ← Independent skill modules
 ```
 
 ---
