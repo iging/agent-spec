@@ -13,12 +13,12 @@ The specification separates project-agnostic normative instructions from project
 - **Tool-agnostic standard** for AI agent behavior across multiple IDEs and platforms
 - **Seven-tier instruction hierarchy** with explicit conflict resolution
 - **Normative core** covering instruction discovery, decision framework, output policy, and safety
-- **Project templates** for PRD, architecture, schema, design, and coding rules
-- **Reusable skills** organized by domain (business, content-creation, learning, React Native, terminal)
-- **Prompt templates** for development workflows, content creation, and learning
+- **Project templates** for PRD, architecture, schema, design, rules, and tasks
+- **Eight capability modules** organizing autonomous dev, design engineering, mobile, enterprise business, dev workflows (including web starter kits), prompt engineering, content & growth, and research & productivity
+- **Domain principles** for engineering, design, and writing rules
 - **IDE adapters** for Claude Code, Cursor, Copilot, Cline, Windsurf, and Kiro
 - **53 documented anti-patterns** that waste tokens and burn API credits
-- **Annotated examples** demonstrating proper agent decision-making
+- **Annotated examples** demonstrating proper agent decision-making and rigor calibration
 
 ## Tech Stack
 
@@ -38,44 +38,58 @@ agent-spec/
 │   ├── instruction-hierarchy.md   # Discovery, precedence, conflict resolution
 │   ├── decision-framework.md      # Engineering evaluation, clean-code standards
 │   ├── output-policy.md          # Presentation, confidence reporting
-│   └── safety.md                 # Non-negotiable constraints, capability boundaries
+│   ├── safety.md                 # Non-negotiable constraints, capability boundaries
+│   └── README.md                 # Core layer index & adopter guide
 ├── context/                # Project-specific templates (shipped with placeholders)
-│   ├── PRD.md                    # Product requirements template
 │   ├── ARCHITECTURE.md           # System architecture template
-│   ├── SCHEMA.md                 # Database and API schema template
 │   ├── DESIGN.md                 # Design system template
-│   └── RULES.md                  # Project coding rules template
+│   ├── PRD.md                    # Product requirements template
+│   ├── RULES.md                  # Project coding rules template
+│   ├── SCHEMA.md                 # Database and API schema template
+│   ├── TASKS.md                  # Task decomposition tracking template
+│   └── README.md                 # Context template index
 ├── docs/                   # User-facing guides
 │   ├── getting-started.md        # Quick setup guide
 │   ├── faq.md                    # Common questions
-│   └── anti-patterns.md          # 53 credit-killing patterns
-├── examples/               # Annotated workflow examples
-├── prompts/                # Reusable prompt templates
-│   ├── career/                   # Cover letter generation, career planning
-│   ├── content-creation/         # Blog, image generation
-│   ├── dev-workflow/             # Code docs, PR descriptions, README generation
-│   └── learning/                 # Prompt engineering mentorship
-├── runtime/                # IDE-specific adapter instructions
-│   ├── shared.md                 # Common adapter contract
-│   ├── claude.md                 # Claude Code adapter
-│   ├── cursor.md                 # Cursor adapter
-│   ├── copilot.md                # GitHub Copilot adapter
-│   ├── cline.md                  # Cline adapter
-│   ├── windsurf.md               # Windsurf adapter
-│   └── kiro.md                   # Kiro adapter
-├── skills/                 # Reusable skill modules
-│   ├── business/                 # Client briefs, meeting notes, negotiation
-│   ├── content-creation/         # Deck builder, infographics, UI design
-│   ├── learning/                 # Prompt engineering
-│   └── react-native/             # React Native best practices
-├── shared/                 # Cross-cutting conventions
-│   └── writing-rules.md          # Writing style, banned words, truth protocol
+│   ├── anti-patterns.md          # 53 credit-killing patterns
+│   ├── skill-installation.md     # Module & skill installation standard
+│   └── skill-standard.md        # Tier-5 skill schema specification
+├── examples/               # Annotated workflow decision traces & brand presets
+│   ├── architecture-review.md    # Architectural audit trace
+│   ├── capability-degradation.md # Resiliency & missing tool handling
+│   ├── full-rigor-production-change.md # High-rigor safety trace
+│   ├── proportional-minimal-change.md # Minimal targeted change trace
+│   ├── refactor-problem-first.md # Problem-first refactoring trace
+│   ├── security-conflict.md     # Security policy conflict resolution
+│   └── README.md                 # Workflow examples index
+├── modules/                # Modular feature-based capability suites
+│   ├── autonomous-dev/           # Full autonomous coding lifecycle (8 stages + references)
+│   ├── design-engineering/       # Anti-slop UI design system, taste skills & brand presets
+│   ├── mobile-react-native/      # Mobile cross-platform dev suite & Expo rules
+│   ├── enterprise-business/      # Enterprise product suite, specs & business workflows
+│   ├── dev-workflow/             # Developer lifecycle workflows, API generators & auditors
+│   ├── prompt-engineering/       # Prompt templates & 9-dimension prompt auditor
+│   ├── content-and-growth/       # Content creation, decks, writing style & viral social tools
+│   └── research-and-productivity/# Deep research synthesizer, data analytics & learning tools
+├── runtime/                # IDE-specific adapter instructions (Claude, Cursor, Copilot, Cline, Windsurf, Kiro)
+│   ├── claude.md                 # Claude Code runtime adapter
+│   ├── cline.md                  # Cline runtime adapter
+│   ├── copilot.md                # GitHub Copilot runtime adapter
+│   ├── cursor.md                 # Cursor runtime adapter
+│   ├── kiro.md                   # Kiro runtime adapter
+│   ├── shared.md                 # Shared runtime conventions
+│   ├── windsurf.md               # Windsurf runtime adapter
+│   └── README.md                 # Runtime adapters catalog & integration guide
+├── shared/                 # Cross-cutting domain principles & conventions
+│   ├── design/                   # UI/UX & HTML/CSS design principles
+│   ├── engineering/              # Coding, JavaScript, & Next.js principles
+│   ├── writing/                  # Anti-AI writing rules & prose constraints
+│   └── README.md                 # Shared domain principles index
 ├── legacy/                 # Previous specification versions (v1, v2)
 ├── meta/                   # Tooling for generating/validating implementations
 ├── AGENTS.md               # Single-file synthesis of core/ (portable)
 ├── CLAUDE.md               # Tool-agnostic project documentation
 └── CONTRIBUTING.md         # Contribution guidelines
-
 ```
 
 ### Application Flow
@@ -139,9 +153,11 @@ Replace `[PLACEHOLDER: ...]` markers in each template with your project's facts.
 
 See `runtime/[tool].md` for tool-specific details.
 
-### Optional: Add Skills
+### Optional: Add Modules & Skills
 
-Browse the skills catalog in `skills/` and copy any skill folder into your project's `.agents/skills/` directory.
+Browse the feature suites in `modules/` and copy any module or skill folder into your project's `.agents/` directory.
+
+Two patterns are supported — a per-skill folder (`.agents/skills/<skill-name>/SKILL.md`) or a whole-module drop (`.agents/<module-name>/`). Every skill entry file is **uppercase `SKILL.md`**. See [**Installing Skills & Modules**](docs/skill-installation.md) for the exact conventions, commands, and verification checklist.
 
 ## Usage
 
@@ -199,10 +215,10 @@ All files follow the Role/Authority pattern:
 Follow Conventional Commits:
 
 ```
-feat: add SQL optimization skill to skills/database/
+feat: add SQL optimization skill to modules/dev-workflow/
 fix: correct instruction hierarchy precedence in core/
 docs: clarify contribution workflow in CONTRIBUTING.md
-refactor: reorganize prompts by workflow category
+refactor: reorganize principles into domain subfolders in shared/
 ```
 
 ## Project Structure
@@ -215,6 +231,7 @@ Normative tier-4 instructions. Portable and project-agnostic. Stable and rarely 
 - `decision-framework.md` — Engineering evaluation, dependency governance, clean-code standards
 - `output-policy.md` — Anti-hallucination, confidence reporting, validation
 - `safety.md` — Non-negotiable constraints, capability boundaries
+- `README.md` — Core layer index catalog & adopter guidance
 
 ### Context Layer (`context/`)
 
@@ -225,24 +242,30 @@ Project-specific templates shipped with `[PLACEHOLDER: ...]` markers. Fill these
 - `SCHEMA.md` — Data model, API contracts
 - `DESIGN.md` — Design system or output formatting conventions
 - `RULES.md` — Project coding rules
+- `TASKS.md` — Task decomposition and state tracking
+- `README.md` — Index of context templates
 
-### Skills Layer (`skills/`)
+### Modules Layer (`modules/`)
 
-Independent, on-demand specialist modules. Each skill has a `SKILL.md` file that agents discover and activate when needed:
+Self-contained feature capability suites organized by domain:
 
-- `business/` — Client briefs, meeting notes, negotiation, team management
-- `content-creation/` — Deck builder, infographics, UI design
-- `learning/` — Prompt engineering mentorship
-- `react-native/` — React Native best practices
-- `terminal/` — Command-line workflow optimization
+- `autonomous-dev/` — Autonomous lifecycle (ideation, worktrees, planning, execution, testing, debugging, code review)
+- `design-engineering/` — Taste skills, animation, aesthetic engines, brand presets
+- `mobile-react-native/` — Expo and React Native best practices
+- `enterprise-business/` — Business skills, client briefs, meeting visualizers, negotiations
+- `dev-workflow/` — API endpoint generator, database migrations, split-file, accessibility auditor
+- `prompt-engineering/` — Prompt templates & 9-dimension prompt auditor
+- `content-and-growth/` — Deck builder, infographics, SEO optimizer, social copywriting
+- `research-and-productivity/` — Research synthesizer, data analytics, learning mentor
 
-### Prompts Layer (`prompts/`)
+### Shared Layer (`shared/`)
 
-Standalone, re-runnable prompt templates organized by category:
+Cross-cutting domain principles and conventions:
 
-- `dev-workflow/` — Code documentation, commit messages, PR descriptions, README generation
-- `content-creation/` — Blog generation, image generation
-- `learning/` — Prompt engineer mentor
+- `engineering/` — Coding principles, JavaScript principles, Next.js principles
+- `design/` — UI/UX principles, HTML/CSS principles
+- `writing/` — Anti-AI writing rules & prose constraints
+- `README.md` — Domain catalog index
 
 ### Runtime Layer (`runtime/`)
 
@@ -250,12 +273,12 @@ IDE-specific adapter instructions. Each adapter translates `core/` rules into th
 
 ## Contributing
 
-Contributions are welcome. Before proposing a new prompt or skill, check `docs/anti-patterns.md` to ensure it does not encode any of the 53 credit-killing patterns.
+Contributions are welcome. Before proposing a new skill or capability, check `docs/anti-patterns.md` to ensure it does not encode any of the 53 credit-killing patterns.
 
 ### Review Requirements
 
 - **Simple changes** (typos, small docs): Standard review
-- **New content** (skills, prompts, examples): Verify against anti-patterns
+- **New content** (modules, skills, examples): Verify against anti-patterns
 - **Core changes**: Explicit review for consistency with the instruction hierarchy model
 
 All changes to `core/` require explicit review for consistency with the instruction hierarchy model.

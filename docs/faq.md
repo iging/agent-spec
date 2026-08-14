@@ -34,9 +34,9 @@ Project-specific facts. The generic standard (`core/`, `AGENTS.md`, `runtime/`) 
 
 By a seven-tier specificity hierarchy (defined in `core/instruction-hierarchy.md`). The short version: explicit user instruction wins over everything; local instructions beat global ones; safety constraints override all but the host agent's own policy.
 
-### What is the difference between `skills/` and `prompts/`?
+### How are capability modules structured?
 
-**Skills** are agent-loadable behaviors — folders with a `SKILL.md` that an agent discovers and activates on demand. **Prompts** are standalone, re-runnable instructions you paste into an agent manually. Skills are automatic; prompts are manual.
+Capabilities are organized into self-contained feature modules under `modules/` (such as `modules/autonomous-dev/`, `modules/design-engineering/`, etc.). Each module contains its own router `SKILL.md` and related resources, allowing drag-and-drop portability into adopter repositories.
 
 ---
 
@@ -48,7 +48,7 @@ Add it to the owning `core/` file, then update `AGENTS.md` to match. Never defin
 
 ### How do I add a new skill?
 
-Copy `skills/_template/` to a new folder, fill in the `SKILL.md`, and open a PR. See the [skill template](../skills/_template/SKILL.md) for the structure.
+Copy `modules/_template/` to a new folder, fill in the `SKILL.md`, and open a PR. See the [skill template](../modules/_template/SKILL.md) for the structure.
 
 ### How do I add support for a new AI tool?
 
@@ -57,3 +57,7 @@ Create a new adapter file in `runtime/` following the contract in `runtime/share
 ### Can I use this in a commercial project?
 
 Yes. The project is [MIT licensed](../LICENSE).
+
+### How do I install a skill or module in my project?
+
+Copy the skill folder or module into your project's `.agents/` directory. Two patterns exist: an individual skill goes in `.agents/skills/<skill-name>/SKILL.md` (folder name matches the frontmatter `name:`, entry file is uppercase `SKILL.md`), and a whole module goes in `.agents/<module-name>/`. Flat `.md` skill files must be wrapped into a folder named after the skill. See [Installing Skills & Modules](skill-installation.md) for the exact conventions and commands.

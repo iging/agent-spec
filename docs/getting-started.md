@@ -49,9 +49,16 @@ Use the adapter in `runtime/` for your tool. Each adapter documents the exact fi
 | **Windsurf**       | Add an always-on rule under `.windsurf/rules/`                           |
 | **Kiro**           | Add an always-included steering file under `.kiro/steering/`             |
 
-## 5. (Optional) Add skills
+## 5. (Optional) Add feature modules & skills
 
-Browse the [skills catalog](../skills/README.md) and copy any skill folder into your project's `.agents/skills/` directory.
+Browse the modular feature suites in [`modules/`](../modules/) and copy any feature module or skill folder into your project's `.agents/` directory.
+
+Two patterns are supported:
+
+- **Individual skill** → `.agents/skills/<skill-name>/SKILL.md` (folder name matches the frontmatter `name:`, entry file is uppercase `SKILL.md`)
+- **Whole module** → `.agents/<module-name>/` (router `SKILL.md` + stage folders copied as-is)
+
+When a skill ships as a flat `.md` file, wrap it into a `<skill-name>/SKILL.md` folder before copying. See [**Installing Skills & Modules**](skill-installation.md) for exact conventions, copy commands, and a verification checklist.
 
 ## What happens next
 

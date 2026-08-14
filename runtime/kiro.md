@@ -3,24 +3,73 @@
 ## Role / Authority
 
 - **Role:** Maps this standard onto Kiro's steering mechanics.
-- **Authority:** Non-authoritative (see `runtime/shared.md`). File mechanics only; rules live in `core/`.
+- **Authority:** Non-authoritative (see `runtime/shared.md`). Documents file mechanics only; all rules live in `core/`.
 
-> Facts below are **best-known at time of writing (as of July 2026)** and should be checked against Kiro's current documentation.
+> Facts below are **best-known at time of writing (as of August 2026)** and should be checked against Kiro's current documentation.
 
-## File mechanics
+---
+
+## 1. File Mechanics
 
 - **Primary location:** `.kiro/steering/*.md` — steering files included in the agent's context.
-- **Inclusion modes** (set via frontmatter):
-  - **Always** (default) — included in every interaction.
-  - **Conditional** — `inclusion: fileMatch` with a `fileMatchPattern` (e.g. `README*`), included only when a matching file is in context.
-  - **Manual** — `inclusion: manual`, included only when the user references it via a context key (`#` in chat).
-- **File references:** steering files can embed other files via `#[[file:<relative_path>]]`, letting them pull in `context/` docs or an API spec without inlining.
+- **Inclusion modes** (configured via YAML frontmatter):
+  - `inclusion: always` (default) — included in every interaction.
+  - `inclusion: fileMatch` — conditional inclusion using `fileMatchPattern` (e.g. `src/api/**/*`), included only when a matching file is in context.
+  - `inclusion: manual` — included only when explicitly referenced by the user via context key (`#` in chat).
+- **File transclusion:** Steering files can embed relative files via `#[[file:<relative_path>]]`, pulling in `context/` docs or API specs dynamically.
 - **Format:** Markdown with optional YAML frontmatter.
 
-## Applying this standard
+---
 
-- Put the `AGENTS.md` synthesis (or a reference to it) in an always-included steering file. Use `fileMatch` steering for path-specific project rules and `#[[file:...]]` references to `context/` docs for project facts — keeping the generic standard project-fact-free.
+## 2. Setup Guide
 
-## Skills mapping
+### Step 1: Always-Included Steering Rule
 
-- Kiro's `inclusion: manual` steering files are natural on-demand specialists (deployment, migration workflows) loaded only when referenced. Keep always-included steering minimal and **map** the manual ones as skills from `AGENTS.md` (`runtime/shared.md` §4).
+Create `.kiro/steering/00-agent-spec.md` at your repository root:
+
+```markdown
+---
+inclusion: always
+---
+
+# Agent Behavioral Standard (Kiro Adapter)
+
+This repository enforces the agent-spec behavioral standard.
+
+- **Normative Rules:** See `AGENTS.md` and `core/`.
+- **Precedence:** `core/instruction-hierarchy.md`
+- **Decision Framework:** `core/decision-framework.md`
+- **Output Policy:** `core/output-policy.md`
+- **Safety Boundaries:** `core/safety.md`
+
+## Project Context Transclusion
+- Architecture: #[[file:context/ARCHITECTURE.md]]
+- Coding Rules: #[[file:context/RULES.md]]
+```
+
+### Step 2: Manual Steering for On-Demand Workflows (Optional)
+
+Create `.kiro/steering/migration.md` for manual inclusion:
+
+```markdown
+---
+inclusion: manual
+---
+
+# Database Migration Workflow
+
+- Database Schema: #[[file:context/SCHEMA.md]]
+- Follow migration safety rules in `modules/dev-workflow/database-migrations/SKILL.md`.
+```
+
+---
+
+## 3. Skills Mapping
+
+Kiro's `inclusion: manual` steering files act as native on-demand specialists.
+
+- Keep always-included steering focused on core standards and context transclusion.
+- Store skills in `.agents/skills/<skill-name>/SKILL.md`.
+- Create `inclusion: manual` steering files for specialist workflows loaded via `#` references.
+- Map installed skills in `AGENTS.md` (`runtime/shared.md` §4).
+
