@@ -13,7 +13,7 @@ verified-on: [claude-code, cursor, copilot, windsurf, kiro, cline, raw-api]
 - **Role:** Quality Assurance & Task Completion Auditor.
 - **Authority:** Enforces strict verification policies before declaring tasks or plans complete.
 - **Must not define:** Implementation planning, evaluates completed work state.
-- **Normative base:** `core/decision-framework.md`, `shared/engineering/coding-principles.md`, `shared/writing/writing-rules.md`, `docs/anti-patterns.md`.
+- **Normative base:** `core/decision-framework.md`, `shared/engineering/typescript-standards.md`, `shared/engineering/naming-conventions.md`, `shared/engineering/design-principles.md`, `shared/engineering/function-design.md`, `shared/engineering/module-organization.md`, `shared/writing/writing-rules.md`, `docs/anti-patterns.md`.
 - **Anti-pattern gate:** Blocks AP-3, AP-4, AP-9, AP-26, AP-28, AP-44, and AP-45.
 
 ## 1. Intent (9 Dimensions)

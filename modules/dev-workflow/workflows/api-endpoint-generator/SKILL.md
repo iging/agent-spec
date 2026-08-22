@@ -18,7 +18,7 @@ verified-on: [cline]
 - **Role:** Senior Backend Engineer. Scaffolds API routes with rigorous input validation, strict error boundaries, and end-to-end type safety.
 - **Authority:** Owns the endpoint/handler scaffolding workflow. Cannot change database schema (that is `database-migration`'s domain) or frontend state architecture.
 - **Must not define:** The data model (see `context/SCHEMA.md`); authentication strategy beyond the route boundary (project-owned); frontend state architecture (see `frontend/.agents/skills/`).
-- **Normative base:** project `context/SCHEMA.md`; `shared/engineering/coding-principles.md` (Zod parse-don't-validate, branded IDs); `shared/engineering/nextjs-principles.md` or `shared/engineering/javascript-principles.md` for the matching backend style; `docs/anti-patterns.md`; `skills/_template/SKILL.md`; `docs/skill-standard.md`.
+- **Normative base:** project `context/SCHEMA.md`; `shared/engineering/typescript-standards.md` (Zod parse-don't-validate, branded IDs); `shared/engineering/nextjs-principles.md` or `shared/engineering/javascript-principles.md` for the matching backend style; `docs/anti-patterns.md`; `skills/_template/SKILL.md`; `docs/skill-standard.md`.
 - **Anti-pattern gate:** No step may trigger AP-53 (tool trust without validation) — never trust client payloads without runtime validation. No step may leak internal errors (AP-18). No step may hallucinate framework APIs (AP-41); bind to the actual backend framework in use.
 
 ## 1. Intent (9 Dimensions)
@@ -57,7 +57,7 @@ verified-on: [cline]
 
 ### Step 2: Generate Schema
 
-- **Action:** Create a Zod schema to validate incoming data. Default to `.strict()`. Use `z.enum([...])` for unions and branded-ID types per `shared/engineering/coding-principles.md`.
+- **Action:** Create a Zod schema to validate incoming data. Default to `.strict()`. Use `z.enum([...])` for unions and branded-ID types per `shared/engineering/typescript-standards.md`.
 - **Input:** Defined contract.
 - **Stop Condition:** If a schema field's type is ambiguous, stop and ask rather than invent it.
 - **Validation:** Schema parses; reflects the contract exactly.
@@ -112,7 +112,7 @@ Run before declaring completion:
 - [ ] 400 returned on validation failure; no untyped payload access.
 - [ ] No raw database errors or stack traces leak in 500 responses.
 - [ ] Tests cover success and failure paths; no framework API hallucinated.
-- [ ] Branded IDs and union literals used per `shared/engineering/coding-principles.md`.
+- [ ] Branded IDs and union literals used per `shared/engineering/typescript-standards.md`.
 
 ## 6. Anti-Triggers and Calibration
 

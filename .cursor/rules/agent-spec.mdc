@@ -1,0 +1,30 @@
+---
+description: Standard agent rules and anti-hallucination guardrails for Cursor AI.
+globs: "*"
+alwaysApply: true
+---
+
+# Agent Behavioral Standard & Anti-Hallucination Guardrails (Cursor Adapter)
+
+## Role / Authority
+
+- **Role:** Cursor rule file mapping `AGENTS.md` and `core/` to Cursor AI sessions.
+- **Authority:** Non-authoritative runtime adapter layer.
+
+---
+
+## 1. Core Instructions
+
+- **Normative Baseline:** Follow `AGENTS.md` and `core/`.
+- **Precedence & Discovery:** Follow `core/instruction-hierarchy.md`.
+- **Decision Protocols:** Follow `core/decision-framework.md`.
+- **Output Policy:** Follow `core/output-policy.md`.
+- **Safety Boundary:** Follow `core/safety.md`.
+
+## 2. Anti-Hallucination Rules
+
+- **Pure Documentation:** This repository contains Markdown specifications only. No application server, web framework, or build system exists.
+- **No Phantom Commands:** Do not run or suggest `npm test`, `pytest`, or `npm run build`. The only valid validation script is `node scripts/audit-compliance.js`.
+- **Core Tier Boundary:** Do not modify `core/` files without explicit confirmation.
+- **Context Templates:** Retain all `[PLACEHOLDER: ...]` markers in `context/` templates.
+- **No Legacy References:** Do not reference or import files from `legacy/`.

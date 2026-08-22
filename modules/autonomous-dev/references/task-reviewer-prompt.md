@@ -22,7 +22,7 @@ version: 1.0.0
 ### Stage 2: Code Quality Evaluation
 1. Verify unit tests exist and cover edge cases.
 2. Confirm no credentials, secret tokens, or debug logs were added.
-3. Check adherence to `shared/engineering/coding-principles.md` and repository standards.
+3. Check adherence to `shared/engineering/typescript-standards.md`, `shared/engineering/naming-conventions.md`, `shared/engineering/design-principles.md`, `shared/engineering/function-design.md`, and `shared/engineering/module-organization.md` plus repository standards.
 
 ## 3. Verdict Schema
 

@@ -30,10 +30,10 @@ Apply these rules strictly to all component generation to enforce performance an
 
 - **Server-Side Fetching:** Data MUST be fetched on the server using `async/await` directly within Server Components.
 - **Banned Fetching:** Do NOT use the `useEffect` hook for data fetching. It causes layout shifts and performance degradation.
-- **Next.js 16 Caching & Dynamic I/O:** Dynamic data operations and fetches are uncached by default. You MUST explicitly opt-in using the `'use cache'` directive alongside `cacheLife()` and `cacheTag()` helpers for explicit cache control.
+- **Next.js 16 Caching & Dynamic I/O:** Dynamic data operations and fetches are uncached by default. You MUST explicitly opt-in using the `'use cache'` directive alongside `cacheLife()` and `cacheTag()` helpers for explicit cache control. Invalidate tagged entries with `revalidateTag(tag, cacheLifeProfile)`, which requires a profile argument such as `'max'` in Next.js 16. Use `updateTag()` inside Server Actions when you need read-your-writes semantics.
 - **Async Request Context (Next.js 16):** Dynamic server utilities (`cookies()`, `headers()`, `draftMode()`) are asynchronous. You MUST explicitly `await cookies()` and `await headers()` in Server Components and Server Actions.
 - **Server Actions & React 19 Action Hooks:** Use Server Actions for all form submissions and internal database mutations. In Client Components, integrate Server Actions using React 19 native hooks (`useActionState`, `useFormStatus`, `useOptimistic`). Reserve Route Handlers strictly for external public REST APIs or webhooks.
-- **Suspense & Partial Prerendering (PPR):** Enforce granular `<Suspense>` boundaries around genuinely dynamic components (like a shopping cart) to maximize Partial Prerendering. Avoid wrapping entire pages in a single Suspense boundary.
+- **Suspense & Cache Components:** Enforce granular `<Suspense>` boundaries around genuinely dynamic components (like a shopping cart). Next.js 16 hard-deprecated the standalone PPR configuration flag. Cache Components, built on the `'use cache'` directive, now deliver partial prerendering behavior. Avoid wrapping entire pages in a single Suspense boundary.
 - **State Granularity:** When managing state in Client Components, use granular states (multiple `useState` declarations) instead of a single monolithic state object to prevent unnecessary re-renders.
 - **Global State:** The React Context API is permitted for lightweight global state. Third-party state management (like Redux) is BANNED unless explicitly requested by the user.
 
@@ -51,10 +51,10 @@ Apply these rules strictly to all component generation to enforce performance an
 ## 4. Routing, SEO, and Middleware
 
 - **Metadata API:** You MUST use the built-in Next.js Metadata API (e.g., `export const metadata = { ... }`) in `layout.tsx` or `page.tsx` for SEO and Open Graph tags. Do not use external libraries like `react-helmet`.
-- **Forms and Navigation:** Standard HTML `<form>` tags are BANNED for mutations. Use the new `next/form` component for built-in client-side navigation and progressive enhancement.
+- **Forms and Navigation:** Use plain `<form action={serverAction}>` for mutations. Server Actions invoked through the native form element are the documented mutation mechanism in Next.js. Use `next/form` only for search and navigation forms whose `action` is a URL path string, which adds prefetching of loading UI and client-side navigation on submission.
 - **Error and Loading States:** Every major route segment MUST include a `loading.tsx` and an `error.tsx` file to handle Suspense boundaries and prevent broken user experiences.
 - **API Routes:** Reserve Route Handlers (`app/api/[route]/route.ts`) strictly for external public REST APIs or webhooks. Internal backend logic MUST use Server Actions.
-- **Middleware:** Use `middleware.ts` at the project root for cross-cutting concerns like authentication checks, rate limiting, and redirects.
+- **Proxy over Middleware:** Next.js 16 deprecates `middleware.ts` in favor of `proxy.ts` at the project root for cross-cutting concerns such as authentication checks, rate limiting, and redirects. Run the official middleware-to-proxy codemod on existing projects before layering new logic onto a middleware file.
 
 ---
 
@@ -70,3 +70,4 @@ Apply these rules strictly to all component generation to enforce performance an
 
 - **Client-Side Secrets:** NEVER expose API keys or secrets to the browser. Only variables explicitly safe for the client may be prefixed with `NEXT_PUBLIC_`.
 - **Server-Side Secrets:** Database passwords, auth secrets, and private API keys MUST remain on the server and be accessed securely via `process.env` in Server Components or API Routes only.
+

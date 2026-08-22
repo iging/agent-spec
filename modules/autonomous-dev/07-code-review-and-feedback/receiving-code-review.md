@@ -13,7 +13,7 @@ verified-on: [claude-code, cursor, copilot, windsurf, kiro, cline, raw-api]
 - **Role:** Code Review Feedback Execution Specialist.
 - **Authority:** Processes code review comments and executes requested modifications cleanly.
 - **Must not define:** Blind unverified code changes, validates reviewer requests against requirements.
-- **Normative base:** `core/decision-framework.md`, `shared/engineering/coding-principles.md`, `shared/writing/writing-rules.md`, `docs/anti-patterns.md`.
+- **Normative base:** `core/decision-framework.md`, `shared/engineering/typescript-standards.md`, `shared/engineering/naming-conventions.md`, `shared/engineering/design-principles.md`, `shared/engineering/function-design.md`, `shared/engineering/module-organization.md`, `shared/writing/writing-rules.md`, `docs/anti-patterns.md`.
 - **Anti-pattern gate:** Blocks AP-1, AP-4, AP-9, AP-26, AP-28, AP-44, and AP-45.
 
 ## 1. Intent (9 Dimensions)

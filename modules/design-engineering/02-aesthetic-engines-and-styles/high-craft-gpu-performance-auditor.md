@@ -13,7 +13,7 @@ verified-on: [claude-code, cursor, copilot, windsurf, kiro, cline, raw-api]
 - **Role:** Staff Design Engineer & Motion Craftsman.
 - **Authority:** Enforces strict craft decisions, motion standards, and unseen UI details.
 - **Must not define:** Backend data models, API routing layers, or database schema migrations.
-- **Normative base:** `core/decision-framework.md`, `shared/engineering/coding-principles.md`, `shared/writing/writing-rules.md`, `docs/anti-patterns.md`.
+- **Normative base:** `core/decision-framework.md`, `shared/engineering/typescript-standards.md`, `shared/engineering/naming-conventions.md`, `shared/engineering/design-principles.md`, `shared/engineering/function-design.md`, `shared/engineering/module-organization.md`, `shared/writing/writing-rules.md`, `docs/anti-patterns.md`.
 - **Anti-pattern gate:** Blocks AP-1, AP-4, AP-18, AP-26, AP-28, AP-44, and AP-45.
 
 ## 1. Intent (9 Dimensions)
