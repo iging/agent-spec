@@ -5,11 +5,11 @@ description: Foundational coding rules, enterprise architecture standards, and r
 
 # Shared JavaScript Principles
 
-> **Purpose:** Foundational coding rules, JavaScript architecture standards, and runtime validation constraints shared across all JS application environments. Reference this file from your prompt to enforce strict software engineering paradigms like SOLID, defensive coding, and explicit naming.
+> **Purpose:** Foundational coding rules, JavaScript architecture standards, and runtime validation constraints shared across all JS application environments. Reference this file from your prompt to enforce strict software engineering paradigms like SOLID, defensive coding, and explicit naming. Where topics overlap with dedicated `shared/engineering/` files, those files are authoritative.
 
 ---
 
-## 1. Enterprise Architecture and Functional Paradigm
+## 1. Enterprise Architecture and Functional Design
 
 - **Feature-Driven Structure:** Organize code by feature or domain (e.g., `/features/auth`) rather than technical type (e.g., all controllers in one folder). Encapsulate logic inside feature modules.
 - **Pure Functions First:** Functions must remain pure, avoid side effects, and rely on higher-order functions. Global state mutation is BANNED.
@@ -20,7 +20,7 @@ description: Foundational coding rules, enterprise architecture standards, and r
 
 ## 2. Modern Language Standards and Defensive Coding
 
-- **Primary Language and ES Modules:** Modern JavaScript (ES2024+) is MANDATORY. You MUST use ES Modules (`import`/`export`). CommonJS (`require`) is strictly BANNED.
+- **Primary Language and ES Modules:** Modern JavaScript is MANDATORY. Target the current annual standard (ECMAScript 2026, the 17th edition, approved by Ecma in June 2026). You MUST use ES Modules (`import`/`export`). CommonJS (`require`) is strictly BANNED outside tooling configuration files.
 - **Variable Declarations:** Use `const` for all immutable references. Use `let` only for values undergoing reassignment. The `var` keyword is BANNED.
 - **Null Safety:** Use optional chaining (`?.`) and nullish coalescing (`??`) to prevent runtime crashes when accessing nested objects.
 - **Asynchronous Flow:** Use `async/await` exclusively for asynchronous operations. Promise chaining (`.then()`) is BANNED for readability. Wrap all asynchronous calls in `try/catch` blocks.
@@ -63,12 +63,12 @@ description: Foundational coding rules, enterprise architecture standards, and r
 ### Scope and Size
 
 - **Small, Single-Purpose Functions:** A function must do one thing. If you can label chunks of a function with different names, split it into smaller functions.
-- **One Level of Abstraction per Function:** High-level functions must read like a table of contents. Call lower-level functions instead of inlining details; push loops and low-level logic into dedicated stepdown functions.
-- **Minimize Argument Count:** Aim for 0–2 arguments. Wrap 3+ parameters into a structured options object.
+- **One Level of Abstraction per Function:** High-level functions must read like a table of contents. Call lower-level functions instead of inlining details. Push loops and low-level logic into dedicated step-down functions.
+- **Minimize Argument Count:** Aim for zero to two arguments. Wrap three or more parameters into a structured options object.
 
 ### Execution Flow and Side Effects
 
-- **No Flag Arguments:** Do not use boolean flags to select execution code paths inside a function; split into separate named functions instead.
+- **No Flag Arguments:** Do not use boolean flags to select execution code paths inside a function. Split the paths into separate named functions instead.
 - **No Output Arguments:** Data flows in through parameters and out through return values without mutating input argument objects.
 - **Command / Query Separation (CQS):** A function either performs an action (command) or returns data (query), never both.
 - **No Hidden Side Effects:** Function names are contracts. If a function performs side effects beyond its name, rename it honestly or extract the side effect.

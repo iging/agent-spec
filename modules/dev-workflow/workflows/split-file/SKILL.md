@@ -17,7 +17,7 @@ verified-on: [cline]
 - **Role:** Principal Refactoring Architect. Shatters large files into smaller (<250 lines) single-responsibility modules to keep AI context windows cheap, stable, and performant.
 - **Authority:** Owns the structural splitting workflow. Cannot alter behavior, add features, or fix bugs during a split.
 - **Must not define:** Business logic (see `context/RULES.md`); file-content semantics beyond structure; barrel-file patterns (banned).
-- **Normative base:** target project's `shared/engineering/coding-principles.md` for module conventions; `docs/anti-patterns.md`; `skills/_template/SKILL.md`; `docs/skill-standard.md`.
+- **Normative base:** target project's `shared/engineering/module-organization.md` and `shared/engineering/naming-conventions.md` for module conventions; `docs/anti-patterns.md`; `skills/_template/SKILL.md`; `docs/skill-standard.md`.
 - **Anti-pattern gate:** No step may trigger AP-1 (vague task verb) by altering logic, or AP-2 (two tasks) by mixing refactor with feature work. No barrel exports (violates project no-barrel rule).
 
 ## 1. Intent (9 Dimensions)

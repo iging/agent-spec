@@ -11,10 +11,14 @@ description: Reusable, deterministic UI/UX and UX writing constraints for any pr
 
 ## 1. Enterprise Accessibility (WCAG 2.2)
 
-Apply these rules to guarantee neuro-inclusive and legally compliant interfaces.
+Apply these rules to guarantee neuro-inclusive and legally compliant interfaces. For products serving EU consumers, the European Accessibility Act has been enforceable since June 28, 2025 across e-commerce, banking, and consumer services, with penalties reaching EUR 100,000 under some national implementations.
 
 - **Semantic HTML:** You MUST use native HTML elements (`<button>`, `<nav>`, `<main>`). Using `<div onClick={...}>` for interactive elements is strictly BANNED.
 - **Keyboard Operability:** Ensure every interactive element is reachable via keyboard (`Tab`). Trap focus securely within open modals.
+- **Non-Text Contrast:** Give icons, control boundaries, and state indicators at least 3:1 contrast against adjacent colors (WCAG 1.4.11). Never strip the default focus outline without supplying an author-built replacement (failure technique F78).
+- **Focus Not Obscured:** Sticky headers, cookie banners, and floating footers must never fully hide the currently focused element (WCAG 2.4.11).
+- **Accessible Authentication:** Sign-in and sign-up flows must not require cognitive tests such as memorizing secrets, solving puzzles, or retyping codes, unless an alternative exists such as paste-enabled inputs, password-manager support, or passkeys (WCAG 3.3.8).
+- **Dragging Alternatives:** Every drag-based interaction such as sliders or sortable lists needs a single-tap or keyboard equivalent (WCAG 2.5.7).
 - **Screen Reader Support:** Add descriptive `aria-label` attributes to any button or link lacking visible text (e.g., icon-only buttons).
 - **Motion Accessibility:** Respect system preferences. Wrap all non-essential UI animations in `@media (prefers-reduced-motion: no-preference)` to protect users with vestibular sensitivities.
 
@@ -35,7 +39,7 @@ Apply these rules strictly to all layout generation and CSS styling. Avoid arbit
   - `shadow-md`: `0 4px 6px rgba(0,0,0,0.1)` for dropdowns, hover states.
   - `shadow-lg`: `0 10px 15px rgba(0,0,0,0.15)` for modals, popovers.
 - **Color Contrast:** Ensure all text passes WCAG AA contrast ratios (minimum 4.5:1 for standard text, 3:1 for large text).
-- **Alignment:** Never center-align paragraphs of body text. Left-align body text; center-align only small discrete elements like buttons or single-line headers.
+- **Alignment:** Never center-align paragraphs of body text. Left-align body text. Center only small discrete elements like buttons or single-line headers.
 
 ---
 
@@ -50,17 +54,18 @@ Apply these rules strictly to all layout generation and CSS styling. Avoid arbit
 
 Enforce these behavioral states on all interactive elements.
 
-- **Responsive Bounds:** Always output media queries for at least `max-width: 768px` (mobile) and `max-width: 1024px` (tablet). Never assume desktop-only usage.
-- **Interactive States:** Every button, link, and interactive element MUST have explicitly defined `:hover`, `:focus`, and `:active` states.
-  - `:focus` must use a highly visible outline (e.g., `outline: 2px solid var(--primary-color); outline-offset: 2px;`).
-- **Touch Targets:** Any clickable element must have a minimum height and width of 44px for touch accessibility.
-- **Micro-interactions (Closing the Loop):** Provide immediate visual feedback for user actions. Use disabled states, loading spinners, or toast notifications instantly upon submission to confirm system status. Keep micro-animations snappy (under 300ms).
+- **Responsive Bounds:** Build mobile-first. Write base styles for the smallest viewport and add layouts with `min-width` media queries at standard tiers such as `min-width: 640px`, `min-width: 768px`, and `min-width: 1024px`. Never assume desktop-only usage. Do not mix `max-width` overrides into a `min-width` system because stacked opposing queries create specificity conflicts. For component-level adaptation, prefer container queries per `html-css-principles.md`.
+- **Interactive States:** Every button, link, and interactive element MUST have explicitly defined `:hover`, `:focus-visible`, and `:active` states.
+  - Use `:focus-visible` rather than `:focus` so keyboard users get a strong ring while pointer users do not see redundant outlines.
+  - The focus indicator itself must hold 3:1 contrast against both the page background and the unfocused component state. A 2px solid outline with an offset satisfies the WCAG 2.4.13 size guidance (e.g., `outline: 2px solid var(--color-focus); outline-offset: 2px;`).
+- **Touch Targets:** Any clickable element must have a minimum height and width of 44px. This matches the Apple Human Interface Guidelines and WCAG 2.5.5 Target Size Enhanced (Level AAA). Treat 24 by 24 CSS pixels (WCAG 2.5.8 Target Size Minimum, Level AA) as the legal compliance floor, never as the design target.
+- **Micro-interactions (Closing the Loop):** Provide immediate visual feedback for user actions. Use disabled states, loading spinners, or toast notifications instantly upon submission to confirm system status. Time feedback per Nielsen Norman Group limits: acknowledge input within 100ms so interactions feel instantaneous, keep simple feedback animations near 100ms, reserve 200 to 300ms for large transitions such as modals, and never exceed 500ms.
 
 ---
 
 ## 5. Visual Elements and Theming
 
-- **Theme Scaling (CSS Variables):** Hardcoded hex colors (e.g., `#10B981`) are BANNED inside component styles. You MUST use CSS variables (e.g., `var(--color-success)`) mapped to a global theme provider to guarantee instant Light/Dark mode compatibility.
+- **Theme Scaling (CSS Variables):** Hardcoded hex colors (e.g., `#10B981`) are BANNED inside component styles. You MUST use CSS variables (e.g., `var(--color-success)`) mapped to a global theme provider to guarantee instant Light/Dark mode compatibility. Drive mode switching from the `prefers-color-scheme` media query by default, and re-verify all contrast ratios in both modes because a palette passing on white can fail on dark surfaces.
 - **Color Palette Constraint:** Limit the palette to 1 Primary color, 1 Secondary color, 1 Destructive color (red), and a grayscale spectrum.
 - **Status Colors:**
   - Success: Green mapped to `var(--color-success)`

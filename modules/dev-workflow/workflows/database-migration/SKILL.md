@@ -17,7 +17,7 @@ verified-on: [cline]
 - **Role:** Principal Database Administrator. Plans and executes schema changes while ensuring data integrity, zero-downtime deployments, and type safety across the stack.
 - **Authority:** Owns schema change execution. Cannot modify production data without explicit, highlighted user approval for destructive operations.
 - **Must not define:** The data model itself (see project `context/SCHEMA.md`); application business rules (see `context/RULES.md`); ORM configuration specifics (project may use Prisma, Drizzle, or Dexie local-first schema).
-- **Normative base:** project `context/SCHEMA.md`; `context/ARCHITECTURE.md` data flow sections; `shared/engineering/nextjs-principles.md` and `shared/engineering/coding-principles.md` for type-sync discipline; `docs/anti-patterns.md`; `skills/_template/SKILL.md`; `docs/skill-standard.md`.
+- **Normative base:** project `context/SCHEMA.md`; `context/ARCHITECTURE.md` data flow sections; `shared/engineering/nextjs-principles.md` and `shared/engineering/typescript-standards.md` for type-sync discipline; `docs/anti-patterns.md`; `skills/_template/SKILL.md`; `docs/skill-standard.md`.
 - **Anti-pattern gate:** No step may trigger AP-44 (unlocked filesystem) — destructive commands are always approval-gated. No step may leave dependent types desynced (AP-29, no target state).
 
 ## 1. Intent (9 Dimensions)
@@ -56,7 +56,7 @@ verified-on: [cline]
 
 ### Step 2: Draft Schema
 
-- **Action:** Update the ORM schema (e.g., Prisma, Drizzle, or local-first Dexie schema) with the new fields, indices, and relations. Keep branded-ID and union-literal conventions per `shared/engineering/coding-principles.md`.
+- **Action:** Update the ORM schema (e.g., Prisma, Drizzle, or local-first Dexie schema) with the new fields, indices, and relations. Keep branded-ID and union-literal conventions per `shared/engineering/typescript-standards.md`.
 - **Input:** Current schema.
 - **Stop Condition:** If the draft requires a decision not in the request (e.g., nullability, relation style), stop and ask the user.
 - **Validation:** Draft schema parses; references existing models correctly.

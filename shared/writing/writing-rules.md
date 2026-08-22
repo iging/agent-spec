@@ -1,11 +1,11 @@
 ---
 name: Shared Writing Rules
-description: Reusable writing-style rules, banned-word list, and truth protocol for any prompt that produces reader-facing prose.
+description: Reusable writing-style rules, banned-word tiers, truth protocol, and citation format for any prompt that produces reader-facing prose.
 ---
 
 # Shared Writing Rules
 
-> **Purpose:** Reusable writing-style rules, banned-word list, and truth protocol for any prompt that produces reader-facing prose. Reference this file from your prompt instead of duplicating these rules.
+> **Purpose:** Reusable writing-style rules, banned-word tiers, and truth protocol for any prompt that produces reader-facing prose: articles, UI copy, emails, documentation, and user-visible messages. Reference this file instead of duplicating these rules. Version 1.1.0, 2026-08-23.
 
 ---
 
@@ -31,23 +31,47 @@ Apply these rules to every string the reader sees.
 - Avoid markdown syntax inside plain-text string values.
 - Avoid asterisks in prose.
 - Avoid warnings, disclaimers, or meta-notes in the output. Return only the requested content.
+- Match the formality register of the target language in localized output. The direct "you" belongs to informal English and does not transfer to formal-register locales such as German Sie-form or Japanese honorific speech.
+
+**Rework example.** Before: `This groundbreaking tool utilizes innovative algorithms to seamlessly unlock powerful insights.` After: This tool applies proven matching algorithms and returns ranked results in under one second.
 
 ---
 
 ## Banned Words
 
-Do not use these words in reader-facing prose. This list does not apply to code, commands, dependency names, or technical identifiers.
+Do not use banned words in reader-facing prose. These lists do not apply to code, commands, dependency names, or technical identifiers.
 
-### Always banned
+### Always Banned
 
-delve, embark, esteemed, shed light, craft, crafting, imagine, remarkable, it remains to be seen, glimpse, unlock, discover, skyrocket, abyss, not alone, innovative, revolutionary, customize, disruptive, utilize, utilizing, illuminate, unveil, pivotal, intricate, elucidate, paradigm, however, harness, exciting, groundbreaking, skyrocketing, opened up, powerful, inquiring, exploration, embark, testament, in summary, in conclusion, most importantly, really, literally, actually, basically, very, just, that, probably.
+delve, embark, esteemed, shed light, craft, crafting, imagine, remarkable, it remains to be seen, glimpse, unlock, discover, skyrocket, abyss, not alone, innovative, revolutionary, customize, disruptive, utilize, utilizing, illuminate, unveil, pivotal, intricate, elucidate, paradigm, however, harness, exciting, groundbreaking, skyrocketing, opened up, powerful, inquiring, exploration, testament, in summary, in conclusion, most importantly, really, literally, actually, basically, very, just, probably.
 
-### Use sparingly — banned in marketing-style or filler sentences, allowed in instructional or technical contexts
+### Scoped Bans
 
-- **can** — Allowed: "You can verify this by running the test suite." Banned: "This tool can revolutionize your workflow."
-- **may** — Allowed: "The build may fail if dependencies are missing." Banned: "This approach may be the key to success."
-- **could** — Same rule as "can" and "may."
-- **maybe** — Prefer a concrete statement or a specific condition.
+Apply these bans by grammatical role rather than by string match.
+
+- **that**: Banned as filler or a vague demonstrative ("that was great", "I know that feeling"). Allowed as a relative pronoun or complementizer ("the file that owns routing", "verify that tests pass").
+
+### Extended Tier
+
+Ban these marketing and filler terms in reader-facing prose. This tier matches the enforced word list in `scripts/audit-compliance.js`.
+
+tapestry, beacon, beacon of, multifaceted, synergy, synergistic, pivot, leverage, holistic, robust, seamless, game-changer, supercharge, elevate, curate, paradigm shift, herculean, panacea, linchpin, quintessential, cornerstone, bedrock, testament to.
+
+### Use Sparingly
+
+Banned in marketing-style or filler sentences. Allowed in instructional or technical contexts.
+
+- **can**: Allowed in "You can verify this by running the test suite." Banned in "This tool can revolutionize your workflow."
+- **may**: Allowed in "The build may fail if dependencies are missing." Banned in "This approach may be the key to success."
+- **could**: Same rule as "can" and "may."
+- **maybe**: Prefer a concrete statement or a specific condition.
+
+### Enforcement Tiers
+
+Two layers keep doctrine and tooling consistent:
+
+- **Full doctrine** (this file) governs every string an agent writes for readers.
+- **Mechanical enforcement** (`scripts/audit-compliance.js`) applies the Always Banned list minus function words (`however`, `really`, `literally`, `actually`, `basically`, `very`, `just`, `probably`) plus the Extended Tier. It runs outside rule-reference directories (`modules/`, `shared/`, `core/`, `context/`, `docs/`) so normative files stay exempt from prose-style checks. Function-word bans remain doctrine-only because mechanical flagging floods technical documentation with false positives.
 
 ---
 
@@ -59,7 +83,7 @@ Apply this protocol to any prompt that produces factual claims, technical statem
 
 - Tell the truth. Never speculate or guess.
 - Base statements on verifiable, factual, current sources.
-- Cite sources when the output states an external fact.
+- Cite sources as inline links placed directly beside each claim they support. One link per claim. Prefer primary sources over commentary.
 - State "I cannot confirm this" when something cannot be verified.
 - Prioritize accuracy over speed. Verify before writing.
 - Stay objective and free of bias unless the user requests a viewpoint.
@@ -84,3 +108,10 @@ Apply this protocol to any prompt that produces factual claims, technical statem
 ### Failsafe
 
 Before writing each factual claim, ask: "Is this statement verifiable, credible, free of fabrication, and transparently cited?" If not, revise it until it is, or remove it.
+
+---
+
+## Changelog
+
+- v1.1.0 (2026-08-23): Removed three self-inflicted em dashes. Deduplicated "embark". Moved "that" from absolute ban to scoped ban by grammatical role. Added the Extended Tier to reconcile the word list with `scripts/audit-compliance.js`. Added the Enforcement Tiers section, a rework example, a localization register rule, and an inline citation format.
+- v1.0.0 (original): Initial style rules, banned-word list, and truth protocol.
