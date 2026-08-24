@@ -1,6 +1,6 @@
 ---
 name: Design Principles
-description: Structural design axioms for application code covering SOLID, DRY, and KISS, applied through composition and explicit contracts.
+description: Structural design axioms for application code covering SOLID, DRY, KISS, and YAGNI, applied through composition and explicit contracts.
 ---
 
 # Design Principles
@@ -20,17 +20,19 @@ description: Structural design axioms for application code covering SOLID, DRY, 
 
 ---
 
-## 2. DRY and KISS Guidelines
+## 2. DRY, KISS, and YAGNI Guidelines
 
 - **DRY (Don't Repeat Yourself):** Extract a shared abstraction only after a pattern genuinely repeats multiple times. Premature extraction produces rigid code.
 - **KISS (Keep It Simple):** Prefer the least complex design satisfying requirements. Avoid premature optimization, over-engineered abstractions, and unnecessary indirection layers.
+- **YAGNI (You Aren't Gonna Need It):** Build only what current requirements demand. Do not add features on speculation about future needs. Defer a capability until a real requirement triggers it.
 
 ---
 
-## 3. Applying the Two Together
+## 3. Applying These Together
 
 - When SRP and DRY conflict, resolve toward SRP first. A small duplicated block with one owner beats a shared abstraction with two reasons to change.
 - Treat every abstraction as a debt instrument. Each one must pay rent through reduced duplication, isolated change, or simplified reasoning. Delete abstractions failing this test during refactoring passes.
+- Reject any feature lacking a current requirement regardless of its expected future value. Speculative features create maintenance cost before they create value.
 
 ---
 

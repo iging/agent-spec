@@ -18,7 +18,7 @@ The `shared/` directory organizes cross-cutting domain principles into structure
 
 - [`typescript-standards.md`](engineering/typescript-standards.md) — Type-system rules covering strict setup, erasable syntax, runtime validation, and advanced type derivation.
 - [`naming-conventions.md`](engineering/naming-conventions.md) — Casing rules and clarity principles for files, components, hooks, functions, and identifiers.
-- [`design-principles.md`](engineering/design-principles.md) — Structural design axioms covering SOLID, DRY, KISS, Law of Demeter, and encapsulation.
+- [`design-principles.md`](engineering/design-principles.md) — Structural design axioms covering SOLID, DRY, KISS, YAGNI, Law of Demeter, and encapsulation.
 - [`function-design.md`](engineering/function-design.md) — Function shaping rules covering size, argument flow, side-effect honesty, guard clauses, JSDoc conventions, and file layout.
 - [`module-organization.md`](engineering/module-organization.md) — Import-graph rules covering the barrel-file ban and direct imports.
 - [`error-handling.md`](engineering/error-handling.md) — Exception design covering contract-first catches, exception translation, and the ban on exceptions as control flow.
