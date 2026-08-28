@@ -33,6 +33,7 @@ Apply these rules strictly to all component generation to enforce performance an
 - **Next.js 16 Caching & Dynamic I/O:** Dynamic data operations and fetches are uncached by default. You MUST explicitly opt-in using the `'use cache'` directive alongside `cacheLife()` and `cacheTag()` helpers for explicit cache control. Invalidate tagged entries with `revalidateTag(tag, cacheLifeProfile)`, which requires a profile argument such as `'max'` in Next.js 16. Use `updateTag()` inside Server Actions when you need read-your-writes semantics.
 - **Async Request Context (Next.js 16):** Dynamic server utilities (`cookies()`, `headers()`, `draftMode()`) are asynchronous. You MUST explicitly `await cookies()` and `await headers()` in Server Components and Server Actions.
 - **Server Actions & React 19 Action Hooks:** Use Server Actions for all form submissions and internal database mutations. In Client Components, integrate Server Actions using React 19 native hooks (`useActionState`, `useFormStatus`, `useOptimistic`). Reserve Route Handlers strictly for external public REST APIs or webhooks.
+- **Server Action Auth & Schema Validation:** Server Actions are exposed public HTTP POST endpoints. EVERY Server Action MUST explicitly validate its input arguments using a schema validator (such as Zod) and execute an explicit session/authorization check BEFORE performing any database mutations or reads.
 - **Suspense & Cache Components:** Enforce granular `<Suspense>` boundaries around genuinely dynamic components (like a shopping cart). Next.js 16 hard-deprecated the standalone PPR configuration flag. Cache Components, built on the `'use cache'` directive, now deliver partial prerendering behavior. Avoid wrapping entire pages in a single Suspense boundary.
 - **State Granularity:** When managing state in Client Components, use granular states (multiple `useState` declarations) instead of a single monolithic state object to prevent unnecessary re-renders.
 - **Global State:** The React Context API is permitted for lightweight global state. Third-party state management (like Redux) is BANNED unless explicitly requested by the user.
@@ -55,6 +56,7 @@ Apply these rules strictly to all component generation to enforce performance an
 - **Error and Loading States:** Every major route segment MUST include a `loading.tsx` and an `error.tsx` file to handle Suspense boundaries and prevent broken user experiences.
 - **API Routes:** Reserve Route Handlers (`app/api/[route]/route.ts`) strictly for external public REST APIs or webhooks. Internal backend logic MUST use Server Actions.
 - **Proxy over Middleware:** Next.js 16 deprecates `middleware.ts` in favor of `proxy.ts` at the project root for cross-cutting concerns such as authentication checks, rate limiting, and redirects. Run the official middleware-to-proxy codemod on existing projects before layering new logic onto a middleware file.
+- **Route Segment Config Standards:** Use explicit route segment config exports (`export const dynamic = 'force-dynamic'`, `export const revalidate = 0`) or `'use cache'` directives when non-default dynamic behavior is needed. Combining conflicting legacy export flags or mixing incompatible options is strictly BANNED.
 
 ---
 
@@ -70,4 +72,4 @@ Apply these rules strictly to all component generation to enforce performance an
 
 - **Client-Side Secrets:** NEVER expose API keys or secrets to the browser. Only variables explicitly safe for the client may be prefixed with `NEXT_PUBLIC_`.
 - **Server-Side Secrets:** Database passwords, auth secrets, and private API keys MUST remain on the server and be accessed securely via `process.env` in Server Components or API Routes only.
-
+- **`server-only` Package Guardrail:** Import `'server-only'` at the top of server database modules, secret handlers, and domain service files. This triggers a build-time compiler failure if server logic or private keys are accidentally imported into Client Component bundles.

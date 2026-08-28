@@ -15,6 +15,8 @@ description: Normative foundation for React Native and Expo apps covering archit
 - **New Architecture Mandatory:** Target SDK 55 or later where the New Architecture cannot be disabled. Never write code against the legacy architecture. It was frozen in June 2025 and is stripped from release builds since React Native 0.84.
 - **Strict TypeScript API:** On React Native 0.87 or later, import only through the public Strict TypeScript API. Deep imports into `react-native` internals are BANNED.
 - **Runtime:** Assume Hermes V1 as the JavaScript engine. Do not ship JSC compatibility shims or engine-detection branches.
+- **Expo Router Default:** Use Expo Router (`app/` file-based routing) for navigation in new applications. Define screens declaratively with typed routes (`expo-router`). Imperative stack management or raw React Navigation boilerplate in root components is BANNED unless migrating legacy native modules.
+- **Chrome DevTools Debugging Protocol:** Debug mobile applications exclusively using the modern React Native DevTools / Chrome DevTools Protocol over Hermes. Reliance on legacy Flipper debuggers or leaving `console.log` statements in production release builds is strictly BANNED.
 
 ---
 
@@ -69,6 +71,7 @@ description: Normative foundation for React Native and Expo apps covering archit
 
 - **Roles and Labels:** Every tappable element declares `accessibilityRole` (for example `button`, `header`, `link`) and `accessibilityLabel` when visible text is absent. These map to the same outcomes as the WCAG rules in `ui-ux-principles.md`.
 - **Screen Reader Order:** Keep component order equal to visual and logical reading order. Screen readers traverse the component tree, not pixel positions.
+- **Deterministic E2E Testing with Maestro:** Critical UI workflows and user journeys MUST be verified using declarative Maestro flow tests (`.yaml`) rather than relying on fragile, platform-dependent unit mocks of native device modules.
 
 ---
 

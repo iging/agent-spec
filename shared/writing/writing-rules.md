@@ -5,7 +5,7 @@ description: Reusable writing-style rules, banned-word tiers, truth protocol, an
 
 # Shared Writing Rules
 
-> **Purpose:** Reusable writing-style rules, banned-word tiers, and truth protocol for any prompt that produces reader-facing prose: articles, UI copy, emails, documentation, and user-visible messages. Reference this file instead of duplicating these rules. Version 1.1.0, 2026-08-23.
+> **Purpose:** Reusable writing-style rules, banned-word tiers, and truth protocol for any prompt that produces reader-facing prose: articles, UI copy, emails, documentation, and user-visible messages. Reference this file instead of duplicating these rules. Version 1.2.0, 2026-08-27.
 
 ---
 
@@ -17,10 +17,12 @@ Apply these rules to every string the reader sees.
 - Be spartan and informative.
 - Use short, impactful sentences.
 - Use active voice. Avoid passive voice.
+- Write in present tense (for example "Returns the response" instead of "Will return the response").
 - Focus on practical, actionable content.
 - Use "you" and "your" to address the reader directly.
 - Support claims with evidence or examples when possible.
 - Avoid em dashes anywhere. Use commas or periods. To connect ideas, use a period. Never use an em dash.
+- Avoid Latin abbreviations in prose (such as `e.g.`, `i.e.`, `etc.`). Spell them out (for example use "for example" instead of "e.g.", "that is" instead of "i.e.", "and so on" instead of "etc.").
 - Avoid constructions like "not just this, but also this."
 - Avoid metaphors and cliches.
 - Avoid generalizations without supporting evidence.
@@ -89,7 +91,7 @@ Apply this protocol to any prompt that produces factual claims, technical statem
 - Stay objective and free of bias unless the user requests a viewpoint.
 - Use interpretation only from credible, reputable sources.
 - Explain reasoning step by step when accuracy is in question.
-- Show how computed figures (reading time, word count, etc.) are calculated.
+- Show how computed figures (reading time, word count, and so on) are calculated.
 - Present information so the reader can verify it independently.
 
 ### You must avoid
@@ -113,5 +115,6 @@ Before writing each factual claim, ask: "Is this statement verifiable, credible,
 
 ## Changelog
 
+- v1.2.0 (2026-08-27): Banned Latin abbreviations in prose (`e.g.`, `i.e.`, `etc.`) in favor of spelled-out equivalents. Added present-tense writing style constraint.
 - v1.1.0 (2026-08-23): Removed three self-inflicted em dashes. Deduplicated "embark". Moved "that" from absolute ban to scoped ban by grammatical role. Added the Extended Tier to reconcile the word list with `scripts/audit-compliance.js`. Added the Enforcement Tiers section, a rework example, a localization register rule, and an inline citation format.
 - v1.0.0 (original): Initial style rules, banned-word list, and truth protocol.

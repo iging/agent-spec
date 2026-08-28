@@ -1,53 +1,65 @@
 ---
 name: Design Tokens
-description: Semantic token naming, color ramps, spacing steps, typography steps, motion easing and duration assignments, icon sizing tiers, and the component state matrix for design-system-driven interfaces.
+description: 3-tier token architecture, semantic token naming, OKLCH color ramps, spacing steps, elevation, typography, motion easing and duration assignments, icon sizing tiers, and the component state matrix.
 ---
 
 # Design Tokens
 
-> **Purpose:** The vocabulary of the design system: which tokens exist, how they are named, and how components consume them. Reference this file whenever you generate styles, name CSS custom properties, pick icons, or animate transitions. Behavioral rules live in `ui-ux-principles.md`. CSS architecture lives in `html-css-principles.md`.
+> **Purpose:** The vocabulary of the design system: which tokens exist, how they are named, and how components consume them. Reference this file when generating styles, naming CSS custom properties, picking icons, or animating transitions. Behavioral rules live in `ui-ux-principles.md`. CSS architecture lives in `html-css-principles.md`.
 
 ---
 
-## 1. Semantic Color Tokens
+## 1. 3-Tier Token Architecture
 
-- **Two Layers:** Maintain a raw ramp per hue numbered 100 to 900 in steps of 100, plus a semantic layer mapping user-facing roles to ramp steps. Components consume the semantic layer only.
-- **Naming Namespaces:** Use these hyphenated prefixes. Dots are invalid inside CSS custom properties, so `bg.primary` style notation is banned.
-  - `bg-` for surfaces: `--bg-primary`, `--bg-surface`
-  - `text-` for foreground text: `--text-primary`, `--text-muted`
-  - `border-` for borders and dividers: `--border-default`
-  - `brand-` for brand accents: `--brand-primary`
-  - `status-` for feedback: `--status-success`, `--status-warning`, `--status-error`, `--status-info`
-- **Ramp Discipline:** Derive each ramp from one hue. Never hand-pick adjacent steps independently.
-- **Theme Switching:** Redefine semantic token values per theme under `prefers-color-scheme` and re-verify contrast in both modes per `ui-ux-principles.md`.
+- **Tier 1 — Global Primitives (`primitive-`):** Raw scales representing absolute values (for example `--primitive-blue-500: oklch(0.55 0.2 250)`, `--primitive-space-4: 16px`). Primitives are system internals; components must not consume Tier 1 tokens directly.
+- **Tier 2 — Semantic Contextual (`bg-`, `text-`, `border-`, `brand-`, `status-`):** Purpose-driven tokens mapping user-facing UI roles to primitive values (for example `--bg-primary`, `--text-muted`). Components consume Tier 2 tokens by default.
+- **Tier 3 — Component Scoped (`cmp-`):** Specific overrides scoped to a single component (for example `--cmp-button-bg-hover`). Use Tier 3 tokens when a component requires unique state layers without polluting the global semantic space.
 
 ---
 
-## 2. Spacing Tokens
+## 2. Semantic Color Tokens and Perceptual Ramps
 
-- **Base Unit:** 4px. Every margin, padding, gap, and border-radius is a multiple of 4.
-- **Named Steps:** `space-1` 4px, `space-2` 8px, `space-3` 12px, `space-4` 16px, `space-6` 24px, `space-8` 32px, `space-12` 48px, `space-16` 64px.
-- **Layout Grid:** Twelve columns. Gutters between 16 and 24px. Page margins between 24 and 48px at desktop widths.
+- **OKLCH Perceptual Uniformity:** Derive color ramps in OKLCH or perceptually uniform color spaces to ensure consistent contrast step spacing across light and dark modes. Maintain raw ramps numbered 100 to 900 in steps of 100 per hue.
+- **Naming Namespaces:** Use hyphenated prefixes for CSS custom properties. Dots are invalid inside custom property names (for example `bg.primary` is banned):
+  - `bg-` for background surfaces: `--bg-primary`, `--bg-surface`, `--bg-subtle`
+  - `text-` for text foregrounds: `--text-primary`, `--text-secondary`, `--text-muted`
+  - `border-` for borders and dividers: `--border-default`, `--border-subtle`, `--border-focus`
+  - `brand-` for brand accents: `--brand-primary`, `--brand-secondary`
+  - `status-` for system feedback: `--status-success`, `--status-warning`, `--status-error`, `--status-info`
+- **Ramp Discipline:** Derive each ramp from one base hue. Never hand-pick adjacent steps independently.
+- **Theme Switching:** Redefine semantic token values per theme under `@media (prefers-color-scheme: dark)` or class-based theme containers. Re-verify contrast ratios in both modes per `ui-ux-principles.md`.
 
 ---
 
-## 3. Typography Tokens
+## 3. Spacing, Radius, and Stacking Tokens
 
-- **Named Steps:** `text-xs` 12px, `text-sm` 14px, `text-base` 16px, `text-lg` 18px, `text-xl` 20px, `text-2xl` 24px, `text-3xl` 32px, `text-4xl` 40px. Body copy uses `text-base`. Heading mappings follow `ui-ux-principles.md`: H3 uses `text-xl`, H2 uses `text-2xl`, H1 uses `text-4xl`.
+- **Base Spacing Unit:** 4px. Every margin, padding, gap, and dimension is a multiple of 4.
+- **Named Spacing Steps:** `space-1` (4px), `space-2` (8px), `space-3` (12px), `space-4` (16px), `space-6` (24px), `space-8` (32px), `space-12` (48px), `space-16` (64px).
+- **Layout Grid:** Twelve columns. Gutters between 16px and 24px. Page margins between 24px and 48px at desktop widths.
+- **Border Radius Steps:** `radius-none` (0px), `radius-sm` (4px), `radius-md` (8px), `radius-lg` (12px), `radius-xl` (16px), `radius-full` (9999px).
+- **Z-Index Stacking Hierarchy:** `z-deep` (-1), `z-default` (0), `z-dropdown` (1000), `z-sticky` (1100), `z-fixed` (1200), `z-modal` (1300), `z-popover` (1400), `z-toast` (1500).
+
+---
+
+## 4. Typography and Layout Tokens
+
+- **Named Text Steps:** `text-xs` (12px), `text-sm` (14px), `text-base` (16px), `text-lg` (18px), `text-xl` (20px), `text-2xl` (24px), `text-3xl` (32px), `text-4xl` (40px). Body copy uses `text-base`. Heading mappings follow `ui-ux-principles.md`: H3 uses `text-xl`, H2 uses `text-2xl`, H1 uses `text-4xl`.
 - **Line Height Bands:** Headings 1.1 to 1.3. Body text 1.5 minimum. Compact UI labels 1.0 to 1.2.
 - **Weight Roles:** Regular 400 body, Medium 500 labels, Semibold 600 subheadings, Bold 700 headings, ExtraBold 800 display only.
+- **Responsive Viewport Breakpoints:** `breakpoint-sm` (640px), `breakpoint-md` (768px), `breakpoint-lg` (1024px), `breakpoint-xl` (1280px), `breakpoint-2xl` (1536px).
 
 ---
 
-## 4. Motion Tokens
+## 5. Elevation and Motion Tokens
 
-- **Easing Assignments:** `ease-out` for anything entering or appearing. `ease-in` for anything exiting or leaving. `ease-in-out` for movement and resizing inside the viewport.
-- **Duration Assignments:** 100ms for micro-feedback such as hover tints, toggles, and fades. 150 to 200ms for small elements such as button presses and tooltips. 200 to 300ms for medium surfaces such as modals and dropdowns. Up to 400ms for large movements such as page transitions. 500ms is the hard ceiling per `ui-ux-principles.md`.
+- **Elevation Shadows:** `shadow-none` (none), `shadow-sm` (0 1px 2px rgba(0,0,0,0.05)), `shadow-md` (0 4px 6px -1px rgba(0,0,0,0.1)), `shadow-lg` (0 10px 15px -3px rgba(0,0,0,0.1)), `shadow-xl` (0 20px 25px -5px rgba(0,0,0,0.1)).
+- **Easing Assignments:** `ease-out` for elements entering or appearing. `ease-in` for elements exiting or leaving. `ease-in-out` for movement and resizing inside the viewport.
+- **Duration Assignments:** 100ms for micro-feedback (hover tints, toggles, fades). 150ms to 200ms for small elements (button presses, tooltips). 200ms to 300ms for medium surfaces (modals, dropdowns). Up to 400ms for large movements (page transitions). 500ms is the hard ceiling per `ui-ux-principles.md`.
 - **Reduced Motion:** Apply all motion tokens only inside `@media (prefers-reduced-motion: no-preference)` per `ui-ux-principles.md`.
 
 ---
 
-## 5. Icon System
+## 6. Icon System Specifications
 
 - **One Library Per Project:** Choose exactly one set and stick with it. Approved options: Lucide, Phosphor, Heroicons, Radix Icons. Never mix sets.
 - **Size Tiers:** 16px inline with text. 20px default UI glyphs. 24px navigation and primary controls. 32px feature highlights. 48px hero moments.
@@ -56,13 +68,14 @@ description: Semantic token naming, color ramps, spacing steps, typography steps
 
 ---
 
-## 6. Component State Matrix
+## 7. Component State Matrix & State Layers
 
 Every interactive component implements and documents all six states before shipping:
 
-1. Default resting appearance.
-2. Hover response.
-3. Active pressed response.
-4. Focus-visible ring meeting contrast rules in `ui-ux-principles.md`.
-5. Disabled appearance with non-text contrast exemptions noted.
-6. Loading state for any trigger performing an async operation.
+1. **Default:** Resting appearance using semantic surface and text tokens.
+2. **Hover:** Micro-feedback via state overlay tint (`color-mix(in oklch, var(--text-primary) 8%, transparent)`) or explicit hover token.
+3. **Active:** Pressed state response with increased overlay opacity (12% to 16%) or active transform step.
+4. **Focus-Visible:** Distinct outline or focus ring meeting WCAG 2.2 contrast rules per `ui-ux-principles.md`.
+5. **Disabled:** Non-interactive appearance with non-text contrast exemptions noted.
+6. **Loading:** Spinner or skeleton overlay for triggers performing async operations.
+
