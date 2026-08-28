@@ -1,6 +1,6 @@
 ---
 name: Function Design
-description: Rules for shaping functions and documenting code, covering size, abstraction level, argument flow, side-effect honesty, guard clauses, and JSDoc conventions.
+description: Rules for shaping functions and documenting code, covering size, cognitive complexity, argument flow, pure functions, side-effect honesty, guard clauses, and JSDoc conventions.
 ---
 
 # Function Design
@@ -9,27 +9,29 @@ description: Rules for shaping functions and documenting code, covering size, ab
 
 ---
 
-## 1. Scope and Size
+## 1. Scope, Size, and Cognitive Complexity
 
-- **Small, Single-Purpose Functions:** A function must do one thing. If you can label chunks of a function with different names, split it into smaller functions.
+- **Small Single-Purpose Functions:** A function must do one thing. If you can label chunks of a function with different names, split it into smaller functions.
 - **One Level of Abstraction per Function:** High-level functions must read like a table of contents. Call lower-level functions instead of inlining details. Push loops and low-level logic into dedicated step-down functions.
 - **Minimize Argument Count:** Aim for zero to two arguments. Wrap three or more parameters into a structured options object.
+- **Cognitive Complexity Target:** Keep cognitive complexity at or below 15 (measured via SonarQube / Biome rules). Avoid deep nesting, complex conditional chains, or long subroutines.
 
 ---
 
-## 2. Execution Flow and Side Effects
+## 2. Pure Functions and Execution Flow
 
-- **No Flag Arguments:** Do not pass boolean flags to select execution paths inside a function. Split the paths into separate named functions instead. Data booleans remain allowed (`setVisible(true)`).
-- **No Output Arguments:** Data flows in through parameters and out through return values. Do not mutate input argument objects.
-- **Command / Query Separation (CQS):** A function either performs an action (command) or returns data (query), never both. Split a `setX` returning existence into `xExists()` and `setX()`.
+- **Pure Functions First:** Prefer pure functions that compute output solely from input parameters without modifying external state.
+- **No Parameter Reassignment or Output Arguments:** Data flows in through parameters and out through return values. Treat input arguments as immutable references. Never reassign parameters or mutate argument objects.
+- **No Flag Arguments:** Do not pass boolean flags to select execution paths inside a function. Split the paths into separate named functions instead. Data booleans remain allowed (for example `setVisible(true)`).
+- **Command Query Separation (CQS):** A function either performs an action (command) or returns data (query), never both. Split a `setX` returning existence into `xExists()` and `setX()`.
 - **No Hidden Side Effects:** A function name is a contract. If a function performs effects beyond its name (for example `checkPassword()` resetting a session), rename it honestly or move the effect out.
-- **Early Return Guard Pattern:** Handle errors and edge cases at the top of functions using early returns (`if (!data) return null;`). Avoid deeply nested `if`/`else` chains.
+- **Early Return Guard Pattern:** Handle errors and edge cases at the top of functions using early returns (`if (!data) return null;`). Avoid nested `if`/`else` chains.
 
 ---
 
-## 3. Lifecycle
+## 3. Refactoring Lifecycle
 
-- **Refactor After It Works:** Write working code covered by tests first. Clean up function size, naming, and duplication in a second pass.
+- **Refactor After It Works:** Write working code covered by tests first. Clean up function size, naming, parameter objects, and duplication in a second pass.
 
 ---
 
@@ -37,9 +39,9 @@ description: Rules for shaping functions and documenting code, covering size, ab
 
 Apply these rules on every generation or edit of code in this project:
 
-- **JSDoc Coverage:** Document every exported function, class, hook, provider, and utility with JSDoc. Include `@param` entries for each parameter and `@returns` for non-void returns. Describe contracts, units, and thrown errors, never restate the signature.
-- **Inline Comments Sparingly:** Add inline comments only for genuinely non-obvious logic such as workarounds, performance trade-offs, or external constraints. The code explains what. The comment explains why.
-- **Comment Quality:** Keep comments current within the same edit as the code change. Delete stale comments instead of patching them. Never leave commented-out code behind.
+- **JSDoc Coverage:** Document every exported function, class, hook, provider, and utility with JSDoc. Include `@param` entries for each parameter, `@returns` for non-void returns, and `@throws` for functions that throw errors or return rejected promises. Describe contracts, units, and failure conditions rather than restating signatures.
+- **Inline Comments Sparingly:** Add inline comments only for non-obvious logic such as workarounds, performance trade-offs, or external constraints. Code explains what. Comments explain why.
+- **Comment Quality:** Keep comments current within the same edit as the code change. Delete stale comments immediately instead of patching them. Never leave commented-out code behind.
 
 ---
 

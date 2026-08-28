@@ -1,6 +1,6 @@
 ---
 name: Design Principles
-description: Structural design axioms for application code covering SOLID, DRY, KISS, and YAGNI, applied through composition and explicit contracts.
+description: Structural design axioms for application code covering SOLID, composition over inheritance, DRY, KISS, YAGNI, AHA, Law of Demeter, and object-data duality.
 ---
 
 # Design Principles
@@ -11,33 +11,44 @@ description: Structural design axioms for application code covering SOLID, DRY, 
 
 ## 1. SOLID Principles Application
 
-- **Single Responsibility Principle (SRP):** Give each function and component one reason to change. Keep presentation components decoupled from routing and state logic.
+- **Single Responsibility Principle (SRP):** Give each function, class, and component one reason to change. Keep presentation components decoupled from routing, data fetching, and state logic.
 - **Open/Closed Principle (OCP):** Extend behavior through composition or strategy patterns. Do not mutate established core components to add variants.
-- **Liskov Substitution Principle (LSP):** Subtypes and interface implementations must drop into any caller without breaking caller expectations.
-- **Interface Segregation Principle (ISP):** Prefer small, specific interfaces over bloated multi-purpose interfaces. Consumers should depend only on members they call.
-- **Dependency Inversion Principle (DIP):** Depend on abstractions (interfaces, types), not concrete implementations. Pass dependencies into functions as arguments.
-- **Polymorphism over Type Branching:** Replace repeated `switch` or `if` checks on type flags with discriminated unions or polymorphic dispatch.
+- **Liskov Substitution Principle (LSP):** Subtypes and interface implementations must drop into any caller without breaking caller expectations or contracts.
+- **Interface Segregation Principle (ISP):** Prefer small, specific interfaces over bloated multi-purpose interfaces. Consumers depend strictly on members they call.
+- **Dependency Inversion Principle (DIP):** Depend on abstractions (interfaces, abstract contracts, types), not concrete implementations. Pass dependencies into functions or constructors.
+- **Polymorphism over Type Branching:** Replace repeated `switch` or `if` checks on type flags with discriminated unions, pattern matching, or polymorphic dispatch.
 
 ---
 
-## 2. DRY, KISS, and YAGNI Guidelines
+## 2. Composition Over Inheritance
 
-- **DRY (Don't Repeat Yourself):** Extract a shared abstraction only after a pattern genuinely repeats multiple times. Premature extraction produces rigid code.
+- **Favor Object Composition:** Compose behavior using small, single-purpose objects or functions rather than inheriting from deep class hierarchies.
+- **Avoid Fragile Base Classes:** Deep inheritance binds subclasses tightly to parent implementation details, leading to fragile base class problems and LSP violations.
+- **Strategy & Delegation:** Encapsulate varying algorithms behind strategy interfaces and delegate work to composed dependencies.
+
+---
+
+## 3. DRY, KISS, YAGNI, and AHA Guidelines
+
+- **DRY (Don't Repeat Yourself) & Rule of Three:** Extract a shared abstraction only after a pattern repeats three distinct times. Premature extraction produces rigid code.
+- **AHA (Avoid Hasty Abstractions):** Prefer mild duplication over the wrong abstraction. Duplication is cheaper than a flawed abstraction that couples unrelated concerns.
 - **KISS (Keep It Simple):** Prefer the least complex design satisfying requirements. Avoid premature optimization, over-engineered abstractions, and unnecessary indirection layers.
-- **YAGNI (You Aren't Gonna Need It):** Build only what current requirements demand. Do not add features on speculation about future needs. Defer a capability until a real requirement triggers it.
+- **YAGNI (You Aren't Gonna Need It):** Build strictly what current requirements demand. Do not add features on speculation about future needs. Defer a capability until an explicit requirement triggers it.
 
 ---
 
-## 3. Applying These Together
+## 4. Applying These Together
 
-- When SRP and DRY conflict, resolve toward SRP first. A small duplicated block with one owner beats a shared abstraction with two reasons to change.
-- Treat every abstraction as a debt instrument. Each one must pay rent through reduced duplication, isolated change, or simplified reasoning. Delete abstractions failing this test during refactoring passes.
-- Reject any feature lacking a current requirement regardless of its expected future value. Speculative features create maintenance cost before they create value.
+- When SRP and DRY conflict, resolve toward SRP first. A small duplicated block with one clear owner beats a shared abstraction with two reasons to change.
+- Treat every abstraction as a debt instrument. Each abstraction must pay rent through reduced duplication, isolated change, or simplified reasoning. Delete abstractions failing this test during refactoring passes.
+- Reject any feature lacking a current requirement regardless of its expected future value. Speculative features create maintenance cost before creating value.
 
 ---
 
-## 4. Data and Behavior
+## 5. Data, Behavior, and Boundary Architecture
 
-- **Law of Demeter:** A method talks only to its own class, objects it creates, objects passed as arguments, and objects it holds as fields. Never chain calls through objects returned by other calls. Tell the nearby object what you need instead of reaching through its structure. This rule applies to objects with behavior, not to plain data structures.
-- **Encapsulation Has a Purpose:** Private state buys the freedom to change representation later. Exposing every field through automatic getters and setters restores public state and cancels the freedom.
-- **No Anemic Hybrids:** A type is either a data structure exposing its shape or an object hiding shape behind behavior. A class exposing all of its fields while also performing real work refuses a single responsibility. Split it along the axis of likely change, because every class is a bet on which change comes next.
+- **Law of Demeter:** A method talks only to its own class, objects it creates, objects passed as arguments, and objects it holds as fields. Never chain calls through objects returned by other calls.
+- **Tell, Don't Ask:** Command objects to perform actions rather than querying internal state to make decisions outside the object.
+- **Encapsulation Has a Purpose:** Private state preserves freedom to change implementation representations later. Exposing fields through automatic getters/setters cancels that freedom.
+- **No Anemic Hybrids:** A type is either a plain data structure exposing shape OR an object hiding shape behind behavior—never both. Split mixed types along their axis of change.
+- **Functional Core, Imperative Shell:** Keep business logic pure and deterministic at the core. Push side effects (I/O, database access, external APIs) to system boundaries.

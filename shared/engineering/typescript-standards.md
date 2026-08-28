@@ -14,6 +14,7 @@ description: Type-system rules for TypeScript projects covering strict setup, er
 - **Primary Language:** Use TypeScript with strict mode declared in `tsconfig.json`. Declare it explicitly even though TypeScript 7 enables `strict` by default, so older toolchains cannot silently downgrade the configuration.
 - **Type Declarations Location:** Place every interface and type declaration in `src/types/`, organized as one dedicated file per domain or concern (for example `src/types/user.ts`). Components and hooks import from `src/types/` instead of declaring local duplicates.
 - **Functional and Declarative Patterns:** Write pure functional components with declarative patterns. Avoid ES6 classes for React components.
+- **Explicit Type Imports and Verbatim Module Syntax:** Enable `verbatimModuleSyntax` in `tsconfig.json`. Type-only imports and exports MUST explicitly use `import type` (e.g., `import type { User } from './user'`) to guarantee clean tree-shaking and compatibility with Node.js native type stripping (`--experimental-strip-types`), Vite, SWC, and esbuild.
 
 ---
 
@@ -25,6 +26,7 @@ description: Type-system rules for TypeScript projects covering strict setup, er
 - **Erasable Syntax Only:** Enable `erasableSyntaxOnly` (available since TypeScript 5.8). It rejects syntax requiring runtime transpilation, including enums and namespaces. This keeps the codebase compatible with bundler pipelines, `isolatedModules`, Node.js native TypeScript execution, and the TypeScript 7 toolchain.
 - **Make Illegal States Unrepresentable:** Model polymorphic data using discriminated unions with a `kind` field instead of optional fields (`?`) paired with non-null assertions (`!`).
 - **Tuples over Loose Arrays:** Use tuples (`[string, number]`) for fixed-length positional arrays instead of union arrays (`(string | number)[]`).
+- **Explicit Resource Management:** In TypeScript 5.2+ environments, use the `using` keyword for disposables implementing `Symbol.dispose` or `Symbol.asyncDispose` (such as database connections, file handles, or lock allocations) to automate resource cleanup instead of writing verbose `try...finally` blocks.
 
 ---
 
@@ -35,6 +37,7 @@ description: Type-system rules for TypeScript projects covering strict setup, er
 - **Type Assertions as Last Resort:** Prefer type predicates (`fn(x): x is TargetType`) over manual casts (`as`). Rely on automatic type predicate inference shipped in TypeScript 5.5 for simple array filters instead of writing manual predicates. Inference fires only under four conditions per the release notes: no explicit return annotation, a single `return` statement, no parameter mutation, and a boolean expression tied to a direct refinement on the parameter. Truthiness filters (`!!score`, `.filter(Boolean)`) never infer predicates because a `false` result cannot exclude falsy values such as `0`. Filter with explicit comparisons (`score !== undefined`) instead.
 - **Explicit Return Types:** Annotate return types on exported functions and functions returning computed generics. The compiler must re-materialize inferred anonymous return types for every declaration emit and every call site, which slows large builds and can produce circularity errors on complex generics (the TypeScript Performance wiki documents multi-minute compile regressions from missing annotations). Do not annotate trivial local lambdas. Inference there is cheap and clearer.
 - **Exhaustive Checks:** Enforce compile-time coverage on unions using `const _exhaustiveCheck: never = value` in default switch branches.
+- **No Floating Promises:** Unhandled or un-awaited promises are strictly BANNED. Asynchronous function calls that are intentionally executed in the background MUST be explicitly marked with the `void` operator (e.g., `void trackAnalytics()`) or appended with an explicit `.catch()` error handler.
 
 ---
 

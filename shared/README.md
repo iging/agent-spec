@@ -25,6 +25,13 @@ The `shared/` directory organizes cross-cutting domain principles into structure
 - [`react-native-principles.md`](engineering/react-native-principles.md) — React Native and Expo foundation covering architecture posture, platform boundaries, list and image policies, storage security, and accessibility mapping.
 - [`javascript-principles.md`](engineering/javascript-principles.md) — Modern JavaScript / TypeScript idiomatic patterns and conventions.
 - [`nextjs-principles.md`](engineering/nextjs-principles.md) — Next.js App Router patterns, Server Components, and API route rules.
+- [`php-principles.md`](engineering/php-principles.md) — Modern PHP architecture constraints, strict typing rules, security standards, and performance patterns.
+- [`react-principles.md`](engineering/react-principles.md) — Modern React architecture constraints, Server Components, hook rules, state colocation, and accessibility standards.
+- [`backend-development-principles.md`](engineering/backend-development-principles.md) — Framework-agnostic backend engineering standards for API integrity, validation, security, logging, and data persistence.
+- [`frontend-development-principles.md`](engineering/frontend-development-principles.md) — Framework-agnostic frontend engineering standards for component architecture, state colocation, Core Web Vitals, and accessibility.
+- [`security-best-practices.md`](engineering/security-best-practices.md) — Framework-agnostic baseline security standard for authentication, authorization, data protection, network security, and defense-in-depth.
+- [`database-principles.md`](engineering/database-principles.md) — Framework-agnostic baseline standard for database schema design, query optimization, transaction boundaries, caching, and data modeling across SQL and NoSQL data stores.
+- [`clean-architecture.md`](engineering/clean-architecture.md) — Framework-agnostic Clean Architecture standard, layer isolation rules, YAGNI anti-bloat guardrails, and greenfield/brownfield adaptation matrix.
 
 ### Design (`shared/design/`)
 
