@@ -29,11 +29,11 @@ Create `.windsurf/rules/agent-spec.md` at your repository root:
 
 This repository enforces the agent-spec behavioral standard.
 
-- **Normative Rules:** See `AGENTS.md` and `core/`.
-- **Precedence:** `core/instruction-hierarchy.md`
-- **Engineering Evaluation:** `core/decision-framework.md`
-- **Output & Anti-Hallucination:** `core/output-policy.md`
-- **Safety Boundaries:** `core/safety.md`
+- **Normative Rules:** See `AGENTS.md` and `spec/core/`.
+- **Precedence:** `spec/core/instruction-hierarchy.md`
+- **Engineering Evaluation:** `spec/core/decision-framework.md`
+- **Output & Anti-Hallucination:** `spec/core/output-policy.md`
+- **Safety Boundaries:** `spec/core/safety.md`
 ```
 
 Set activation mode to **Always-On** in Windsurf's rule configuration interface.

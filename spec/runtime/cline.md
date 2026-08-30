@@ -28,11 +28,11 @@ Create `.clinerules/00-agent-spec.md` at your repository root to enforce standar
 
 This repository enforces the agent-spec behavioral standard.
 
-- **Normative Base:** Follow `AGENTS.md` and `core/`.
-- **Precedence & Discovery:** Follow `core/instruction-hierarchy.md`.
-- **Decision Framework:** Follow `core/decision-framework.md`.
-- **Output Policy:** Follow `core/output-policy.md`.
-- **Safety Boundary:** Follow `core/safety.md`.
+- **Normative Base:** Follow `AGENTS.md` and `spec/core/`.
+- **Precedence & Discovery:** Follow `spec/core/instruction-hierarchy.md`.
+- **Decision Framework:** Follow `spec/core/decision-framework.md`.
+- **Output Policy:** Follow `spec/core/output-policy.md`.
+- **Safety Boundary:** Follow `spec/core/safety.md`.
 ```
 
 ### Step 2: Project Rules File (Optional)
@@ -57,4 +57,3 @@ Cline uses individually-toggleable `.clinerules/` files as on-demand specialist 
 - Store specialist workflows under `.agents/skills/<skill-name>/SKILL.md` or as dedicated `.clinerules/workflow-<name>.md` files.
 - Activate workflow rules only when their specific task is active.
 - Map installed skills in `AGENTS.md` (`runtime/shared.md` §4).
-

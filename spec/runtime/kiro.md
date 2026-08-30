@@ -36,11 +36,11 @@ inclusion: always
 
 This repository enforces the agent-spec behavioral standard.
 
-- **Normative Rules:** See `AGENTS.md` and `core/`.
-- **Precedence:** `core/instruction-hierarchy.md`
-- **Decision Framework:** `core/decision-framework.md`
-- **Output Policy:** `core/output-policy.md`
-- **Safety Boundaries:** `core/safety.md`
+- **Normative Rules:** See `AGENTS.md` and `spec/core/`.
+- **Precedence:** `spec/core/instruction-hierarchy.md`
+- **Decision Framework:** `spec/core/decision-framework.md`
+- **Output Policy:** `spec/core/output-policy.md`
+- **Safety Boundaries:** `spec/core/safety.md`
 
 ## Project Context Transclusion
 - Architecture: #[[file:context/ARCHITECTURE.md]]

@@ -25,7 +25,7 @@
 
 ### Step 1: Create Global Standard Rule
 
-Create `.cursor/rules/00-agent-spec.mdc` to enforce `AGENTS.md` and `core/` rules globally:
+Create `.cursor/rules/00-agent-spec.mdc` to enforce `AGENTS.md` and `spec/core/` rules globally:
 
 ```markdown
 ---
@@ -38,11 +38,11 @@ alwaysApply: true
 
 This repository adheres to the agent-spec behavioral standard.
 
-- **Normative Rules:** See `AGENTS.md` and `core/` directory.
-- **Precedence:** `core/instruction-hierarchy.md`
-- **Clean Code & Decisions:** `core/decision-framework.md`
-- **Output & Anti-Hallucination:** `core/output-policy.md`
-- **Safety Boundaries:** `core/safety.md`
+- **Normative Rules:** See `AGENTS.md` and `spec/core/` directory.
+- **Precedence:** `spec/core/instruction-hierarchy.md`
+- **Clean Code & Decisions:** `spec/core/decision-framework.md`
+- **Output & Anti-Hallucination:** `spec/core/output-policy.md`
+- **Safety Boundaries:** `spec/core/safety.md`
 ```
 
 ### Step 2: Create Path-Scoped Context Rules (Optional)
