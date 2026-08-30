@@ -1,0 +1,59 @@
+name: Release Agent Spec Skills
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Automated Semantic Tagging
+        id: tagger
+        uses: anothrNick/github-tag-action@1.71.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build TypeScript Engine
+        run: npm run build
+
+      - name: Run Tier-5 Skill Linter & Compliance Audit
+        run: npm test
+
+      - name: Compile IDE Target Artifacts
+        run: npm run sync
+
+      - name: Package Compiled Skills Archive
+        run: |
+          zip -r agent-spec-skills.zip skills/ .claude/ .cursor/ .cline/
+
+      - name: Create GitHub Release & Attach Bundle
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tagger.outputs.new_tag || github.ref_name }}
+          name: Release ${{ steps.tagger.outputs.new_tag || github.ref_name }}
+          generate_release_notes: true
+          files: agent-spec-skills.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
