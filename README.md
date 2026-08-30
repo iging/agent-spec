@@ -1,290 +1,138 @@
 # agent-spec
 
-A tool-agnostic behavioral specification for AI coding agents. Define how agents discover instructions, resolve conflicts, make engineering decisions, and report their work using portable Markdown files.
+The Linux Foundation Agentic AI standard for configuring AI coding agents. `agent-spec` provides a portable, modular framework for agent governance, instructions, capability suites, and runtime adapters.
 
-## Overview
+## Architecture and Layer Model
 
-agent-spec is the Linux Foundation Agentic AI standard for configuring AI coding agents. This is a pure documentation repository designed to be copied into other projects. It provides a structured approach to agent behavior through portable markdown files that work across Claude Code, Cursor, GitHub Copilot, Cline, Windsurf, and Kiro.
+`agent-spec` uses a tiered layer architecture to organize instructions, constraints, and project context cleanly:
 
-The specification separates project-agnostic normative instructions from project-specific facts. Copy the generic layer unmodified, fill in templates with your project details, and point your AI tool at the standard.
+1. **Core Standard (`spec/core/`)**: Normative Tier-4 instructions (instruction hierarchy, decision framework, output policy, safety). Portable and project-agnostic.
+2. **Context Templates (`spec/context/`)**: Project-specific context placeholders (`PRD.md`, `ARCHITECTURE.md`, `SCHEMA.md`, `DESIGN.md`, `RULES.md`) filled in by adopters.
+3. **Capability Suites (`spec/skills/`)**: Modular domain skills providing deterministic workflows for development, design, testing, research, and project management.
+4. **Runtime Adapters (`spec/runtime/`)**: Tool-specific instruction adapters for Claude Code, Cursor, Copilot, Cline, Windsurf, Kiro, and raw APIs.
+5. **Shared Rules (`spec/shared/`)**: Cross-cutting writing standards and engineering principles.
 
-## Features
+## Source of Truth Hierarchy
 
-- **Tool-agnostic standard** for AI agent behavior across multiple IDEs and platforms
-- **Seven-tier instruction hierarchy** with explicit conflict resolution
-- **Normative core** covering instruction discovery, decision framework, output policy, and safety
-- **Project templates** for PRD, architecture, schema, design, rules, and tasks
-- **Eight capability modules** organizing autonomous dev, design engineering, mobile, enterprise business, dev workflows (including web starter kits), prompt engineering, content & growth, and research & productivity
-- **Domain principles** for engineering, design, and writing rules
-- **IDE adapters** for Claude Code, Cursor, Copilot, Cline, Windsurf, and Kiro
-- **53 documented anti-patterns** that waste tokens and burn API credits
-- **Annotated examples** demonstrating proper agent decision-making and rigor calibration
+When resolving conflicting guidance or instructions across files, agents follow this strict hierarchy:
 
-## Tech Stack
+1. **System Prompt / Runtime Safety Overrides**: Hard constraints passed directly by the execution platform or runtime safety layer.
+2. **Core Governance (`spec/core/`)**: Normative rules defined in `instruction-hierarchy.md`, `decision-framework.md`, `output-policy.md`, and `safety.md`.
+3. **Project Context (`spec/context/` or `.agents/context/`)**: Project-specific rules, architecture decisions, database schemas, and design constraints defined in the adopter's repository.
+4. **Skill Instructions (`spec/skills/`)**: Task-specific workflow instructions and domain capability specifications.
+5. **Shared Conventions (`spec/shared/`)**: Codebase writing rules, naming conventions, and style constraints.
 
-This is a documentation-only repository with no runtime dependencies.
-
-- **Language:** Markdown
-- **Structure:** Role/Authority pattern with strict separation of concerns
-- **Version Control:** Git
-
-## Architecture
-
-### Folder Structure
+## Repository Structure
 
 ```
 agent-spec/
-├── core/                   # Normative tier-4 instructions (portable, project-agnostic)
-│   ├── instruction-hierarchy.md   # Discovery, precedence, conflict resolution
-│   ├── decision-framework.md      # Engineering evaluation, clean-code standards
-│   ├── output-policy.md          # Presentation, confidence reporting
-│   ├── safety.md                 # Non-negotiable constraints, capability boundaries
-│   └── README.md                 # Core layer index & adopter guide
-├── context/                # Project-specific templates (shipped with placeholders)
-│   ├── ARCHITECTURE.md           # System architecture template
-│   ├── DESIGN.md                 # Design system template
-│   ├── PRD.md                    # Product requirements template
-│   ├── RULES.md                  # Project coding rules template
-│   ├── SCHEMA.md                 # Database and API schema template
-│   ├── TASKS.md                  # Task decomposition tracking template
-│   └── README.md                 # Context template index
-├── docs/                   # User-facing guides
-│   ├── getting-started.md        # Quick setup guide
-│   ├── faq.md                    # Common questions
-│   ├── anti-patterns.md          # 53 credit-killing patterns
-│   ├── skill-installation.md     # Module & skill installation standard
-│   └── skill-standard.md        # Tier-5 skill schema specification
-├── examples/               # Annotated workflow decision traces & brand presets
-│   ├── architecture-review.md    # Architectural audit trace
-│   ├── capability-degradation.md # Resiliency & missing tool handling
-│   ├── full-rigor-production-change.md # High-rigor safety trace
-│   ├── proportional-minimal-change.md # Minimal targeted change trace
-│   ├── refactor-problem-first.md # Problem-first refactoring trace
-│   ├── security-conflict.md     # Security policy conflict resolution
-│   └── README.md                 # Workflow examples index
-├── modules/                # Modular feature-based capability suites
-│   ├── autonomous-dev/           # Full autonomous coding lifecycle (8 stages + references)
-│   ├── design-engineering/       # Anti-slop UI design system, taste skills & brand presets
-│   ├── mobile-react-native/      # Mobile cross-platform dev suite & Expo rules
-│   ├── enterprise-business/      # Enterprise product suite, specs & business workflows
-│   ├── dev-workflow/             # Developer lifecycle workflows, API generators & auditors
-│   ├── prompt-engineering/       # Prompt templates & 9-dimension prompt auditor
-│   ├── content-and-growth/       # Content creation, decks, writing style & viral social tools
-│   └── research-and-productivity/# Deep research synthesizer, data analytics & learning tools
-├── runtime/                # IDE-specific adapter instructions (Claude, Cursor, Copilot, Cline, Windsurf, Kiro)
-│   ├── claude.md                 # Claude Code runtime adapter
-│   ├── cline.md                  # Cline runtime adapter
-│   ├── copilot.md                # GitHub Copilot runtime adapter
-│   ├── cursor.md                 # Cursor runtime adapter
-│   ├── kiro.md                   # Kiro runtime adapter
-│   ├── shared.md                 # Shared runtime conventions
-│   ├── windsurf.md               # Windsurf runtime adapter
-│   └── README.md                 # Runtime adapters catalog & integration guide
-├── shared/                 # Cross-cutting domain principles & conventions
-│   ├── design/                   # UI/UX & HTML/CSS design principles
-│   ├── engineering/              # Coding, JavaScript, & Next.js principles
-│   ├── writing/                  # Anti-AI writing rules & prose constraints
-│   └── README.md                 # Shared domain principles index
-├── legacy/                 # Previous specification versions (v1, v2)
-├── meta/                   # Tooling for generating/validating implementations
-├── AGENTS.md               # Single-file synthesis of core/ (portable)
-├── CLAUDE.md               # Tool-agnostic project documentation
-└── CONTRIBUTING.md         # Contribution guidelines
+├── AGENTS.md                  # Root entry point mapping spec/core/ to workspace agents
+├── README.md                  # Specification overview and architecture documentation
+├── CONTRIBUTING.md            # Contribution guidelines and revision process
+├── CODE_OF_CONDUCT.md         # Code of conduct and community standards
+├── GOVERNANCE.md              # Project governance and decision framework
+├── LICENSE                    # Apache 2.0 open source license
+├── Dockerfile                 # Container image definition for audit environment
+├── docker-compose.yml         # Container orchestration configuration
+├── package.json               # Node.js manifest and dependency definitions
+├── tsconfig.json              # TypeScript compiler configuration
+├── .devcontainer/             # Development container definitions
+├── .github/                   # CI/CD workflows and GitHub integration templates
+├── schemas/                   # JSON schemas for specification and skill validation
+│   ├── skill.v1.schema.json   # Schema for capability skill definitions
+│   └── spec.v1.schema.json    # Schema for core specification formats
+├── scripts/                   # Audit and validation scripts
+│   └── audit-compliance.js    # Automated compliance and rule enforcement script
+├── src/                       # CLI tooling, compiler, and linter source code
+│   ├── cli/                   # Command line interface implementation
+│   ├── compiler/              # Specification compilation utilities
+│   ├── linter/                # Rule validation and static analysis engine
+│   └── types/                 # TypeScript type definitions
+└── spec/
+    ├── core/                  # Normative Tier-4 governance standards
+    ├── context/               # Project specification templates with placeholder markers
+    ├── docs/                  # Getting started guides, FAQs, and anti-pattern references
+    ├── examples/              # Annotated workflow examples and brand presets
+    ├── legacy/                # Historical specification archives (do not reference)
+    ├── meta/                  # Generator and specification authoring tooling
+    ├── runtime/               # Agent runtime adapters for supported IDEs and tools
+    │   ├── claude.md          # Claude Code runtime adapter specification
+    │   ├── cursor.md          # Cursor runtime adapter specification
+    │   ├── copilot.md         # GitHub Copilot runtime adapter specification
+    │   ├── cline.md           # Cline runtime adapter specification
+    │   ├── windsurf.md        # Windsurf runtime adapter specification
+    │   ├── kiro.md            # Kiro runtime adapter specification
+    │   └── shared.md          # Cross-tool adapter contracts
+    ├── shared/                # Codebase conventions, engineering principles, and writing rules
+    └── skills/                # Feature-based capability suites
 ```
 
-### Application Flow
+## Compliance and Validation Workflows
 
-1. **Discovery:** Agent scans the working directory up to the repository root, identifying instruction sources (`AGENTS.md`, `CLAUDE.md`, tool rule files, `core/`, `context/`)
-2. **Convention Inference:** Agent reads existing code to identify unwritten conventions (naming, structure, patterns)
-3. **Precedence Resolution:** Seven-tier hierarchy determines which instruction wins when conflicts exist
-4. **Execution:** Agent acts proportionally, scaling rigor to change risk and size
-5. **Reporting:** Output includes assumptions, tradeoffs, validation results, and confidence levels
-
-### Design Patterns
-
-The specification uses the **Role/Authority pattern** throughout:
-
-- **Role:** Defines the file's responsibility and scope
-- **Authority:** Specifies normative tier level and ownership boundaries
-- **Must not define:** Clear boundaries of what the file doesn't own
-
-Each `core/` file owns its domain exclusively. Concepts are defined in exactly one file. Cross-references are explicit.
-
-## Prerequisites
-
-None. This is a documentation repository with no build or runtime requirements.
-
-## Installation
+To ensure standard compliance across documentation and skill definitions, `agent-spec` includes an automated validation suite:
 
 ```bash
-git clone https://github.com/iging/agent-spec.git
+node scripts/audit-compliance.js
 ```
 
-## Configuration
+### Automated Checks
 
-### Quick Setup
+The audit engine (`scripts/audit-compliance.js`) verifies all Markdown files against strict repository guardrails:
 
-1. Copy the generic layer into your project:
+- **Prohibited Words & Marketing Prose**: Scans for banned words, hype adjectives, and fluff.
+- **Prohibited Setup Phrases**: Rejects structural phrases such as "in conclusion" or "in summary".
+- **Markdown Link Integrity**: Verifies every relative link points to an existing file or valid anchor target.
+- **Template Placeholder Integrity**: Enforces retention of `[PLACEHOLDER: ...]` markers within `spec/context/` template files.
 
-```bash
-# From your project root:
-cp path/to/agent-spec/AGENTS.md .
-cp -r path/to/agent-spec/core .
-```
+## Runtime Adapters and IDE Integration
 
-2. Copy and fill in the project templates:
+The `spec/runtime/` layer translates `AGENTS.md` and `spec/core/` into tool-specific instruction mechanics. Each adapter specifies configuration file locations, frontmatter formats, and skill loading protocols without overriding core rules.
 
-```bash
-cp -r path/to/agent-spec/context .
-```
+| Adapter                                   | Target Tool        | Primary Config Path               | Frontmatter Format                            | Skill Loading Mechanism                         |
+| :---------------------------------------- | :----------------- | :-------------------------------- | :-------------------------------------------- | :---------------------------------------------- |
+| [`claude.md`](spec/runtime/claude.md)     | **Claude Code**    | `CLAUDE.md` / `AGENTS.md`         | Plain Markdown (`@file` imports)              | Custom slash commands / on-demand skills        |
+| [`cursor.md`](spec/runtime/cursor.md)     | **Cursor**         | `.cursor/rules/*.mdc`             | YAML frontmatter (`globs`, `alwaysApply`)     | Manual-inclusion (`agent-requested`) MDC rules  |
+| [`copilot.md`](spec/runtime/copilot.md)   | **GitHub Copilot** | `.github/copilot-instructions.md` | YAML frontmatter (`applyTo` globs)            | Path-scoped `.instructions.md` files            |
+| [`cline.md`](spec/runtime/cline.md)       | **Cline**          | `.clinerules/`                    | Plain Markdown                                | Toggleable rule files                           |
+| [`windsurf.md`](spec/runtime/windsurf.md) | **Windsurf**       | `.windsurf/rules/`                | Plain Markdown / Activation metadata          | Model-decided and manual activation rules       |
+| [`kiro.md`](spec/runtime/kiro.md)         | **Kiro**           | `.kiro/steering/*.md`             | YAML frontmatter (`inclusion: always/manual`) | Manual inclusion (`inclusion: manual`) steering |
+| [`shared.md`](spec/runtime/shared.md)     | **All Tools**      | Cross-tool contract               | N/A                                           | Standard skill mapping convention               |
 
-Replace `[PLACEHOLDER: ...]` markers in each template with your project's facts.
+### Multi-Tool Workspaces
 
-3. Point your AI tool at the standard using the adapter for your tool:
+For repositories supported by multiple AI tools simultaneously:
 
-| Tool               | Setup                                                                    |
-| ------------------ | ------------------------------------------------------------------------ |
-| **Claude Code**    | Keep `AGENTS.md` at the root, or reference it from `CLAUDE.md`           |
-| **Cursor**         | Add a rule file under `.cursor/rules/` referencing `AGENTS.md` / `core/` |
-| **GitHub Copilot** | Place the synthesis in `.github/copilot-instructions.md`                 |
-| **Cline**          | Add a rule file in `.clinerules/`                                        |
-| **Windsurf**       | Add an always-on rule under `.windsurf/rules/`                           |
-| **Kiro**           | Add an always-included steering file under `.kiro/steering/`             |
+- Maintain a single canonical entry point in `AGENTS.md` and `spec/context/`.
+- Point each tool adapter file (`CLAUDE.md`, `.cursor/rules/`, `.github/copilot-instructions.md`) to `AGENTS.md`.
+- Keep normative rules in `spec/core/` rather than duplicating configuration across multiple tool settings files.
 
-See `runtime/[tool].md` for tool-specific details.
+## Gitignore Governance and Repository Hygiene
 
-### Optional: Add Modules & Skills
+`agent-spec` maintains strict separation between tracked specification files and local agent runtime artifacts.
 
-Browse the feature suites in `modules/` and copy any module or skill folder into your project's `.agents/` directory.
+### Tracked Assets
 
-Two patterns are supported — a per-skill folder (`.agents/skills/<skill-name>/SKILL.md`) or a whole-module drop (`.agents/<module-name>/`). Every skill entry file is **uppercase `SKILL.md`**. See [**Installing Skills & Modules**](docs/skill-installation.md) for the exact conventions, commands, and verification checklist.
+- Core governance standards (`spec/core/`)
+- Project context templates (`spec/context/`)
+- Capability suites (`spec/skills/`)
+- Runtime adapter templates (`spec/runtime/`)
+- Audit and compliance scripts (`scripts/`)
 
-## Usage
+### Ignored Artifacts (`.gitignore`)
 
-Once configured, an AI agent consuming your project will:
+- **Dependencies & Builds**: `node_modules/`, `dist/`
+- **Local Agent Runtimes**: `.claude/`, `.cursor/`, `.cline/`
+- **Generated Reports**: `progress-report-result.md`, `cover-letter-result.md`
 
-1. Discover instruction sources by scanning the working directory
-2. Infer unwritten conventions from existing code
-3. Resolve conflicts using the seven-tier source-of-truth hierarchy
-4. Act proportionally, scaling rigor to the change's risk and size
-5. Report assumptions, tradeoffs, and validation results
+This isolation ensures local agent state files and working directories do not pollute the repository or contaminate standard governance specifications.
 
-### Source-of-Truth Hierarchy
+## Quick Start
 
-Precedence from highest to lowest:
+To adopt `agent-spec` in your project:
 
-1. **Explicit user instruction** in the current conversation
-2. **Directory-scoped instructions** closest to the file being edited
-3. **Project-specific instruction files** at the repository root
-4. **This generic standard** (`core/`, `AGENTS.md`)
-5. **User-level / global agent configuration**
-6. **Language and framework conventions**
-7. **General industry best practice**
+1. Copy `AGENTS.md` and `spec/core/` into your repository root.
+2. Copy `spec/context/` templates into your repository and populate the `[PLACEHOLDER: ...]` markers.
+3. Select desired capability suites from `spec/skills/` and configure your target tool adapter from `spec/runtime/`.
+4. Run compliance validation using `node scripts/audit-compliance.js`.
 
-A more specific, more local source always wins over a more general one.
-
-## Development
-
-### Documentation Style
-
-All files follow the Role/Authority pattern:
-
-```markdown
-# [file-path]
-
-## Role / Authority
-
-- **Role:** [Responsibility and scope]
-- **Authority:** [Normative tier level and ownership]
-- **Must not define:** [Clear boundaries]
-
----
-
-## [Numbered sections with hierarchical structure]
-```
-
-### Branch Naming
-
-- `feature/short-description` — New functionality or content
-- `fix/issue-description` — Bug fixes or corrections
-- `docs/topic` — Documentation improvements
-- `refactor/component` — Structure improvements
-
-### Commit Style
-
-Follow Conventional Commits:
-
-```
-feat: add SQL optimization skill to modules/dev-workflow/
-fix: correct instruction hierarchy precedence in core/
-docs: clarify contribution workflow in CONTRIBUTING.md
-refactor: reorganize principles into domain subfolders in shared/
-```
-
-## Project Structure
-
-### Core Layer (`core/`)
-
-Normative tier-4 instructions. Portable and project-agnostic. Stable and rarely changed.
-
-- `instruction-hierarchy.md` — Discovery, precedence, conflict resolution
-- `decision-framework.md` — Engineering evaluation, dependency governance, clean-code standards
-- `output-policy.md` — Anti-hallucination, confidence reporting, validation
-- `safety.md` — Non-negotiable constraints, capability boundaries
-- `README.md` — Core layer index catalog & adopter guidance
-
-### Context Layer (`context/`)
-
-Project-specific templates shipped with `[PLACEHOLDER: ...]` markers. Fill these in for your project:
-
-- `PRD.md` — Problem, scope, requirements, success metrics
-- `ARCHITECTURE.md` — System overview, component map, data flow
-- `SCHEMA.md` — Data model, API contracts
-- `DESIGN.md` — Design system or output formatting conventions
-- `RULES.md` — Project coding rules
-- `TASKS.md` — Task decomposition and state tracking
-- `README.md` — Index of context templates
-
-### Modules Layer (`modules/`)
-
-Self-contained feature capability suites organized by domain:
-
-- `autonomous-dev/` — Autonomous lifecycle (ideation, worktrees, planning, execution, testing, debugging, code review)
-- `design-engineering/` — Taste skills, animation, aesthetic engines, brand presets
-- `mobile-react-native/` — Expo and React Native best practices
-- `enterprise-business/` — Business skills, client briefs, meeting visualizers, negotiations
-- `dev-workflow/` — API endpoint generator, database migrations, split-file, accessibility auditor
-- `prompt-engineering/` — Prompt templates & 9-dimension prompt auditor
-- `content-and-growth/` — Deck builder, infographics, SEO optimizer, social copywriting
-- `research-and-productivity/` — Research synthesizer, data analytics, learning mentor
-
-### Shared Layer (`shared/`)
-
-Cross-cutting domain principles and conventions:
-
-- `engineering/` — Coding principles, JavaScript principles, Next.js principles
-- `design/` — UI/UX principles, HTML/CSS principles
-- `writing/` — Anti-AI writing rules & prose constraints
-- `README.md` — Domain catalog index
-
-### Runtime Layer (`runtime/`)
-
-IDE-specific adapter instructions. Each adapter translates `core/` rules into the tool's file format without adding, overriding, or contradicting any rule.
-
-## Contributing
-
-Contributions are welcome. Before proposing a new skill or capability, check `docs/anti-patterns.md` to ensure it does not encode any of the 53 credit-killing patterns.
-
-### Review Requirements
-
-- **Simple changes** (typos, small docs): Standard review
-- **New content** (modules, skills, examples): Verify against anti-patterns
-- **Core changes**: Explicit review for consistency with the instruction hierarchy model
-
-All changes to `core/` require explicit review for consistency with the instruction hierarchy model.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+For detailed setup instructions, see [Getting Started](spec/docs/getting-started.md).

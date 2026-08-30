@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agent-spec.org/schemas/spec.v1.schema.json",
+  "title": "AgentSpecConfigV1",
+  "description": "JSON Schema specification for project-level agent-spec configuration",
+  "type": "object",
+  "required": ["version", "target_runtimes"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "default": "1.0.0"
+    },
+    "project_name": {
+      "type": "string"
+    },
+    "target_runtimes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "claude-code",
+          "cursor",
+          "copilot",
+          "windsurf",
+          "kiro",
+          "cline"
+        ]
+      }
+    },
+    "skills_directory": {
+      "type": "string",
+      "default": "./skills"
+    },
+    "output_directories": {
+      "type": "object",
+      "properties": {
+        "claude": { "type": "string", "default": "./.claude/skills" },
+        "cursor": { "type": "string", "default": "./.cursor/rules" },
+        "cline": { "type": "string", "default": "./.cline/rules" },
+        "copilot": {
+          "type": "string",
+          "default": "./.github/copilot-instructions.md"
+        }
+      }
+    }
+  }
+}

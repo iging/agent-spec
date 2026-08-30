@@ -33,24 +33,24 @@ Thank you for considering contributing to the agent-spec standard! This document
 
 ### Encouraged Contributions
 
-- **New Feature Modules**: Add reusable feature packages and skills to `modules/` (autonomous-dev, design-engineering, prompt-engineering, content-and-growth, etc.)
-- **Examples**: Add workflow examples to `examples/` demonstrating agent decision patterns
-- **Runtime Adapters**: Update `runtime/` adapters for IDE-specific behavior changes
-- **Documentation Improvements**: Fix typos, clarify instructions, improve guides in `docs/`
-- **Anti-Pattern Additions**: Document new credit-killing patterns in `docs/anti-patterns.md`
+- **New Feature Modules**: Add reusable feature packages and skills to `spec/skills/` (autonomous-dev, design-engineering, prompt-engineering, content-and-growth, etc.)
+- **Examples**: Add workflow examples to `spec/examples/` demonstrating agent decision patterns
+- **Runtime Adapters**: Update `spec/runtime/` adapters for IDE-specific behavior changes
+- **Documentation Improvements**: Fix typos, clarify instructions, improve guides in `spec/docs/`
+- **Anti-Pattern Additions**: Document new credit-killing patterns in `spec/docs/anti-patterns.md`
 
 ### Requires Extra Review
 
-- **Core Changes**: Modifications to `core/` files (instruction-hierarchy, decision-framework, output-policy, safety)
-- **Template Changes**: Structural changes to `context/` templates
+- **Core Changes**: Modifications to `spec/core/` files (instruction-hierarchy, decision-framework, output-policy, safety)
+- **Template Changes**: Structural changes to `spec/context/` templates
 - **Breaking Changes**: Any change that affects existing adopters
 
 ### Not Accepted
 
 - IDE-specific workspace settings (`.vscode/`, `.cursor/`, `.windsurf/`)
-- Filled-in `context/` templates with project-specific details (these ship empty)
-- References to deprecated files in `legacy/`
-- Contributions that violate patterns in `docs/anti-patterns.md`
+- Filled-in `spec/context/` templates with project-specific details (these ship empty)
+- References to deprecated files in `spec/legacy/`
+- Contributions that violate patterns in `spec/docs/anti-patterns.md`
 
 ---
 
@@ -65,19 +65,19 @@ Browse [existing issues](../../issues) to see if your contribution is already pl
 Familiarize yourself with:
 
 - `AGENTS.md` — Repository structure and boundaries
-- `docs/getting-started.md` — How the standard works
-- `docs/anti-patterns.md` — 53 patterns to avoid
-- `core/instruction-hierarchy.md` — How instruction sources are ranked
+- `spec/docs/getting-started.md` — How the standard works
+- `spec/docs/anti-patterns.md` — 53 patterns to avoid
+- `spec/core/instruction-hierarchy.md` — How instruction sources are ranked
 
 ### 3. Understand the Architecture
 
 ```
-core/           ← Normative tier-4 (portable, project-agnostic)
-context/        ← Templates (shipped empty with [PLACEHOLDER] markers)
-docs/           ← User-facing guides
-examples/       ← Annotated workflow demonstrations
-modules/        ← Feature-based capability suites (self-contained feature packages)
-runtime/        ← IDE-specific adapters
+spec/core/       ← Normative tier-4 (portable, project-agnostic)
+spec/context/    ← Templates (shipped empty with [PLACEHOLDER] markers)
+spec/docs/       ← User-facing guides
+spec/examples/   ← Annotated workflow demonstrations
+spec/skills/     ← Feature-based capability suites (self-contained feature packages)
+spec/runtime/    ← IDE-specific adapters
 ```
 
 ---
@@ -178,7 +178,7 @@ Templates use `[PLACEHOLDER: ...]` markers:
 
 ### Anti-Pattern Checking
 
-Before submitting prompts or skills, verify they don't encode any of the 53 patterns in `docs/anti-patterns.md`. Common issues:
+Before submitting prompts or skills, verify they don't encode any of the 53 patterns in `spec/docs/anti-patterns.md`. Common issues:
 
 - ❌ Vague task verbs ("help me with...")
 - ❌ No success criteria ("make it better")
@@ -190,11 +190,11 @@ Before submitting prompts or skills, verify they don't encode any of the 53 patt
 
 ## Core File Guidelines
 
-Changes to `core/` files require special attention because they affect all adopters of the standard.
+Changes to `spec/core/` files require special attention because they affect all adopters of the standard.
 
 ### Ownership Boundaries
 
-Each `core/` file owns its domain exclusively:
+Each `spec/core/` file owns its domain exclusively:
 
 - `instruction-hierarchy.md` — Discovery, precedence, conflict resolution
 - `decision-framework.md` — Engineering evaluation, clean-code standards

@@ -13,4 +13,4 @@ Execute this status check:
 node scripts/audit-compliance.js
 ```
 
-And summarize the codebase modules from `modules/` and skills from `.agents/skills/`.
+And summarize the codebase modules from `spec/skills/` and skills from `.agents/skills/`.

@@ -1,5 +1,9 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * @file Audit Compliance Validator for agent-spec
@@ -131,9 +135,10 @@ function auditLineRules(
   const trimmedLine = lineContent.trim();
   const normalizedPath = relativeFilePath.replace(/\\/g, "/");
 
-  // Skip writing style rules for reference files, specifications, modules, and templates
+  // Skip writing style rules for reference files, specifications, and templates
   const isRuleReferenceFile =
-    normalizedPath.startsWith("modules/") ||
+    normalizedPath.includes("spec/") ||
+    normalizedPath.startsWith("skills/") ||
     normalizedPath.startsWith("shared/") ||
     normalizedPath.startsWith("core/") ||
     normalizedPath.startsWith("context/") ||
@@ -308,16 +313,18 @@ function runAudit() {
 
   const targetDirectories =
     customArguments.length > 0
-      ? customArguments.map((argumentPath) =>
-          path.resolve(repositoryRootPath, argumentPath),
-        )
-      : [
-          path.join(repositoryRootPath, "modules"),
-          path.join(repositoryRootPath, "core"),
-          path.join(repositoryRootPath, "context"),
-          path.join(repositoryRootPath, "docs"),
-          path.join(repositoryRootPath, "shared"),
-        ];
+      ? customArguments.map((argumentPath) => {
+          const directPath = path.resolve(repositoryRootPath, argumentPath);
+          if (fs.existsSync(directPath)) {
+            return directPath;
+          }
+          const specPath = path.resolve(repositoryRootPath, "spec", argumentPath);
+          if (fs.existsSync(specPath)) {
+            return specPath;
+          }
+          return directPath;
+        })
+      : [path.join(repositoryRootPath, "spec")];
 
   let totalFilesChecked = 0;
   let totalIssuesFound = 0;

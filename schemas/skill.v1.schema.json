@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agent-spec.org/schemas/skill.v1.schema.json",
+  "title": "AgentSkillV1",
+  "description": "JSON Schema specification for Tier-5 Enterprise AI Agent Skills",
+  "type": "object",
+  "required": [
+    "name",
+    "description",
+    "version",
+    "verified-on",
+    "identity",
+    "intent",
+    "trigger_matrix",
+    "execution_workflow",
+    "output_specification",
+    "validation_gate",
+    "anti_pattern_compliance"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique hyphenated identifier of the skill"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Trigger-optimized frontmatter description detailing exact conditions for execution"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "SemVer release version"
+    },
+    "verified-on": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "claude-code",
+          "cursor",
+          "copilot",
+          "windsurf",
+          "kiro",
+          "cline",
+          "raw-api"
+        ]
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": ["role", "authority", "must_not_define", "normative_base"],
+      "properties": {
+        "role": { "type": "string" },
+        "authority": { "type": "string" },
+        "must_not_define": { "type": "string" },
+        "normative_base": { "type": "string" }
+      }
+    },
+    "intent": {
+      "type": "array",
+      "description": "9-Dimension Intent Model",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "required": ["dimension", "value"],
+        "properties": {
+          "dimension": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      }
+    },
+    "trigger_matrix": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["trigger", "fire", "notes"],
+        "properties": {
+          "trigger": { "type": "string" },
+          "fire": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "execution_workflow": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step", "action", "input", "stop_condition", "validation"],
+        "properties": {
+          "step": { "type": "string" },
+          "action": { "type": "string" },
+          "input": { "type": "string" },
+          "stop_condition": { "type": "string" },
+          "validation": { "type": "string" }
+        }
+      }
+    },
+    "output_specification": {
+      "type": "string",
+      "description": "Exact structure and shape of the deliverable output"
+    },
+    "validation_gate": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Deterministic checklist items that must all pass before completion"
+    },
+    "anti_pattern_compliance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step", "prevents_ap", "mechanism"],
+        "properties": {
+          "step": { "type": "string" },
+          "prevents_ap": { "type": "string" },
+          "mechanism": { "type": "string" }
+        }
+      }
+    }
+  }
+}

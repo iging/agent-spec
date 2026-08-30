@@ -9,7 +9,7 @@ description: >-
 ## Role / Authority
 
 - **Role:** Meta-assistant skill for creating compliant agent-spec documentation, skills, and modules.
-- **Authority:** Operational guidance following `docs/skill-installation.md` and `docs/getting-started.md`.
+- **Authority:** Operational guidance following `spec/docs/skill-installation.md` and `spec/docs/getting-started.md`.
 
 ---
 
@@ -24,8 +24,8 @@ When creating a new skill:
 
 ## 2. Module Creation Standard
 
-When creating a new feature module under `modules/`:
+When creating a new feature module under `spec/skills/`:
 
 1. **Module Router:** Provide a root `SKILL.md` routing to numbered stage directories.
-2. **Intent Model:** Follow the 9-dimension intent model outlined in `meta/agent-spec-generator.md`.
-3. **Writing Rules:** Apply clear writing style without buzzwords (`shared/writing-rules.md`).
+2. **Intent Model:** Follow the 9-dimension intent model outlined in `spec/meta/agent-spec-generator.md`.
+3. **Writing Rules:** Apply clear writing style without buzzwords (`spec/shared/writing/writing-rules.md`).

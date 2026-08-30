@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  agent-spec:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    environment:
+      - NODE_ENV=development
+    command: audit skills

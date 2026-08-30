@@ -1,0 +1,44 @@
+{
+  "name": "@agent-spec/cli",
+  "version": "1.0.0",
+  "description": "Tool-agnostic specification and executable skill compiler for AI coding agents",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "agent-spec": "dist/cli/cli-entry.js"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "audit": "node scripts/audit-compliance.js",
+    "lint": "node dist/cli/cli-entry.js audit",
+    "sync": "node dist/cli/cli-entry.js sync",
+    "test": "npm run build && node dist/cli/cli-entry.js audit spec/skills"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iging/agent-spec.git"
+  },
+  "keywords": [
+    "ai-agent",
+    "agent-skills",
+    "model-context-protocol",
+    "cursor",
+    "claude-code",
+    "cline",
+    "copilot",
+    "spec-authoring"
+  ],
+  "author": "agent-spec contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iging/agent-spec/issues"
+  },
+  "homepage": "https://github.com/iging/agent-spec#readme",
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "^7.0.2"
+  }
+}
