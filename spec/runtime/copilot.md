@@ -21,18 +21,18 @@
 
 ### Step 1: Root Instruction Configuration
 
-Create `.github/copilot-instructions.md` at your repository root to reference `AGENTS.md` and `core/`:
+Create `.github/copilot-instructions.md` at your repository root to reference `AGENTS.md` and `spec/core/`:
 
 ```markdown
 # Repository Agent Behavioral Standard
 
 This repository enforces the agent-spec behavioral standard.
 
-- **Normative Rules:** See `AGENTS.md` and `core/`.
-- **Precedence:** Follow `core/instruction-hierarchy.md`.
-- **Engineering Rigor:** Follow `core/decision-framework.md`.
-- **Anti-Hallucination & Reporting:** Follow `core/output-policy.md`.
-- **Non-Negotiable Safety:** Follow `core/safety.md`.
+- **Normative Rules:** See `AGENTS.md` and `spec/core/`.
+- **Precedence:** Follow `spec/core/instruction-hierarchy.md`.
+- **Engineering Rigor:** Follow `spec/core/decision-framework.md`.
+- **Anti-Hallucination & Reporting:** Follow `spec/core/output-policy.md`.
+- **Non-Negotiable Safety:** Follow `spec/core/safety.md`.
 ```
 
 ### Step 2: Path-Scoped Instructions (Optional)

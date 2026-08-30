@@ -26,18 +26,14 @@ When resolving conflicting guidance or instructions across files, agents follow 
 
 ```
 agent-spec/
-├── AGENTS.md                  # Root entry point mapping spec/core/ to workspace agents
-├── README.md                  # Specification overview and architecture documentation
-├── CONTRIBUTING.md            # Contribution guidelines and revision process
-├── CODE_OF_CONDUCT.md         # Code of conduct and community standards
-├── GOVERNANCE.md              # Project governance and decision framework
-├── LICENSE                    # Apache 2.0 open source license
-├── Dockerfile                 # Container image definition for audit environment
-├── docker-compose.yml         # Container orchestration configuration
-├── package.json               # Node.js manifest and dependency definitions
-├── tsconfig.json              # TypeScript compiler configuration
+├── .agents/                   # Workspace agent governance context and local skill configurations
+├── .claude/                   # Claude Code runtime configurations and commands
+├── .cline/                    # Cline runtime rules and custom instructions
+├── .cursor/                   # Cursor MDC rule configurations (.mdc)
 ├── .devcontainer/             # Development container definitions
 ├── .github/                   # CI/CD workflows and GitHub integration templates
+├── .kiro/                     # Kiro steering configurations
+├── .windsurf/                 # Windsurf cascade rule configurations
 ├── schemas/                   # JSON schemas for specification and skill validation
 │   ├── skill.v1.schema.json   # Schema for capability skill definitions
 │   └── spec.v1.schema.json    # Schema for core specification formats
@@ -48,23 +44,47 @@ agent-spec/
 │   ├── compiler/              # Specification compilation utilities
 │   ├── linter/                # Rule validation and static analysis engine
 │   └── types/                 # TypeScript type definitions
-└── spec/
-    ├── core/                  # Normative Tier-4 governance standards
-    ├── context/               # Project specification templates with placeholder markers
-    ├── docs/                  # Getting started guides, FAQs, and anti-pattern references
-    ├── examples/              # Annotated workflow examples and brand presets
-    ├── legacy/                # Historical specification archives (do not reference)
-    ├── meta/                  # Generator and specification authoring tooling
-    ├── runtime/               # Agent runtime adapters for supported IDEs and tools
-    │   ├── claude.md          # Claude Code runtime adapter specification
-    │   ├── cursor.md          # Cursor runtime adapter specification
-    │   ├── copilot.md         # GitHub Copilot runtime adapter specification
-    │   ├── cline.md           # Cline runtime adapter specification
-    │   ├── windsurf.md        # Windsurf runtime adapter specification
-    │   ├── kiro.md            # Kiro runtime adapter specification
-    │   └── shared.md          # Cross-tool adapter contracts
-    ├── shared/                # Codebase conventions, engineering principles, and writing rules
-    └── skills/                # Feature-based capability suites
+├── spec/
+│   ├── context/               # Project specification templates with placeholder markers
+│   ├── core/                  # Normative Tier-4 governance standards
+│   ├── docs/                  # Getting started guides, FAQs, and anti-pattern references
+│   ├── examples/              # Annotated workflow examples and brand presets
+│   ├── legacy/                # Historical specification archives (do not reference)
+│   ├── meta/                  # Generator and specification authoring tooling
+│   ├── runtime/               # Agent runtime adapters for supported IDEs and tools
+│   │   ├── claude.md          # Claude Code runtime adapter specification
+│   │   ├── cursor.md          # Cursor runtime adapter specification
+│   │   ├── copilot.md         # GitHub Copilot runtime adapter specification
+│   │   ├── cline.md           # Cline runtime adapter specification
+│   │   ├── windsurf.md        # Windsurf runtime adapter specification
+│   │   ├── kiro.md            # Kiro runtime adapter specification
+│   │   └── shared.md          # Cross-tool adapter contracts
+│   ├── shared/                # Codebase conventions, engineering principles, and writing rules
+│   └── skills/                # Feature-based capability suites
+│       ├── autonomous-dev/    # Autonomous dev workflow router and 8 lifecycle phase skills
+│       ├── content-and-growth/ # Content strategy, voice calibration, and copy skills
+│       ├── design-engineering/ # Design tokens, anti-slop tuning, aesthetic engines, and motion specs
+│       ├── dev-workflow/      # PR evaluation, starter kits, testing, and engineering loop skills
+│       ├── enterprise-business/ # Company suite dispatcher and enterprise lifecycle skills
+│       ├── mobile-react-native/ # Expo UI, structure, Tailwind, and React Native best practices
+│       ├── prompt-engineering/ # Prompt master, prompt auditor, and category template catalog
+│       ├── research-and-productivity/ # Learning, productivity, research, and fact-checking skills
+│       └── _template/         # Canonical 10-section skill specification template
+├── .dockerignore              # Docker build exclusion rules
+├── .gitignore                 # Git file and directory exclusion rules
+├── AGENTS.md                  # Root entry point mapping spec/core/ to workspace agents
+├── CLAUDE.md                  # Claude Code agent instruction configuration
+├── CODE_OF_CONDUCT.md         # Code of conduct and community standards
+├── CONTRIBUTING.md            # Contribution guidelines and revision process
+├── docker-compose.yml         # Container orchestration configuration
+├── Dockerfile                 # Container image definition for audit environment
+├── GOVERNANCE.md              # Project governance and decision framework
+├── LICENSE                    # Apache 2.0 open source license
+├── opencode.json              # OpenCode environment configuration
+├── package-lock.json          # Node.js dependency lockfile
+├── package.json               # Node.js manifest and dependency definitions
+├── README.md                  # Specification overview and architecture documentation
+└── tsconfig.json              # TypeScript compiler configuration
 ```
 
 ## Compliance and Validation Workflows

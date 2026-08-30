@@ -20,6 +20,7 @@
 - `/audit` — Runs `node scripts/audit-compliance.js` to validate Markdown files and relative links.
 - `/check-antipatterns` — Audits documentation against the 53 anti-patterns in `spec/docs/anti-patterns.md`.
 - `/new-skill` — Guides creation of a new skill under `.agents/skills/<skill-name>/SKILL.md`.
+- `/write-a-skill` — Authors a Tier-5 enterprise skill following agent-spec standards, templates, writing rules, and anti-pattern guardrails.
 - `/new-module` — Guides creation of a new feature module under `spec/skills/`.
 - `/validate-hierarchy` — Checks instruction hierarchy and authority boundaries in `spec/core/`.
 - `/repo-status` — Displays repository audit status and module inventory.
