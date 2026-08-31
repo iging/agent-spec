@@ -32,6 +32,13 @@ The `shared/` directory organizes cross-cutting domain principles into structure
 - [`security-best-practices.md`](engineering/security-best-practices.md) — Framework-agnostic baseline security standard for authentication, authorization, data protection, network security, and defense-in-depth.
 - [`database-principles.md`](engineering/database-principles.md) — Framework-agnostic baseline standard for database schema design, query optimization, transaction boundaries, caching, and data modeling across SQL and NoSQL data stores.
 - [`clean-architecture.md`](engineering/clean-architecture.md) — Framework-agnostic Clean Architecture standard, layer isolation rules, YAGNI anti-bloat guardrails, and greenfield/brownfield adaptation matrix.
+- [`infrastructure-principles.md`](engineering/infrastructure-principles.md) — Framework-agnostic baseline standard for declarative Infrastructure as Code (IaC), immutable infrastructure, cloud resource isolation, least-privilege identity access, cost optimization, and multi-region resilience.
+- [`cicd-deployment-principles.md`](engineering/cicd-deployment-principles.md) — Framework-agnostic baseline standard for continuous integration pipelines, automated deployment strategies (blue/green, canary), rollback safety, artifact versioning, and build security.
+- [`performance-principles.md`](engineering/performance-principles.md) — Framework-agnostic baseline standard for application responsiveness, throughput optimization, latency reduction, memory management, caching topologies, and scalable systems design.
+- [`observability-telemetry-principles.md`](engineering/observability-telemetry-principles.md) — Framework-agnostic baseline standard for structured logging, distributed tracing, metric instrumentations, alert design, OpenTelemetry collection, and incident visibility.
+- [`feature-flag-principles.md`](engineering/feature-flag-principles.md) — Framework-agnostic baseline standard for feature toggles, dynamic configuration management, trunk-based development enablement, experimentation control, and flag lifecycle cleanup.
+- [`incident-response-principles.md`](engineering/incident-response-principles.md) — Framework-agnostic baseline standard for production incident triage, severity classification, communication protocols, mitigation strategies, blameless postmortems, and preventative action tracking.
+- [`tech-debt-principles.md`](engineering/tech-debt-principles.md) — Framework-agnostic baseline standard for identifying, quantifying, prioritizing, refactoring, and managing technical debt, architectural erosion, and legacy code modernization.
 
 ### Design (`shared/design/`)
 
