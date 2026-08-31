@@ -26,3 +26,4 @@ The `context/` directory provides project-specific configuration templates to be
 ## 3. Sub-Directories
 
 - [`engineering-loop-sample/`](engineering-loop-sample/) — Sample configuration demonstrating end-to-end autonomous engineering loop context binding.
+- [`software-engineering-context/`](software-engineering-context/) — Reusable 23-domain enterprise software engineering context taxonomy catalog for persistent system knowledge.
