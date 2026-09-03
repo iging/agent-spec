@@ -34,6 +34,7 @@ verified-on: [cline]
 | Category | Trigger                                        | Target Skill File Path                                   |
 | -------- | ---------------------------------------------- | -------------------------------------------------------- |
 | PRD      | Create PRD, spec out feature                   | `workflows/prd-generator/SKILL.md`                       |
+| Onboard  | Audit codebase and generate onboarding map     | `workflows/project-onboarding-audit/SKILL.md`           |
 | Stage 1  | Blueprint session, pre-coding plan             | `workflows/engineering-loop/blueprint-session/SKILL.md`  |
 | Stage 2  | Extract visual tokens from UI component        | `workflows/engineering-loop/ui-snapshot-tokens/SKILL.md` |
 | Stage 3  | Code inspection, audit code against plan       | `workflows/engineering-loop/code-inspection/SKILL.md`    |

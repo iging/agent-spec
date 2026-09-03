@@ -19,11 +19,11 @@ verified-on: [cline]
 
 | # | Dimension | Value |
 |---|-----------|-------|
-| 1 | Task | Classify research requests and dispatch to `deep-research-synthesizer`, `editorial-fact-checker`, or `social-sentiment-researcher`. |
+| 1 | Task | Classify research requests and dispatch to `deep-research-synthesizer`, `editorial-fact-checker`, `social-sentiment-researcher`, or `batch-site-research-scaffolder`. |
 | 2 | Target Tool | Any agent runtime: Claude Code, Cursor, Copilot, Windsurf, Kiro, Cline, raw API. |
 | 3 | Output Format | Structured routing decision and handoff to target research sub-skill. |
 | 4 | Constraints | Router executes no research synthesis or fact checking directly. |
-| 5 | Input | User request for multi-source research synthesis, pre-publication fact-checking, or 30-day social sentiment analysis. |
+| 5 | Input | User request for multi-source research synthesis, pre-publication fact-checking, 30-day social sentiment analysis, or batch site research. |
 | 6 | Context | Prevents ungrounded research claims and unverified publication facts. |
 | 7 | Audience | Research analysts, content editors, and intelligence specialists. |
 | 8 | Success Criteria | Exactly one target research sub-skill resolved deterministically. |
@@ -36,6 +36,7 @@ verified-on: [cline]
 | Deep Synthesis | Synthesize insights across multiple sources/corpus, extract patterns & outliers | `research/deep-research-synthesizer/SKILL.md` |
 | Editorial Fact Checker | Extract & verify factual claims against primary sources before publication | `research/editorial-fact-checker/SKILL.md` |
 | Social Sentiment | Execute 7-source 30-day social sentiment OSINT research runbook | `research/social-sentiment-researcher/SKILL.md` |
+| Batch Site Research | Ingest up to 500 URLs, orchestrate research sub-skills, scaffold governance context | `research/batch-site-research-scaffolder/SKILL.md` |
 
 ## 3. Execution Workflow
 
