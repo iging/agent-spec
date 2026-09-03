@@ -43,6 +43,7 @@ verified-on: [cline]
 | Research | Multi-source corpus synthesis and insight extraction | `research/deep-research-synthesizer/SKILL.md` |
 | Research | Claim-by-claim editorial fact checking | `research/editorial-fact-checker/SKILL.md` |
 | Research | 7-source 30-day social sentiment research | `research/social-sentiment-researcher/SKILL.md` |
+| Research | Batch research up to 500 URLs, extract stack/reputation, scaffold context | `research/batch-site-research-scaffolder/SKILL.md` |
 | Research Group | General research, fact-checking, or sentiment requests | `research/SKILL.md` |
 
 ## 3. Execution Workflow

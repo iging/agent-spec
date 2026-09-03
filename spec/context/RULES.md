@@ -54,7 +54,8 @@ _Last updated: [DATE]_
 - **Small, Single-Purpose Functions:** Functions should be small (ideally < 30 lines) with one level of abstraction per function (stepdown rule).
 - **Parameter Limit:** Limit parameters to 0–2. Group 3+ parameters into an options object.
 - **Command / Query Separation (CQS):** A function either performs an action (command) or returns data (query), never both.
-- **Avoid Barrel Files:** Do not create `index.ts` files that only re-export sibling files. Import directly from specific source files (e.g., `import { slash } from './utils/slash'` instead of `./utils`).
+- **Avoid Barrel Files:** Do not create `index.ts` files that only re-export sibling files. Import directly from specific source files (e.g., `import { slash } from './utils/slash'` instead of `./utils`). Barrel files degrade Vite HMR performance and tree-shaking efficiency.
+- **Vite Path Aliases:** Consistently use configured path aliases (e.g. `@/components/Button`) rather than deep relative imports (e.g. `../../../../components/Button`).
 
 ---
 
@@ -72,7 +73,7 @@ _Last updated: [DATE]_
 
 [PLACEHOLDER: Standardize input validation at trust boundaries.]
 
-- **Boundary Validation:** Validate all external inputs (API request bodies, URL params, form submissions) at system boundaries using schema validators (e.g., Zod / Yup / TypeBox).
+- **Boundary Validation:** Validate all external inputs (API request bodies, URL params, form submissions, environment variables) at system boundaries using schema validators (e.g., Zod / Valibot / TypeBox).
 - **Type Predicates:** Use TypeScript type predicates (`val is TargetType`) instead of manual type casting (`as TargetType`).
 
 ---
@@ -83,7 +84,8 @@ _Last updated: [DATE]_
 
 - **Exceptions over Error Codes:** Use `try/catch` and custom Error classes rather than threading error codes through call stacks.
 - **Zero-Trust Security:** Sanitize user input before rendering to prevent XSS. Use parameterized SQL queries / ORMs to prevent SQL injection.
-- **No Secrets in Code:** Never hardcode secret keys, API tokens, or credentials in source code. Load from environment variables (`process.env`).
+- **No Secrets in Code & Client Isolation:** Never hardcode secret keys, API tokens, or credentials in source code. In Vite projects, client-exposed variables MUST use the `VITE_` prefix and be validated via schema. Server-only secrets MUST NEVER be prefixed with `VITE_`.
+
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Purpose:** Describe the high-level architecture, module boundaries, data flows, client/server structure, and cross-cutting concerns so developer decisions align with system integrity. Tier-3 template — fill it in for your project.
 
-_Last updated: [DATE]_
+_Last updated: September 3, 2026_
 
 ---
 
@@ -10,11 +10,17 @@ _Last updated: [DATE]_
 
 [PLACEHOLDER: Provide a high-level summary of the system topology, key services, entry points, and primary communication protocols.]
 
+- **Dev Server Topology:** Native ES Modules (ESM) dev server powered by Vite 6.x and Esbuild pre-bundling.
+- **Production Pipeline:** Multi-stage Rollup/Rolldown bundler engine with automated chunk optimization and asset hashing.
+- **SSR/Edge Runtime Topology:** Streaming HTML responses via W3C Web Streams across Node.js, Vercel Edge, and Cloudflare Workers.
+
 ### Architecture Diagram
 
 ```mermaid
 graph TD
-  Client["Client App (Web / Mobile)"] --> API["API Layer / Gateway"]
+  Client["Client App (Vite ESM / SPA)"] --> DevServer["Vite Dev Server (Esbuild)"]
+  Client --> Edge["Edge SSR Gateway (Cloudflare / Vercel)"]
+  Edge --> API["API Layer / Gateway"]
   API --> Auth["Auth Service"]
   API --> Services["Domain Services / Modules"]
   Services --> DB[("Database / Datastore")]
@@ -28,9 +34,9 @@ graph TD
 
 [PLACEHOLDER: Detail the internal layered design pattern (e.g. Hexagonal, Clean Architecture, Layered MVC).]
 
-- **Presentation / View Layer:** UI components, page routes, controller handlers.
+- **Presentation / View Layer:** React 19 / Vue 3.5 / Svelte components, page routes, UI primitives.
 - **Application / Domain Layer:** Business logic, domain entities, use cases, workflow orchestration.
-- **Infrastructure / Data Access Layer:** ORM repositories, database clients, third-party API adapters.
+- **Infrastructure / Data Access Layer:** Vite plugin pipeline, ORM repositories, third-party API adapters.
 
 ---
 
@@ -48,6 +54,8 @@ src/
 ├── services/        # API and data fetching clients
 └── types/           # Shared domain TypeScript types
 ```
+
+- **Module Boundary Rules:** Feature modules (`src/features/*`) must not import private internals from sibling features. Public APIs must be exposed via explicit module entries without barrel file wildcard re-exports.
 
 ---
 
@@ -132,7 +140,7 @@ sequenceDiagram
 [PLACEHOLDER: Specify standards for error handling, validation, security, and performance.]
 
 - **Error Handling:** Standardized error payloads (`code`, `message`, `details`), error boundaries.
-- **Input Validation:** Zero-trust schema validation at trust boundaries (API parameters, forms).
-- **Security:** CSRF protection, Content Security Policy (CSP), parameterized SQL queries, secret management.
+- **Input Validation:** Zero-trust schema validation at trust boundaries (API parameters, forms, `.env` schema).
+- **Security:** Content Security Policy (CSP) nonce injection, Subresource Integrity (SRI), parameterized SQL queries, secret management (`VITE_` prefix isolation).
 - **Observability & Logging:** Structured JSON logging (Pino / Winston), error monitoring (Sentry), APM tracing.
-- **Performance Budgets:** Bundle size limits, API response latency targets.
+- **Performance Budgets:** Bundle size limits (< 150KB initial JS chunk), HMR latency target (< 50ms), build time target (< 15s).
