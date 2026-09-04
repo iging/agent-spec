@@ -26,6 +26,7 @@ The `shared/` directory organizes cross-cutting domain principles into structure
 - [`javascript-principles.md`](engineering/javascript-principles.md) — Modern JavaScript / TypeScript idiomatic patterns and conventions.
 - [`nextjs-principles.md`](engineering/nextjs-principles.md) — Next.js App Router patterns, Server Components, and API route rules.
 - [`php-principles.md`](engineering/php-principles.md) — Modern PHP architecture constraints, strict typing rules, security standards, and performance patterns.
+- [`laravel-principles.md`](engineering/laravel-principles.md) — Laravel 11.x/12.x architecture constraints, Eloquent ORM performance rules, Livewire and Inertia stack boundaries, security standards, and Pest PHP testing guidelines.
 - [`react-principles.md`](engineering/react-principles.md) — Modern React architecture constraints, Server Components, hook rules, state colocation, and accessibility standards.
 - [`backend-development-principles.md`](engineering/backend-development-principles.md) — Framework-agnostic backend engineering standards for API integrity, validation, security, logging, and data persistence.
 - [`frontend-development-principles.md`](engineering/frontend-development-principles.md) — Framework-agnostic frontend engineering standards for component architecture, state colocation, Core Web Vitals, and accessibility.

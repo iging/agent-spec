@@ -40,14 +40,14 @@ Each file ships with `[PLACEHOLDER: ...]` markers — replace them with your pro
 
 Use the adapter in `spec/runtime/` for your tool. Each adapter documents the exact files and locations that tool reads:
 
-| Tool               | Setup                                                                    |
-| ------------------ | ------------------------------------------------------------------------ |
-| **Claude Code**    | Keep `AGENTS.md` at the root, or reference it from `CLAUDE.md`           |
+| Tool               | Setup                                                                         |
+| ------------------ | ----------------------------------------------------------------------------- |
+| **Claude Code**    | Keep `AGENTS.md` at the root, or reference it from `CLAUDE.md`                |
 | **Cursor**         | Add a rule file under `.cursor/rules/` referencing `AGENTS.md` / `spec/core/` |
-| **GitHub Copilot** | Place the synthesis in `.github/copilot-instructions.md`                 |
-| **Cline**          | Add a rule file in `.clinerules/`                                        |
-| **Windsurf**       | Add an always-on rule under `.windsurf/rules/`                           |
-| **Kiro**           | Add an always-included steering file under `.kiro/steering/`             |
+| **GitHub Copilot** | Place the synthesis in `.github/copilot-instructions.md`                      |
+| **Cline**          | Add a rule file in `.clinerules/`                                             |
+| **Windsurf**       | Add an always-on rule under `.windsurf/rules/`                                |
+| **Kiro**           | Add an always-included steering file under `.kiro/steering/`                  |
 
 ## 5. (Optional) Add feature modules & skills
 
@@ -74,4 +74,4 @@ Once set up, an AI agent consuming your project will:
 - [README](../../README.md) — full architecture and layer model
 - [CONTRIBUTING](../../CONTRIBUTING.md) — how to change the specification
 - [FAQ](faq.md) — common questions
-- [Anti-Patterns](anti-patterns.md) — 37 prompt patterns that waste tokens
+- [Anti-Patterns](../skills/dev-workflow/workflows/spec-reviewer/references/anti-patterns.md) — 37 prompt patterns that waste tokens
