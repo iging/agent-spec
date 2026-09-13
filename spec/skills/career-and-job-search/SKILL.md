@@ -30,7 +30,7 @@ verified-on: [claude-code, cursor, copilot, windsurf, kiro, cline, raw-api]
 | 8   | Success Criteria | Exactly one target phase sub-skill path resolved deterministically and executed in lifecycle order.                                |
 | 9   | Examples         | See Section 10.                                                                                                                    |
 
-## 2. Sequential Lifecycle Phase Matrix
+### Sequential Lifecycle Phase Matrix
 
 The Career & Job Search module follows a strict 4-phase sequential pipeline. Each phase produces structured artifacts that feed into the subsequent phase:
 
@@ -54,7 +54,7 @@ The Career & Job Search module follows a strict 4-phase sequential pipeline. Eac
 | `03`  | Interview Preparation          | `03-interview-prep/SKILL.md`                   | Target role context, candidate background, interview stage                        | 5 predicted questions, metric-anchored STAR stories, technical/trade-off rubrics, 3 strategic questions                | Passes candidate market alignment & readiness data to Phase 04     |
 | `04`  | Offer Evaluation & Negotiation | `04-offer-evaluation-and-negotiation/SKILL.md` | Offer package (base, bonus, equity, vesting), market benchmarks, competing offers | Year 1 & 4-year TTC breakdown, equity valuation model, target counter range & walk-away floor, counter-proposal script | Delivers final negotiation package for candidate review            |
 
-## 3. Trigger Matrix
+## 2. Trigger Matrix
 
 | User Intent / Trigger Pattern                                                                     | Targeted Phase                        | Target Skill File Path                         |
 | ------------------------------------------------------------------------------------------------- | ------------------------------------- | ---------------------------------------------- |
@@ -63,7 +63,7 @@ The Career & Job Search module follows a strict 4-phase sequential pipeline. Eac
 | Prepare for interviews, mock Q&A, STAR behavioral framework, system design prep                   | `03-interview-prep`                   | `03-interview-prep/SKILL.md`                   |
 | Evaluate offer package, model equity vesting, total compensation calculation, draft counter-offer | `04-offer-evaluation-and-negotiation` | `04-offer-evaluation-and-negotiation/SKILL.md` |
 
-## 4. Execution Workflow
+## 3. Execution Workflow
 
 ### Step 1: Analyze Intent & Classify Phase
 
@@ -86,7 +86,7 @@ The Career & Job Search module follows a strict 4-phase sequential pipeline. Eac
 - **Stop Condition:** Handoff control to target sub-skill.
 - **Validation:** Target sub-skill executes internal workflow.
 
-## 5. Output Specification
+## 4. Output Specification
 
 ```json
 {
@@ -98,20 +98,20 @@ The Career & Job Search module follows a strict 4-phase sequential pipeline. Eac
 }
 ```
 
-## 6. Validation Gate
+## 5. Validation Gate
 
 - [ ] User intent mapped to exactly one primary lifecycle phase.
 - [ ] Target sub-skill file path exists on disk under `skills/career-and-job-search/`.
 - [ ] Router executes zero direct career writing or modeling tasks.
 - [ ] Sequential handoff dependencies explicitly defined for multi-phase requests.
 
-## 7. Anti-Triggers and Calibration
+## 6. Anti-Triggers
 
 - **Under-execution:** Bypassing sub-skill dispatch and generating unquantified resume advice or generic cover letters.
 - **Over-execution:** Routing non-career software engineering or code refactoring tasks to `career-and-job-search`.
 - **Calibration default:** Route single-phase requests directly; chain sequential phases (01 → 02 → 03 → 04) when the user requests end-to-end job search campaign support.
 
-## 8. Anti-Pattern Compliance
+## 7. Anti-Pattern Compliance
 
 | Step | Prevents AP                  | Mechanism                                                              |
 | ---- | ---------------------------- | ---------------------------------------------------------------------- |
@@ -119,14 +119,14 @@ The Career & Job Search module follows a strict 4-phase sequential pipeline. Eac
 | 2    | AP-26 (no scope boundary)    | Maps execution strictly to designated phase sub-skills.                |
 | 3    | AP-4 (over-permissive agent) | Router cannot draft copy or calculate financial compensation directly. |
 
-## 9. Versioning & Changelog
+## 8. Versioning
 
 - **Version:** 2.0.0
 - **Changelog:**
   - `2.0.0` (2026-09-07) — Formalized 4-phase sequential lifecycle flow (`01-resume-optimizer` → `02-job-application-targeting` → `03-interview-prep` → `04-offer-evaluation-and-negotiation`), updated directory routing paths, and added sequential pipeline handoff specifications.
   - `1.0.0` (2026-09-07) — Initial root router release for `skills/career-and-job-search/`.
 
-## 10. Portability Matrix
+## 9. Portability Matrix
 
 | Runtime     | Status   | Notes                                 |
 | ----------- | -------- | ------------------------------------- |
@@ -138,7 +138,7 @@ The Career & Job Search module follows a strict 4-phase sequential pipeline. Eac
 | Cline       | verified | Executed in current workspace.        |
 | Raw API     | verified | Model-agnostic workflow.              |
 
-## 11. Annotated Examples
+## 10. Annotated Examples
 
 ### Example 1: Single Phase Dispatch (Resume Optimization)
 
