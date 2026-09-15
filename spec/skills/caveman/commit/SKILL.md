@@ -16,7 +16,7 @@ version: 1.0.0
 
 ---
 
-## 1. Commit Format Standard
+## 1. Intent
 
 - **Subject Limit:** Maximum 70 characters.
 - **Structure:** `<type>: <description>` or `<type>(<scope>): <description>`
@@ -25,7 +25,24 @@ version: 1.0.0
 
 ---
 
-## 2. Example Output
+## 2. Trigger Matrix
+
+| Scenario | Decision | Action |
+| -------- | -------- | ------ |
+| User needs a commit message from staged or described changes | YES | Generate a concise Conventional Commit subject and minimal body |
+| User asks for general prose editing | NO | Route to a non-commit skill |
+
+---
+
+## 3. Execution Workflow
+
+- Extract core change intent.
+- Select the closest Conventional Commit type and optional scope.
+- Produce a subject line under 70 characters with optional minimal body.
+
+---
+
+## 4. Output Specification
 
 ```text
 docs(skills): add caveman token compression suite
@@ -33,3 +50,40 @@ docs(skills): add caveman token compression suite
 Add caveman skill suite to spec/skills/ for token savings.
 Includes commit, review, compress, and help sub-skills.
 ```
+
+---
+
+## 5. Validation Gate
+
+- [ ] Output uses Conventional Commit format
+- [ ] Subject line is 70 characters or fewer
+- [ ] Message contains no conversational padding
+
+---
+
+## 6. Anti-Triggers
+
+- Do not generate commit messages when no change intent is provided.
+
+---
+
+## 7. Anti-Pattern Compliance
+
+| Anti-Pattern | Prevention Mechanism |
+| ------------ | -------------------- |
+| Vague subject lines | Require explicit type and concise description |
+| Verbose filler text | Enforce compressed wording |
+
+---
+
+## 8. Versioning
+
+- **v1.0.0** (2026-09-15): Initial caveman commit sub-skill.
+
+---
+
+## 9. Portability Matrix
+
+| Runtime | Status |
+| ------- | ------ |
+| All     | Passed |
