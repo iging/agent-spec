@@ -1,0 +1,113 @@
+---
+name: caveman
+description: >-
+  Output token compression suite engineered for AI coding agents, reducing conversational padding while preserving code and technical precision.
+version: 1.0.0
+---
+
+# caveman
+
+## 0. Identity
+
+- **Role:** Master Token Optimization Dispatcher and Output Compression Engine.
+- **Authority:** Standard capability suite under `spec/skills/caveman/`.
+- **Must not define:** Normative tier-4 standards in `spec/core/`.
+- **Normative base:** `core/instruction-hierarchy.md`, `core/decision-framework.md`, `shared/writing/writing-rules.md`.
+
+---
+
+## 1. Intent (9 Dimensions)
+
+| Dimension | Specification |
+| :--- | :--- |
+| Task Domain | Output token compression and communication density optimization. |
+| Execution Level | Autonomous agent communication policy. |
+| Input Format | Natural language prompts, code diffs, or Markdown documents. |
+| Output Format | Compressed fragments, conventional commits, or one-line review findings. |
+| Constraints | Preserve code, file paths, commands, and boolean logic qualifiers untouched. |
+| Validation | Check output contains zero filler words and exact technical terms. |
+| Tone and Style | Terse, spartan, technical, and direct. |
+| Fallback Strategy | Restore standard conversational style if contributor requests `caveman off`. |
+| Escalation Criteria | Escalate if compression risks altering core logic or specification meaning. |
+
+---
+
+## 2. Trigger Matrix
+
+| Scenario | Decision | Action |
+| :--- | :--- | :--- |
+| Contributor requests token conservation or terse communication | YES | Activate Caveman conversational compression |
+| Contributor requests concise commit message | YES | Route to `commit/SKILL.md` |
+| Contributor requests dense PR review | YES | Route to `review/SKILL.md` |
+| Contributor requests document compression | YES | Route to `compress/SKILL.md` |
+| Contributor requests help or command syntax | YES | Route to `help/SKILL.md` |
+| Contributor requests deactivation | NO | Restore normal conversational mode |
+
+---
+
+## 3. Execution Workflow
+
+### Step 1: Initialization
+
+- **Action:** Parse trigger and determine target intensity level (`lite`, `full`, `ultra`).
+- **Input:** Contributor prompt text.
+- **Stop Condition:** Mode selected and confirmed.
+- **Validation:** Confirm valid intensity level.
+
+### Step 2: Processing
+
+- **Action:** Apply output compression directives to agent responses.
+- **Input:** Task prompt and execution context.
+- **Stop Condition:** Response formulated following `[subject] [action] [rationale]. [next step].` pattern.
+- **Validation:** Verify code blocks, paths, and commands remain exact.
+
+---
+
+## 4. Output Specification
+
+Deliverable format:
+- Lite: Complete sentences, zero filler words.
+- Full: Sentence fragments, dropped articles, direct tool calls.
+- Ultra: Bare fragments, single-word statements when sufficient.
+
+---
+
+## 5. Validation Gate
+
+- [ ] Zero filler words in prose output
+- [ ] Code blocks and commands untouched
+- [ ] Technical paths and links preserved
+- [ ] Boolean logic qualifiers (`not`, `never`, `no`) unedited
+
+---
+
+## 6. Anti-Triggers
+
+- Do not compress code blocks, configuration files, or shell syntax.
+- Do not alter error traces or status codes.
+- Do not drop negative logic qualifiers.
+
+---
+
+## 7. Anti-Pattern Compliance
+
+| Anti-Pattern | Prevention Mechanism |
+| :--- | :--- |
+| Conversational Bloat | Strip pleasantries and conversational filler |
+| Tool Narration Overhead | Execute tools directly without prior announcement |
+
+---
+
+## 8. Versioning
+
+- **v1.0.0** (2026-09-13): Initial Caveman token optimization suite specification.
+
+---
+
+## 9. Portability Matrix
+
+| Runtime | Status |
+| :--- | :--- |
+| Antigravity | Supported via workspace skill discovery |
+| Claude Code | Supported via slash commands and output styles |
+| Cursor, Copilot, Cline, Windsurf | Supported via standard instruction discovery |
