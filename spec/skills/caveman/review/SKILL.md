@@ -16,7 +16,7 @@ version: 1.0.0
 
 ---
 
-## 1. Finding Format Standard
+## 1. Intent
 
 `L<line>: <severity>: <problem>. <fix>.`
 
@@ -25,10 +25,64 @@ version: 1.0.0
 
 ---
 
-## 2. Example Output
+## 2. Trigger Matrix
+
+| Scenario | Decision | Action |
+| -------- | -------- | ------ |
+| User requests concise code review findings | YES | Emit one-line findings with line, severity, problem, and fix |
+| User asks for long-form narrative review | NO | Route to standard review mode |
+
+---
+
+## 3. Execution Workflow
+
+- Parse the diff or snippet for concrete issues.
+- Classify each issue severity.
+- Emit one finding per line in the required format.
+
+---
+
+## 4. Output Specification
 
 ```text
 L14: style: banned word detected. Replace with direct phrasing.
 L42: risk: null reference possible before check. Add guard condition.
 L88: nit: long function spans multiple domains. Extract helper function.
 ```
+
+---
+
+## 5. Validation Gate
+
+- [ ] Each finding includes line, severity, problem, and fix
+- [ ] One finding per line
+- [ ] No conversational filler
+
+---
+
+## 6. Anti-Triggers
+
+- Do not emit findings without a concrete code location.
+
+---
+
+## 7. Anti-Pattern Compliance
+
+| Anti-Pattern | Prevention Mechanism |
+| ------------ | -------------------- |
+| Vague findings | Require explicit problem and fix |
+| Overlong narrative reviews | Enforce one-line finding format |
+
+---
+
+## 8. Versioning
+
+- **v1.0.0** (2026-09-15): Initial caveman review sub-skill.
+
+---
+
+## 9. Portability Matrix
+
+| Runtime | Status |
+| ------- | ------ |
+| All     | Passed |

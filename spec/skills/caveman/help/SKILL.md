@@ -16,7 +16,73 @@ version: 1.0.0
 
 ---
 
-## 1. Commands Reference
+## 1. Intent
+
+- Provide a compact operator reference for Caveman modes and sub-skills.
+
+---
+
+## 2. Trigger Matrix
+
+| Scenario | Decision | Action |
+| -------- | -------- | ------ |
+| User asks how to invoke Caveman modes or sub-skills | YES | Return quick-reference command mapping |
+| User asks for deep implementation details | NO | Route to relevant technical skill or documentation |
+
+---
+
+## 3. Execution Workflow
+
+- Identify whether user needs command list, intensity behavior, or routing help.
+- Return only the relevant command set and invariants.
+- Keep guidance concise and operational.
+
+---
+
+## 4. Output Specification
+
+- Return Markdown command table plus required invariants.
+
+---
+
+## 5. Validation Gate
+
+- [ ] Commands are accurate and current
+- [ ] Guidance remains concise and direct
+- [ ] Output includes key invariants
+
+---
+
+## 6. Anti-Triggers
+
+- Do not provide speculative commands that are not defined.
+
+---
+
+## 7. Anti-Pattern Compliance
+
+| Anti-Pattern | Prevention Mechanism |
+| ------------ | -------------------- |
+| Ambiguous command guidance | Use explicit command-to-action mapping |
+| Overly verbose help responses | Keep output to concise reference material |
+
+---
+
+## 8. Versioning
+
+- **v1.0.0** (2026-09-15): Initial caveman help sub-skill.
+
+---
+
+## 9. Portability Matrix
+
+| Runtime | Status |
+| ------- | ------ |
+| All     | Passed |
+
+---
+
+## 10. Commands Reference
 
 | Command            | Action                                           |
 | :----------------- | :----------------------------------------------- |
@@ -30,7 +96,7 @@ version: 1.0.0
 
 ---
 
-## 2. Invariants
+## 11. Invariants
 
 - Code blocks, commands, and paths remain untouched.
 - Critical logic qualifiers (`not`, `never`, `no`) are never dropped.

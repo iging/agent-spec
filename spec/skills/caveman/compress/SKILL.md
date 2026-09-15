@@ -16,7 +16,7 @@ version: 1.0.0
 
 ---
 
-## 1. Directives
+## 1. Intent
 
 ### What to Strip
 
@@ -34,3 +34,64 @@ version: 1.0.0
 - Terminal commands and CLI parameters.
 - Numbers, units, dates, and version identifiers.
 - Markdown headers and table structures.
+
+---
+
+## 2. Trigger Matrix
+
+| Scenario | Decision | Action |
+| -------- | -------- | ------ |
+| User requests token reduction for Markdown prose | YES | Compress prose while preserving technical fidelity |
+| Content is source code transformation instead of prose compression | NO | Route to a coding-focused skill |
+
+---
+
+## 3. Execution Workflow
+
+- Identify compressible prose spans.
+- Remove filler and conversational padding while preserving meaning.
+- Preserve code, paths, commands, and links exactly.
+
+---
+
+## 4. Output Specification
+
+- Return compressed Markdown with structure preserved.
+- Keep code fences, inline code, and link targets unchanged.
+
+---
+
+## 5. Validation Gate
+
+- [ ] Technical terms and constraints remain intact
+- [ ] Markdown structure remains valid
+- [ ] Compression removed non-essential filler only
+
+---
+
+## 6. Anti-Triggers
+
+- Do not compress when the user asks for verbatim preservation.
+
+---
+
+## 7. Anti-Pattern Compliance
+
+| Anti-Pattern | Prevention Mechanism |
+| ------------ | -------------------- |
+| Dropping critical negation | Preserve logic qualifiers like `not`, `never`, `no` |
+| Breaking executable snippets | Keep code and commands verbatim |
+
+---
+
+## 8. Versioning
+
+- **v1.0.0** (2026-09-15): Initial caveman compress sub-skill.
+
+---
+
+## 9. Portability Matrix
+
+| Runtime | Status |
+| ------- | ------ |
+| All     | Passed |
