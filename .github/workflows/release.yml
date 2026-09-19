@@ -1,20 +1,54 @@
-name: Release Agent Spec Skills
+name: Release Agent Spec & Sauron Harness
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   release:
+    name: Build, Audit, and Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install Root Dependencies
+        run: npm ci
+
+      - name: Build Root TypeScript Compiler
+        run: npm run build
+
+      - name: Run Tier-5 Skill Linter and Compliance Audit
+        run: npm test
+
+      - name: Install Sauron Dependencies
+        run: npm --prefix sauron ci
+
+      - name: Build Sauron Distribution
+        run: npm --prefix sauron run build
+
+      - name: Run Sauron Multi-Runtime Test Suite
+        run: npm --prefix sauron test
+
+      - name: Compile Multi-IDE Target Artifacts
+        run: npm run sync
 
       - name: Automated Semantic Tagging
         id: tagger
@@ -25,34 +59,20 @@ jobs:
           DEFAULT_BUMP: patch
           RELEASE_BRANCHES: main
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build TypeScript Engine
-        run: npm run build
-
-      - name: Run Tier-5 Skill Linter & Compliance Audit
-        run: npm test
-
-      - name: Compile IDE Target Artifacts
-        run: npm run sync
-
-      - name: Package Compiled Skills Archive
+      - name: Package Release Archives
         run: |
-          zip -r agent-spec-skills.zip skills/ .claude/ .cursor/ .cline/
+          zip -r agent-spec-skills.zip spec/skills/ .claude/ .cursor/ .cline/
+          zip -r sauron-harness.zip sauron/ -x "sauron/node_modules/*"
 
-      - name: Create GitHub Release & Attach Bundle
+      - name: Create GitHub Release and Attach Bundles
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tagger.outputs.new_tag || github.ref_name }}
           name: Release ${{ steps.tagger.outputs.new_tag || github.ref_name }}
           generate_release_notes: true
-          files: agent-spec-skills.zip
+          files: |
+            agent-spec-skills.zip
+            sauron-harness.zip
           draft: false
           prerelease: false
         env:
