@@ -1,0 +1,102 @@
+---
+description: "Agent Skill: compress"
+globs: "*"
+---
+
+---
+name: caveman-compress
+description: >-
+  Compress natural language Markdown documents to reduce input token consumption.
+version: 1.0.0
+---
+
+# Caveman Document Compressor
+
+## 0. Identity
+
+- **Role:** Markdown documentation compression engine under `spec/skills/caveman/`.
+- **Authority:** Sub-skill of `spec/skills/caveman/`.
+- **Must not define:** Normative tier-4 standards in `spec/core/`.
+- **Normative base:** `core/instruction-hierarchy.md`, `shared/writing/writing-rules.md`.
+
+---
+
+## 1. Intent
+
+### What to Strip
+
+- Conversational pleasantries and preambles.
+- Filler words: `really`, `basically`, `actually`, `simply`, `essentially`.
+- Articles where meaning remains clear: `a`, `an`, `the`.
+- Hedging phrases: "it might be worth considering", "one could potentially".
+- Connective padding: "furthermore", "in addition to this".
+
+### What to Keep Verbatim
+
+- Fenced code blocks and inline code spans.
+- URLs, relative links, and anchor tags.
+- Directory trees and file paths.
+- Terminal commands and CLI parameters.
+- Numbers, units, dates, and version identifiers.
+- Markdown headers and table structures.
+
+---
+
+## 2. Trigger Matrix
+
+| Scenario | Decision | Action |
+| -------- | -------- | ------ |
+| User requests token reduction for Markdown prose | YES | Compress prose while preserving technical fidelity |
+| Content is source code transformation instead of prose compression | NO | Route to a coding-focused skill |
+
+---
+
+## 3. Execution Workflow
+
+- Identify compressible prose spans.
+- Remove filler and conversational padding while preserving meaning.
+- Preserve code, paths, commands, and links exactly.
+
+---
+
+## 4. Output Specification
+
+- Return compressed Markdown with structure preserved.
+- Keep code fences, inline code, and link targets unchanged.
+
+---
+
+## 5. Validation Gate
+
+- [ ] Technical terms and constraints remain intact
+- [ ] Markdown structure remains valid
+- [ ] Compression removed non-essential filler only
+
+---
+
+## 6. Anti-Triggers
+
+- Do not compress when the user asks for verbatim preservation.
+
+---
+
+## 7. Anti-Pattern Compliance
+
+| Anti-Pattern | Prevention Mechanism |
+| ------------ | -------------------- |
+| Dropping critical negation | Preserve logic qualifiers like `not`, `never`, `no` |
+| Breaking executable snippets | Keep code and commands verbatim |
+
+---
+
+## 8. Versioning
+
+- **v1.0.0** (2026-09-15): Initial caveman compress sub-skill.
+
+---
+
+## 9. Portability Matrix
+
+| Runtime | Status |
+| ------- | ------ |
+| All     | Passed |
