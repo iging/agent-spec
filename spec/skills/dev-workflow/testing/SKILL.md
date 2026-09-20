@@ -17,32 +17,32 @@ verified-on: [cline]
 
 ## 1. Intent (9 Dimensions)
 
-| #   | Dimension        | Value                                                                             |
-| --- | ---------------- | --------------------------------------------------------------------------------- |
-| 1   | Task             | Classify testing requests and dispatch to `write-a-test` or reference material.   |
-| 2   | Target Tool      | Any agent runtime: Claude Code, Cursor, Copilot, Windsurf, Kiro, Cline, raw API.  |
-| 3   | Output Format    | Structured routing decision and handoff to testing sub-skill or reference doc.    |
-| 4   | Constraints      | Router generates no test implementation code directly.                            |
-| 5   | Input            | User request to write, fix, optimize, or reference tests.                         |
-| 6   | Context          | Prevents unguided test creation and incorrect runner configurations.              |
-| 7   | Audience         | Autonomous developer agents and software engineers.                               |
+| #   | Dimension        | Value                                                                            |
+| --- | ---------------- | -------------------------------------------------------------------------------- |
+| 1   | Task             | Classify testing requests and dispatch to `write-a-test` or reference material.  |
+| 2   | Target Tool      | Any agent runtime: Claude Code, Cursor, Copilot, Windsurf, Kiro, Cline, raw API. |
+| 3   | Output Format    | Structured routing decision and handoff to testing sub-skill or reference doc.   |
+| 4   | Constraints      | Router generates no test implementation code directly.                           |
+| 5   | Input            | User request to write, fix, optimize, or reference tests.                        |
+| 6   | Context          | Prevents unguided test creation and incorrect runner configurations.             |
+| 7   | Audience         | Autonomous developer agents and software engineers.                              |
 | 8   | Success Criteria | Exactly one target testing skill or reference path resolved deterministically.   |
-| 9   | Examples         | See Section 10.                                                                   |
+| 9   | Examples         | See Section 10.                                                                  |
 
 ## 2. Trigger Matrix
 
-| Category      | Trigger                               | Target Skill File Path                                     |
-| ------------- | ------------------------------------- | ---------------------------------------------------------- |
-| Test Creation | Write unit, integration, or E2E test  | `testing/write-a-test/SKILL.md`                            |
-| Test Repair   | Fix flaky test or assertion error     | `testing/write-a-test/SKILL.md`                            |
-| Testing Core  | Core testing conventions & assertions | `testing/write-a-test/references/core/`                   |
-| Testing Adv   | Advanced mocking & fixtures           | `testing/write-a-test/references/advanced/`               |
-| Architecture  | Test pyramid structure & boundaries   | `testing/write-a-test/references/architecture/`           |
+| Category      | Trigger                               | Target Skill File Path                                  |
+| ------------- | ------------------------------------- | ------------------------------------------------------- |
+| Test Creation | Write unit, integration, or E2E test  | `testing/write-a-test/SKILL.md`                         |
+| Test Repair   | Fix flaky test or assertion error     | `testing/write-a-test/SKILL.md`                         |
+| Testing Core  | Core testing conventions & assertions | `testing/write-a-test/references/core/`                 |
+| Testing Adv   | Advanced mocking & fixtures           | `testing/write-a-test/references/advanced/`             |
+| Architecture  | Test pyramid structure & boundaries   | `testing/write-a-test/references/architecture/`         |
 | Browser APIs  | Playwright, DOM events, UI testing    | `testing/write-a-test/references/browser-apis/`         |
 | Debugging     | Test debugging & flake elimination    | `testing/write-a-test/references/debugging/`            |
 | Frameworks    | Vitest, Jest, Playwright configs      | `testing/write-a-test/references/frameworks/`           |
 | CI/CD Infra   | Test runner execution in CI           | `testing/write-a-test/references/infrastructure-ci-cd/` |
-| Test Patterns | Common test design patterns catalog   | `testing/write-a-test/references/testing-patterns/`      |
+| Test Patterns | Common test design patterns catalog   | `testing/write-a-test/references/testing-patterns/`     |
 
 ## 3. Execution Workflow
 
